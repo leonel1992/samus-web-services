@@ -1,0 +1,12 @@
+{
+    "en":{
+        "lang": "en",
+        "name": "English",
+        "active": false
+    },
+    "es":{
+        "lang": "es",
+        "name": "Español",
+        "active": true
+    }
+}

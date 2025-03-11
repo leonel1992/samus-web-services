@@ -1,0 +1,42 @@
+{
+    "public-home": {
+        "es": "/"
+    },
+
+    "session-login": {
+        "es": "/iniciar-sesion"
+    },
+    "session-recover": {
+        "es": "/recuperar-contraseña"
+    },
+    "session-register": {
+        "es": "/registro"
+    },
+
+    "user-home": {
+        "es": "/cuenta"
+    },
+
+    "settings": {
+        "es": "/ajustes"
+    },
+    "settings-actions": {
+        "es": "/ajustes/acciones"
+    },
+    "settings-modules": {
+        "es": "/ajustes/modulos"
+    },
+    "settings-permissions": {
+        "es": "/ajustes/permisos"
+    },
+    "settings-roles": {
+        "es": "/ajustes/roles"
+    },
+
+    "email-template": "/email-template",
+    "email-template-login": "/email-template/login",
+    "email-template-login-code": "/email-template/login-code",
+    "email-template-register": "/email-template/register",
+    "email-template-register-code": "/email-template/register-code",
+    "email-template-recover-code": "/email-template/recover-code"
+}
