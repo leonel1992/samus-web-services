@@ -29,7 +29,7 @@ class PublicController extends Controller {
         $this->renderView('public', $folder, $view, $webInfo);
     }
 
-    // PAGES -----------------------------------------------
+    // PUBLIC -----------------------------------------------
 
     public function home() {
         $this->page('public', 'home', 'public-home', null, [[
@@ -46,5 +46,17 @@ class PublicController extends Controller {
         $this->page('public', 'contact', 'public-contact');
     }
 
+    // LEGAL -----------------------------------------------
 
+    public function legalCookies() {
+        $this->page('legal', 'cookies', 'legal-cookies');
+    }
+    
+    public function legalPrivacy() {
+        $this->page('legal', 'privacy', 'legal-privacy');
+    }
+    
+    public function legalTerms() {
+        $this->page('legal', 'terms', 'legal-terms');
+    }
 }

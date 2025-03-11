@@ -45,49 +45,45 @@ class Router {
         $lang = $GLOBALS['lang'];
         $expl = explode('/', $url);
         $n = count($expl);
+
+        // PUBLIC 
+        if ($url === $GLOBALS['routes']['public-home'][$lang] ||
+            $url === $GLOBALS['routes']['public-about'][$lang] ||
+            $url === $GLOBALS['routes']['public-contact'][$lang] ) {
+            $this->controller = 'public'; 
+            $this->folder = '/';
+            $this->method = match ($url) {
+                $GLOBALS['routes']['public-home'][$lang]  => 'home',
+                $GLOBALS['routes']['public-about'][$lang] => 'about',
+                $GLOBALS['routes']['public-contact'][$lang] => 'contact'
+            };
+        }
+
+        // LEGAL
+        elseif (strpos($url, $GLOBALS['routes']['legal'][$lang]) === 0) {
+            $this->controller = 'public';
+            $this->folder = '/';
+            $this->method = match ($url) {
+                $GLOBALS['routes']['legal-cookies'][$lang] => 'legalCookies',
+                $GLOBALS['routes']['legal-privacy'][$lang] => 'legalPrivacy',
+                $GLOBALS['routes']['legal-terms'][$lang] => 'legalTerms',
+                default => null
+            };
+        }
+
+        // SESSION 
+        elseif ($url === $GLOBALS['routes']['session-login'][$lang] ||
+            $url === $GLOBALS['routes']['session-register'][$lang] ||
+            $url === $GLOBALS['routes']['session-recover'][$lang] ) {
+            $this->controller = 'session'; 
+            $this->folder = '/';
+            $this->method = match ($url) {
+                $GLOBALS['routes']['session-login'][$lang] => 'login',
+                $GLOBALS['routes']['session-register'][$lang] => 'register',
+                $GLOBALS['routes']['session-recover'][$lang]  => 'recover'
+            };
+        }
  
-        // PUBLIC HOME 
-        if ($url === $GLOBALS['routes']['public-home'][$lang]) {
-            $this->controller = 'public'; 
-            $this->method = 'home';
-            $this->folder = '/';
-        }
-
-        // PUBLIC ABOUT 
-        elseif ($url === $GLOBALS['routes']['public-about'][$lang]) {
-            $this->controller = 'public'; 
-            $this->method = 'about';
-            $this->folder = '/';
-        }
-
-        // PUBLIC CONTACT 
-        elseif ($url === $GLOBALS['routes']['public-contact'][$lang]) {
-            $this->controller = 'public'; 
-            $this->method = 'contact';
-            $this->folder = '/';
-        }
-
-        // SESSION LOGIN 
-        elseif ($url === $GLOBALS['routes']['session-login'][$lang]) {
-            $this->controller = 'session'; 
-            $this->method = 'login';
-            $this->folder = '/';
-        }
-
-        // SESSION REGISTER 
-        elseif ($url === $GLOBALS['routes']['session-register'][$lang]) {
-            $this->controller = 'session'; 
-            $this->method = 'register';
-            $this->folder = '/';
-        }
-
-        // SESSION RECOVER 
-        elseif ($url === $GLOBALS['routes']['session-recover'][$lang]) {
-            $this->controller = 'session'; 
-            $this->method = 'recover';
-            $this->folder = '/';
-        }
-
         // USER HOME 
         elseif ($url === $GLOBALS['routes']['user-home'][$lang]) {
             $this->controller = 'user'; 
@@ -157,36 +153,8 @@ class Router {
             }
         }
 
-        // switch ($n) {
-        //     case 2:
-        //         $this->folder = '/';
-        //         switch ($url) {
-        //             // PUBLIC -----------------------------------------------------------------------------------------;
-        //             case ROUTES['public-home'][LANG]:    $this->controller = 'public'; $this->method = 'home';    break;
-        //             case ROUTES['public-about'][LANG]:   $this->controller = 'public'; $this->method = 'about';   break;
-        //             case ROUTES['public-contact'][LANG]: $this->controller = 'public'; $this->method = 'contact'; break;
-        //             // SESSION --------------------------------------------------------------------------------------------;
-        //             case ROUTES['session-login'][LANG]:    $this->controller = 'session'; $this->method = 'login';    break;
-        //             case ROUTES['session-register'][LANG]: $this->controller = 'session'; $this->method = 'register'; break;
-        //             case ROUTES['session-recover'][LANG]:  $this->controller = 'session'; $this->method = 'recover';  break;
-        //             // PANEL ----------------------------------------------------------------------------------;
-        //             case ROUTES['panel-home'][LANG]: $this->controller = 'panel'; $this->method = 'home'; break;
-        //             // ERROR ------------------------;
-        //             default: $this->matchRouteError();
-        //         } break;
-            
-        //     case 3:
-        //         // LEGAL ---------------------------------------------------------
-        //         if (strpos($url, ROUTES['legal'][LANG]) === 0) {
-        //             $this->folder = '/';
-        //             $this->controller = 'public'; 
-        //             $this->method = match ($url) {
-        //                 ROUTES['legal-cookies'][LANG] => 'legalCookies',
-        //                 ROUTES['legal-privacy'][LANG] => 'legalPrivacy',
-        //                 ROUTES['legal-terms'][LANG]   => 'legalTerms',
-        //                 default                       => 'error',
-        //             };
-        //         }
+
+
 
         //         // MANAGE -------------------------------------------------------------
         //         elseif (strpos($url, ROUTES['manage'][LANG]) === 0) {
@@ -215,31 +183,6 @@ class Router {
         //                 default => 'error',
         //             };
         //         }
-
-        //         // ERROR -------------------
-        //         else {
-        //             $this->matchRouteError();
-        //         } break;
-            
-        //     case 4:
-        //         if (strpos($url, '/image/') === 0) {
-        //             $this->controller = "image";
-        //             $this->folder = "/server/";
-        //             $this->method = $this->matchRouteURL($expl[2]);
-        //         } else {
-        //             $this->controller = $this->matchRouteURL($expl[2]);
-        //             $this->folder = "/{$this->matchRouteURL($expl[1])}/";
-        //             $this->method = $this->matchRouteURL($expl[3]);
-        //             $this->isJson =  match ($this->folder) {
-        //                 '/manage/'   => true,
-        //                 '/settings/' => true,
-        //                 default      => false,
-        //             };
-        //         } break;
-            
-        //     default:
-        //         $this->matchRouteError();
-        // }
     }
     
     // -----------------------------------------------------------------------

@@ -9,6 +9,19 @@
         "es": "/contacto"
     },
 
+    "legal": {
+        "es": "/legal/"
+    },
+    "legal-cookies": {
+        "es": "/legal/politica-de-cookies"
+    },
+    "legal-privacy": {
+        "es": "/legal/politica-de-privacidad"
+    },
+    "legal-terms": {
+        "es": "/legal/terminos-y-condiciones"
+    },
+
     "session-login": {
         "es": "/iniciar-sesion"
     },
