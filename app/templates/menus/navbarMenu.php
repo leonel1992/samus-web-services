@@ -45,14 +45,14 @@
             "view" => true,
             "items" => null
         ],
-        // 'LANGUAGE' => [
-        //     "module" => 'LANGUAGE',
-        //     "title" => strtoupper($GLOBALS['lang']),
-        //     "icon" => null,
-        //     "link" => "#",
-        //     "access" => true,
-        //     "items" => $GLOBALS['languages']
-        // ]
+        'LANGUAGE' => [
+            "module" => 'LANGUAGE',
+            "title" => strtoupper($GLOBALS['lang']),
+            "icon" => null,
+            "link" => "#",
+            "access" => true,
+            "items" => $GLOBALS['languages']
+        ]
     ];
     
     $buttonItems = [
@@ -123,7 +123,7 @@
                                         echo '
                                         <span class="nav-label">' . $menu['title'] . '</span>
                                         <span class="nav-lang">
-                                            <svg><use xlink:href="'. URL_PATH .'/assets/icons/languages.svg#svg-lang-'. $GLOBALS['lang'] .'"/></svg>
+                                            <svg><use xlink:href="'. $GLOBALS['url-path'] .'/assets/icons/languages.svg#svg-lang-'. $GLOBALS['lang'] .'"/></svg>
                                         </span>';
                                     } else {
                                         echo '<span class="nav-icon"><i class="bi bi-' . $menu['icon'] . '"></i></span>';
@@ -156,7 +156,7 @@
                                         echo '<li>
                                             <a href="' . $url . '" '. $lang .' class="dropdown-item nav-link '. $loadLang .' '. $active .' '. $disabled .'">';
                                                 if ($menu['module']==='LANGUAGE') {
-                                                    echo '<svg><use xlink:href="'. URL_PATH .'/assets/icons/languages.svg#svg-lang-'. $submenu['lang'] .'"/></svg>';
+                                                    echo '<svg><use xlink:href="'. $GLOBALS['url-path'] .'/assets/icons/languages.svg#svg-lang-'. $submenu['lang'] .'"/></svg>';
                                                     echo '<span class="nav-label">' . $submenu['name'] . '</span>';
                                                 } else {
                                                     echo '<span class="nav-label">' . $submenu['title'] . '</span>';
