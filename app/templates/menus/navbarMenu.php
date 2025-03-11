@@ -25,16 +25,16 @@
         //     "local" => true,
         //     "items" => null
         // ],
-        // 'public-about' => [
-        //     "module" => 'public-about',
-        //     "title" => $GLOBALS['lang-menu']['navbar']['public-about'],
-        //     "icon" => null,
-        //     "link" => $GLOBALS['routes']['public-about'][$GLOBALS['lang']],
-        //     "access" => true,
-        //     "local" => true,
-        //     "view" => true,
-        //     "items" => null
-        // ],
+        'public-about' => [
+            "module" => 'public-about',
+            "title" => $GLOBALS['lang-menu']['navbar']['public-about'],
+            "icon" => null,
+            "link" => $GLOBALS['routes']['public-about'][$GLOBALS['lang']],
+            "access" => true,
+            "local" => true,
+            "view" => true,
+            "items" => null
+        ],
         // 'public-contact' => [
         //     "module" => 'public-contact',
         //     "title" => $GLOBALS['lang-menu']['navbar']['public-contact'],

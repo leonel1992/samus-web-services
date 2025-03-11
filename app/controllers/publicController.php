@@ -32,6 +32,13 @@ class PublicController extends Controller {
     // PAGES -----------------------------------------------
 
     public function home() {
-        $this->page('public', 'home', 'public-home');
+        $this->page('public', 'home', 'public-home', null, [[
+            'text' => $GLOBALS['lang-controllers']['breadcrumb']['public-home'],
+            'link' => null,
+        ]]);
+    }
+
+    public function about() {
+        $this->page('public', 'about', 'public-about');
     }
 }

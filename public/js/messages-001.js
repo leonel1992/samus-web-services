@@ -1,7 +1,20 @@
 // CONTAINER MESSAGE (BUILDING - ERROR) --------------------------------------------
 
-window.onload = setDimensContainerMessage;
-window.onresize = setDimensContainerMessage;
+window.addEventListener("resize", setDimensContainerMessage);
+
+document.addEventListener("DOMContentLoaded", setDimensContainerMessage);
+
+const mutationObserverMessages = new MutationObserver(() => {
+    setDimensContainerMessage();
+});
+
+const mutationObserverMessagesElement = document.getElementById("content");
+if (mutationObserverMessagesElement) {
+    mutationObserverMessages.observe(mutationObserverMessagesElement, { 
+        childList: true, 
+        subtree: true 
+    });
+}
 
 function setDimensContainerMessage() {
     try {

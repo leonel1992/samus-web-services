@@ -46,10 +46,17 @@ class Router {
         $expl = explode('/', $url);
         $n = count($expl);
  
-        // HOME 
+        // PUBLIC HOME 
         if ($url === $GLOBALS['routes']['public-home'][$lang]) {
             $this->controller = 'public'; 
             $this->method = 'home';
+            $this->folder = '/';
+        }
+
+        // PUBLIC ABOUT 
+        elseif ($url === $GLOBALS['routes']['public-about'][$lang]) {
+            $this->controller = 'public'; 
+            $this->method = 'about';
             $this->folder = '/';
         }
 

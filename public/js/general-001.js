@@ -67,48 +67,48 @@ function appendScript(url) {
 
 // // HISTORY ---------------------------------------------------------------------
 
-// $(window).on("popstate", function(e) {
-//     if (window.history.state && window.history.state["load"]) {
-//         loadView(window.history.state.page, false).then(()=>{
-//             historyMenu( $('.nav-link[href="'+ window.history.state.page +'"]') );
-//         });
-//     }
-// });
+$(window).on("popstate", function(e) {
+    if (window.history.state && window.history.state["load"]) {
+        loadView(window.history.state.page, false).then(()=>{
+            historyMenu( $('.nav-link[href="'+ window.history.state.page +'"]') );
+        });
+    }
+});
 
-// function historyMenu(item) {
-//     $(".submenu").removeClass("show");
-//     $(".nav-link").removeClass("active");
-//     $(".nav-link").removeClass("expanded");
-//     $(".nav-link").removeAttr("aria-expanded");
+function historyMenu(item) {
+    $(".submenu").removeClass("show");
+    $(".nav-link").removeClass("active");
+    $(".nav-link").removeClass("expanded");
+    $(".nav-link").removeAttr("aria-expanded");
 
-//     $(item).addClass("active");
-//     $(item).parents(".dropdown").find(".dropdown-toggle").addClass("active");
-//     if( $(item).parent().parent().hasClass("collapse") ){
-//         let parents = $(item).parent().parent();
-//         for (let i=0; i<parents.length; i++) {
-//             let id = $(parents[i]).attr("id");
-//             $('#'+id).addClass("show");
-//             $('a[href="#'+ id +'"]').addClass("expanded");
-//             $('a[href="#'+ id +'"]').attr("aria-expanded", 'true');
-//         }
-//     }
-// }
+    $(item).addClass("active");
+    $(item).parents(".dropdown").find(".dropdown-toggle").addClass("active");
+    if( $(item).parent().parent().hasClass("collapse") ){
+        let parents = $(item).parent().parent();
+        for (let i=0; i<parents.length; i++) {
+            let id = $(parents[i]).attr("id");
+            $('#'+id).addClass("show");
+            $('a[href="#'+ id +'"]').addClass("expanded");
+            $('a[href="#'+ id +'"]').attr("aria-expanded", 'true');
+        }
+    }
+}
 
 // // VIEWS ---------------------------------------------------------------------
 
-// $(".load-lang").click(function (e) { 
-//     e.preventDefault;
-//     loadLang($(this));
-// });
+$(".load-lang").click(function (e) { 
+    e.preventDefault;
+    loadLang($(this));
+});
 
-// function loadLang(item){
-//     let lang = $(item).attr("lang");
-//     let module = $("body").attr("module");
-//     if (lang && module) {
-//         let vars = "?lang="+ lang +"&module="+ module;
-//         window.location.href = URL_PATH +"/server/route/url"+ vars;
-//     }
-// }
+function loadLang(item){
+    let lang = $(item).attr("lang");
+    let module = $("body").attr("module");
+    if (lang && module) {
+        let vars = "?lang="+ lang +"&module="+ module;
+        window.location.href = URL_PATH +"/server/route/url"+ vars;
+    }
+}
 
 /*----------------------------------*/
 
@@ -229,8 +229,11 @@ function loadViewData(url, view=true){
 // // HTML VIEW ERROR  ---------------------------------------------------------------------
 
 function htmlViewError(response){
-    return `<div class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-light">
-        <h1 class="text-center">${response.errorTitle}</h1>
+    return `<div class="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+        <span class="my-2 text-danger">
+            <i class="bi-exclamation-triangle-fill" style="font-size:70px;"></i>
+        </span>
+        <p class="fw-bold fs-1">${response.errorTitle}</p>
         <p class="text-center">${response.errorMessage}</p>
     </div>`;
 }

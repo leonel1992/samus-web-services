@@ -2,6 +2,9 @@
     "public-home": {
         "es": "/"
     },
+    "public-about": {
+        "es": "/nosotros"
+    },
 
     "session-login": {
         "es": "/iniciar-sesion"
