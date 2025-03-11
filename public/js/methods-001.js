@@ -1,3 +1,60 @@
+// COOKIES -------------------------------------------------
+
+function getCookie(name) {
+    let cookies = document.cookie.split(';');
+    for(let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim();
+        if (cookie.indexOf(name + '=') === 0) {
+            return cookie.substring(name.length + 1);
+        }
+    } return null;
+}
+
+function setCookie(name, value, days) {
+    let date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+// DATE
+
+function getLocaleDate(date, separator = '/') {
+    if (!date || typeof date !== 'string' || !date.includes(separator)) return null;
+
+    let split = date.split(separator);
+    if (split.length !== 3) return null;
+
+    let day, month, year;
+    if (LANG === 'es') {
+        day = parseInt(split[0], 10);
+        month = parseInt(split[1], 10) - 1;
+        year = parseInt(split[2], 10);
+    } else {
+        month = parseInt(split[0], 10) - 1;
+        day = parseInt(split[1], 10);
+        year = parseInt(split[2], 10);
+    }
+
+    if (isNaN(day) || isNaN(month) || isNaN(year) || year < 1000 || year > 2100) {
+        return null;
+    } return { day, month, year };
+}
+
+function setLocaleDate(day, month, year, separator = '/') {
+    if (!day || !month || !year) return '';
+
+    let d = String(day).padStart(2, '0');
+    let m = String(month).padStart(2, '0');
+    let y = String(year);
+
+    if (LANG === 'es') {
+        return `${d}${separator}${m}${separator}${y}`;
+    } else {
+        return `${m}${separator}${d}${separator}${y}`;
+    }
+}
+
 // NORMALIZE TEXT -------------------------------------------------
 
 function normalizeText(text) {

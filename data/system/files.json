@@ -30,6 +30,8 @@
             "data":   "/js/data-001.js",
             "forms":  "/js/forms-001.js",
             "inputs": "/js/inputs-001.js",
+            "tables": "/js/tables-001.js",
+
             "manage": "/js/manage/manage-001.js",
 
             "session":          "/js/session/session-001.js",

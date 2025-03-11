@@ -1,5 +1,46 @@
 class Forms {
 
+    // INPUT FORM LABEL --------------------------------------------------------------------------
+
+    static initInputLabel(){
+        $(".input-group-label").find(".form-control").on( "focus", function() {
+            $(this).parent().addClass("focused");
+        }).on( "focusout", function() {
+            $(this).parent().removeClass("focused");
+        });
+
+        $(".input-group-label").find(".select2-selection").on( "focus focusout", function() {
+            setTimeout(() => {
+                $(this).parents(".input-group-label").removeClass("focused");
+                if ( $(this).parents(".select2-container").hasClass("select2-container--focus") || $(this).parents(".select2-container").hasClass("select2-container--open") ) {
+                    $(this).parents(".input-group-label").addClass("focused");
+                }
+            }, 100);
+        });
+
+        $(".input-group-label").find(".form-control").on('paste',function () { 
+            Forms.changeInputLabel(this);
+        }).change(function () { 
+            Forms.changeInputLabel(this);
+        }).keyup(function () { 
+            Forms.changeInputLabel(this);
+        });
+
+        $(".input-group-label").find(".form-control").each(function () {
+            if ( !$(this).val() ) {
+                $(this).parent().addClass("empty");
+            }
+        }); 
+    }
+
+    static changeInputLabel(input){
+        if ( !$(input).val() ) {
+            $(input).parent().addClass("empty");
+        } else {
+            $(input).parent().removeClass("empty");
+        }
+    }
+
     // VALIDATE --------------------------------------------------------------------------
 
     static initValidateForm() {
