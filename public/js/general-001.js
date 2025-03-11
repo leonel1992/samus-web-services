@@ -106,7 +106,7 @@ function loadLang(item){
     let module = $("body").attr("module");
     if (lang && module) {
         let vars = "?lang="+ lang +"&module="+ module;
-        window.location.href = URL_PATH +"/server/route/url"+ vars;
+        window.location.href = URL_PATH +"/systrem/route/url"+ vars;
     }
 }
 

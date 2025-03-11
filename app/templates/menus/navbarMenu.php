@@ -35,16 +35,16 @@
             "view" => true,
             "items" => null
         ],
-        // 'public-contact' => [
-        //     "module" => 'public-contact',
-        //     "title" => $GLOBALS['lang-menu']['navbar']['public-contact'],
-        //     "icon" => null,
-        //     "link" => $GLOBALS['routes']['public-contact'][$GLOBALS['lang']],
-        //     "access" => true,
-        //     "local" => true,
-        //     "view" => true,
-        //     "items" => null
-        // ],
+        'public-contact' => [
+            "module" => 'public-contact',
+            "title" => $GLOBALS['lang-menu']['navbar']['public-contact'],
+            "icon" => null,
+            "link" => $GLOBALS['routes']['public-contact'][$GLOBALS['lang']],
+            "access" => true,
+            "local" => true,
+            "view" => true,
+            "items" => null
+        ],
         // 'LANGUAGE' => [
         //     "module" => 'LANGUAGE',
         //     "title" => strtoupper($GLOBALS['lang']),

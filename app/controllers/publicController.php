@@ -41,4 +41,10 @@ class PublicController extends Controller {
     public function about() {
         $this->page('public', 'about', 'public-about');
     }
+
+    public function contact() {
+        $this->page('public', 'contact', 'public-contact');
+    }
+
+
 }

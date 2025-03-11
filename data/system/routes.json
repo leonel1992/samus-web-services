@@ -5,6 +5,9 @@
     "public-about": {
         "es": "/nosotros"
     },
+    "public-contact": {
+        "es": "/contacto"
+    },
 
     "session-login": {
         "es": "/iniciar-sesion"

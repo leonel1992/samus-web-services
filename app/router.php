@@ -60,6 +60,13 @@ class Router {
             $this->folder = '/';
         }
 
+        // PUBLIC CONTACT 
+        elseif ($url === $GLOBALS['routes']['public-contact'][$lang]) {
+            $this->controller = 'public'; 
+            $this->method = 'contact';
+            $this->folder = '/';
+        }
+
         // SESSION LOGIN 
         elseif ($url === $GLOBALS['routes']['session-login'][$lang]) {
             $this->controller = 'session'; 
