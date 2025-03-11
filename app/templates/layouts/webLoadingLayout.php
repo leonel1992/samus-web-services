@@ -3,7 +3,7 @@
     <div class="body">
         <div class="spinner-border" role="status"></div>
         <div class="circle">
-            <img src="<?= $GLOBALS['url-path'] ?>/assets/img/logo.png" alt="<?= TITLE ?>">
+            <img src="<?= $GLOBALS['url-path'] ?>/assets/img/logo.png" alt="<?= $GLOBALS['title'] ?>">
         </div>
     </div>
 </div>

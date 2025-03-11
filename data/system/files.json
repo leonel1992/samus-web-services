@@ -25,6 +25,7 @@
         "script":{
             "general":  "/js/general-001.js",
             "methods":  "/js/methods-001.js",
+            "messages": "/js/messages-001.js",
 
             "data":   "/js/data-001.js",
             "forms":  "/js/forms-001.js",

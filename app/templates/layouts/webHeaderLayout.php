@@ -7,7 +7,7 @@
 <meta name="author" content="<?= $GLOBALS['title'] ?>">
 <meta name="copyright" content="<?= $GLOBALS['title'] ?>">
 <meta name="theme-color" content="#292929">
-<meta name="csrf-token" content="<?= $_SESSION['csrf-token'] ?>">
+<meta name="csrf-token" content="<?= $_SESSION['csrf-token'] ?? '' ?>">
 <meta charset="UTF-8">
 
 <link rel="canonical" href="<?= $GLOBALS['web-info']->canonical ?>">

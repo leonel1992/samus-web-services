@@ -3,7 +3,7 @@
     <head>
         <?php include __DIR__ . '/../layouts/webHeaderLayout.php'; ?>
     </head>
-    <body module="<?= $GLOBALS['web-info']->module ?>" class="panel-site">
+    <body module="<?= $GLOBALS['web-info']->module ?>" class="padding-top">
         <?php 
             include __DIR__ . '/../menus/sidebarMenu.php';
             include __DIR__ . '/../modals/sessionExpireModal.php';
