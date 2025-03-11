@@ -1,9 +1,9 @@
-<!-- <?php //require_once __DIR__ . "/../../lang/{$GLOBALS['lang']}/layouts/responsesLang.php" ?>
+<?php require_once __DIR__ . "/../../lang/{$GLOBALS['lang']}/layouts/manageLang.php" ?>
 
 <div id="response-loading" class="response">
     <div class="loading">
         <div class="spinner-border" role="status"></div>
-        <span class="text"><?= LAYOUT_RESPONSES_LANG['loading'] ?></span>
+        <span class="text"><?= $GLOBALS['lang-layouts']['manage']['loading'] ?></span>
     </div>
 </div>
 
@@ -14,7 +14,7 @@
                 <use xlink:href="<?= $GLOBALS['url-path'] ?>/assets/icons/bootstrap.svg#database-slash"/>
             </svg>
         </div>
-        <span class="text fw-bold"><?= LAYOUT_RESPONSES_LANG['no-data'] ?></span>
+        <span class="text fw-bold"><?= $GLOBALS['lang-layouts']['manage']['no-data'] ?></span>
     </div>
 </div>
 
@@ -26,11 +26,11 @@
             </svg>
         </div>
         <div class="text text-center">
-            <span class="d-block title fw-bold"><?= LAYOUT_RESPONSES_LANG['error-data'] ?></span>
+            <span class="d-block title fw-bold"><?= $GLOBALS['lang-layouts']['manage']['error-data'] ?></span>
             <small><span class="d-block message"></span></small>
         </div>
         <div class="w-100 buttons text-center mt-3">
-            <button type="button" class="btn btn-sm btn-danger px-3 mt-1"><?= LAYOUT_RESPONSES_LANG['retry'] ?></button>
+            <button type="button" class="btn btn-sm btn-danger px-3 mt-1"><?= $GLOBALS['lang-layouts']['manage']['retry'] ?></button>
         </div>
     </div>
-</div> -->
+</div>

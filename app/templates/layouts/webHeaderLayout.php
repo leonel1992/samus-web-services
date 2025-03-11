@@ -6,7 +6,7 @@
 <meta name="description" content="<?= $GLOBALS['web-info']->description ?>">
 <meta name="author" content="<?= $GLOBALS['title'] ?>">
 <meta name="copyright" content="<?= $GLOBALS['title'] ?>">
-<meta name="theme-color" content="#051a2b">
+<meta name="theme-color" content="#292929">
 <meta name="csrf-token" content="<?= $_SESSION['csrf-token'] ?>">
 <meta charset="UTF-8">
 
