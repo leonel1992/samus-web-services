@@ -10,7 +10,7 @@
         exit();
     } else {
         $urlLang = $folderPath;
-        $title = 'SITIO WEB';
+        $title = 'Samus';
         $lang2 = 'es_LA';
         $lang = 'es';
     }
@@ -30,6 +30,8 @@
     $GLOBALS['files'] = JSON::open(__DIR__ . '/../data/system/files.json');
     $GLOBALS['routes'] = JSON::open(__DIR__ . '/../data/system/routes.json');
     $GLOBALS['languages'] = JSON::open(__DIR__ . '/../data/system/languages.json');
+
+    $GLOBALS['social'] = JSON::open(__DIR__ . '/../data/system/social.json');
 
     global $_INPUT;
     $_INPUT = json_decode(file_get_contents("php://input") , true);

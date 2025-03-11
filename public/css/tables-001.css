@@ -1,0 +1,262 @@
+.custom-table-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.custom-table {
+    position: relative;
+    cursor: cell;
+    color: var(--color-p);
+    background-color: var(--color-table-back);
+    width: 100%;
+    height: 100%;
+}
+
+/* THEAD ---------------------------------------------*/
+
+.custom-table thead th{
+    color: var(--color-table-text);
+    background-color: var(--color-table-head);
+    border-color: var(--color-table-border);
+}
+.custom-table thead tr{
+    border-color: var(--color-table-border);
+}
+
+/* STICKY HEAD ---------------------------------------------*/
+
+:root {
+    --border-sticky-table: 1px solid var(--color-table-border);
+}
+
+.table-head-sticky {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.table-head-sticky .custom-table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-head-sticky .custom-table thead th{
+    top: 0;
+    position: sticky;
+}
+
+.table-head-sticky .custom-table thead th {
+    border-top: none;
+    border-bottom: var(--border-sticky-table);
+    border-right: var(--border-sticky-table);
+    border-left: none;
+}
+.table-head-sticky .custom-table thead tr th:first-child{
+    border-left: var(--border-sticky-table);
+}
+.table-head-sticky .custom-table thead tr:first-child th{
+    border-top: var(--border-sticky-table);
+}
+
+.table-head-sticky .custom-table tbody th {
+    border-top: none;
+    border-left: var(--border-sticky-table);
+    border-right: var(--border-sticky-table);
+    border-bottom: var(--border-sticky-table);
+}
+.table-head-sticky .custom-table tbody td {
+    border-top: none;
+    border-bottom: var(--border-sticky-table);
+    border-right: var(--border-sticky-table);
+    border-left: none;
+}
+
+/* TBODY --------------------------------------------- */
+
+.custom-table tbody tr th,
+.custom-table tbody tr td,
+.custom-table tbody tr.selected th,
+.custom-table tbody tr.selected td{
+    transition: all 0.s;
+    overflow: hidden;
+}
+
+.custom-table tbody tr:hover th,
+.custom-table tbody tr:hover td,
+.custom-table tbody tr.selected th,
+.custom-table tbody tr.selected td{
+    background-color: var(--color-table-hover);
+}
+.custom-table tbody tr.custom-text:hover th,
+.custom-table tbody tr.custom-text:hover td,
+.custom-table tbody tr.custom-text.selected th,
+.custom-table tbody tr.custom-text.selected td{
+    color: var(--color-custom);
+}
+.custom-table tbody tr.text-danger:hover th,
+.custom-table tbody tr.text-danger:hover td,
+.custom-table tbody tr.text-danger.selected th,
+.custom-table tbody tr.text-danger.selected td{
+    color: var(--color-danger);
+}
+
+/* ICON IMAGES ---------------------------------------------*/
+
+.custom-table tbody .cell-img{
+    text-align: center;
+    border-right: none;
+    width: 35px;
+    min-width: 35px;
+    max-width: 35px;
+    padding: 0 0 0 8px;
+}
+.custom-table tbody .cell-img img{
+    width: 25px;
+    height: 25px;
+}
+
+/* ICON BUTTONS ---------------------------------------------*/
+
+.custom-table .cell-btn{
+    width: 40px;
+    min-width:40px;
+    max-width: 40px;
+    text-align: center;
+    padding: 0px;
+    padding-top: 2px
+}
+.custom-table .cell-btn .bi{
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 21px;
+    opacity: 0.7;
+}
+.custom-table .cell-btn .bi:hover{
+    color: var(--color-custom);
+    opacity: 1;
+}
+.custom-table .text-danger .cell-btn .bi:hover{
+    color: var(--color-danger);
+}
+
+.custom-table .cell-btn.disabled .bi{
+    opacity: 0.3 !important;
+    cursor: default;
+}
+
+/* SWITCHS --------------------------------------------------*/
+
+.custom-table .cell-switch {
+    cursor: cell;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 0;
+}
+
+.custom-table .cell-switch input{
+    cursor: cell;
+    pointer-events: none;
+}
+
+/* LABEL STATUS ---------------------------------------------*/
+
+.custom-table .table-status{
+    color: var(--color-table-status-default-text);
+    background-color: var(--color-table-status-default-back);
+    border: solid 1px var(--color-table-status-default-border);
+    border-radius: 5px;
+    text-align: center;
+    line-height: 100%;
+    padding: 2px 5px 3px;
+    font-size: 85%;
+    margin: 0;
+}
+
+.custom-table .table-status-active{
+    color: var(--color-table-status-success-text);
+    border-color: var(--color-table-status-success-border);
+    background-color: var(--color-table-status-success-back);
+}
+
+.custom-table .table-status-blocked{
+    color: var(--color-table-status-danger-text);
+    border-color: var(--color-table-status-danger-border);
+    background-color: var(--color-table-status-danger-back);
+}
+
+/* FILTER ---------------------------------------------*/
+
+.custom-table-container .filter {
+    background-color: var(--color-table-head);
+    border: solid 1px var(--color-table-border);
+    border-bottom: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.custom-table-container .filter .filter-input{
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 16px;
+    line-height: 16px;
+    color: var(--color-p);
+    background-color: transparent;
+    border-radius: 0px;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+.custom-table-container .filter .filter-input::placeholder{
+    color: var(--color-table-text);
+    opacity: 0.4;
+}
+
+.custom-table-container .filter .filter-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all .4s;
+    opacity: 0.65;
+    padding: 7px;
+    height: 36px;
+    width: 36px;
+}
+.custom-table-container .filter .filter-icon:hover,
+.custom-table-container .filter .filter-icon:active{
+    opacity: 1;
+}
+.custom-table-container .filter .filter-icon svg{
+    width: 100%;
+    height: 100%;
+}
+
+.custom-table-container .filter .filter-icon.filter-search{
+    color: var(--color-custom);
+    padding-right: 4px;
+    padding-left: 10px;
+}
+.custom-table-container .filter .filter-icon.filter-clear{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 10px;
+    padding-left: 6px;
+}
+
+/* SELECTION ---------------------------------------------*/
+
+.custom-table.no-select {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+}

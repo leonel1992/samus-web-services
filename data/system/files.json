@@ -2,15 +2,22 @@
     "lib":{
         "script":{
             "bootstrap": "/lib/js/bootstrap.bundle-5.3.3.min.js",
-            "jquery":    "/lib/js/jquery-3.7.1.min.js",
-            "select2":   "/lib/js/select2-4.1.0-rc.0.min.js"
+            "jquery":  "/lib/js/jquery-3.7.1.min.js",
+            "select2": "/lib/js/select2-4.1.0-rc.0.min.js",
+
+            "blob":   "/lib/js/blob-1.1.1.min.js",
+            "popper": "/lib/js/popper-1.14.7.min.js",
+            "filesaver":   "/lib/js/filesaver-1.3.5.min.js",
+            "html2canvas": "/lib/js/html2canvas-0.4.1.js",
+            "tableexport": "/lib/js/tableexport-3.3.10.js",
+            "xls-core": "/lib/js/xls-core-0.8.8.min.js"
         },
 
         "style" :{
-            "bootstrap":  "/lib/css/bootstrap-5.3.3.min.css",
-            "icons":      "/lib/css/bootstrap-icons-1.11.3.css",
-            "select2":    "/lib/css/select2-4.1.0-rc.0.min.css",
-            "select2-bs": "/lib/css/select2-bootstrap-5-theme-1.3.0.min.css"
+            "icons":   "/lib/css/bootstrap-icons-1.11.3.css",
+            "select2": "/lib/css/select2-4.1.0-rc.0.min.css",
+            "select2-bs": "/lib/css/select2-bootstrap-5-theme-1.3.0.min.css",
+            "bootstrap":  "/lib/css/bootstrap-5.3.3.min.css"
         }
     },
 
@@ -38,7 +45,12 @@
         },
         
         "style" :{
-            "general": "/css/general-001.css"
+            "menus":   "/css/menus-001.css",
+            "general": "/css/general-001.css",
+            "session": "/css/session-001.css",
+            
+            "forms":  "/css/forms-001.css",
+            "tables": "/css/tables-001.css"
         }
     }
 }

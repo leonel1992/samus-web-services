@@ -1,0 +1,26 @@
+{  
+    "text":{
+        "adress": "Cra. 100 #65B-82, Bogotá, Colombia"
+    },
+    "email":{
+        "contact": "contacto@samusgroup.com",
+        "support": "soporte@samusgroup.com"
+    },
+    "phone":{
+        "contact": "+573102084656"
+    },
+    "link":{
+        "app": "",
+        "web": "",
+        "map": "https://www.google.com/maps/place/Cra.+110+%2365b-82,+Bogot%C3%A1/@4.7029643,-74.1295458,19z/data=!3m1!4b1!4m5!3m4!1s0x8e3f9d856f739a07:0xc36edb3b61901ad8!8m2!3d4.702963!4d-74.1289986"
+    },
+    "social":{
+        "telegram": "",
+        "facebook": "",
+        "instagram": "https://www.instagram.com/serviciossamus",
+        "whatsapp": "https://wa.me/message/XCVJEJROFHCYH1",
+        "youtube": "",
+        "twitter": "",
+        "x": ""
+    }
+}

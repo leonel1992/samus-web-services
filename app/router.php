@@ -142,6 +142,90 @@ class Router {
                     $this->matchRouteError();
             }
         }
+
+        // switch ($n) {
+        //     case 2:
+        //         $this->folder = '/';
+        //         switch ($url) {
+        //             // PUBLIC -----------------------------------------------------------------------------------------;
+        //             case ROUTES['public-home'][LANG]:    $this->controller = 'public'; $this->method = 'home';    break;
+        //             case ROUTES['public-about'][LANG]:   $this->controller = 'public'; $this->method = 'about';   break;
+        //             case ROUTES['public-contact'][LANG]: $this->controller = 'public'; $this->method = 'contact'; break;
+        //             // SESSION --------------------------------------------------------------------------------------------;
+        //             case ROUTES['session-login'][LANG]:    $this->controller = 'session'; $this->method = 'login';    break;
+        //             case ROUTES['session-register'][LANG]: $this->controller = 'session'; $this->method = 'register'; break;
+        //             case ROUTES['session-recover'][LANG]:  $this->controller = 'session'; $this->method = 'recover';  break;
+        //             // PANEL ----------------------------------------------------------------------------------;
+        //             case ROUTES['panel-home'][LANG]: $this->controller = 'panel'; $this->method = 'home'; break;
+        //             // ERROR ------------------------;
+        //             default: $this->matchRouteError();
+        //         } break;
+            
+        //     case 3:
+        //         // LEGAL ---------------------------------------------------------
+        //         if (strpos($url, ROUTES['legal'][LANG]) === 0) {
+        //             $this->folder = '/';
+        //             $this->controller = 'public'; 
+        //             $this->method = match ($url) {
+        //                 ROUTES['legal-cookies'][LANG] => 'legalCookies',
+        //                 ROUTES['legal-privacy'][LANG] => 'legalPrivacy',
+        //                 ROUTES['legal-terms'][LANG]   => 'legalTerms',
+        //                 default                       => 'error',
+        //             };
+        //         }
+
+        //         // MANAGE -------------------------------------------------------------
+        //         elseif (strpos($url, ROUTES['manage'][LANG]) === 0) {
+        //             $this->folder = '/';
+        //             $this->controller = 'manage'; 
+        //             $this->method = match ($url) {
+        //                 default                                => 'error',
+        //             };
+        //         }
+                
+        //         // SETTINGS -------------------------------------------------------------
+        //         elseif (strpos($url, ROUTES['settings'][LANG]) === 0) {
+        //             $this->folder = '/';
+        //             $this->controller = 'settings'; 
+        //             $this->method = match ($url) {
+        //                 ROUTES['settings-currencies'][LANG]      => 'currencies',
+        //                 ROUTES['settings-countries'][LANG]       => 'countries',
+        //                 ROUTES['settings-processors'][LANG]      => 'processors',
+        //                 ROUTES['settings-payment-methods'][LANG] => 'paymentMethods',
+        //                 //----------------------------------------------------------,
+        //                 ROUTES['settings-actions'][LANG]     => 'actions',
+        //                 ROUTES['settings-modules'][LANG]     => 'modules',
+        //                 ROUTES['settings-permissions'][LANG] => 'permissions',
+        //                 ROUTES['settings-roles'][LANG]       => 'roles',
+        //                 //---------------------------------------------------,
+        //                 default => 'error',
+        //             };
+        //         }
+
+        //         // ERROR -------------------
+        //         else {
+        //             $this->matchRouteError();
+        //         } break;
+            
+        //     case 4:
+        //         if (strpos($url, '/image/') === 0) {
+        //             $this->controller = "image";
+        //             $this->folder = "/server/";
+        //             $this->method = $this->matchRouteURL($expl[2]);
+        //         } else {
+        //             $this->controller = $this->matchRouteURL($expl[2]);
+        //             $this->folder = "/{$this->matchRouteURL($expl[1])}/";
+        //             $this->method = $this->matchRouteURL($expl[3]);
+        //             $this->isJson =  match ($this->folder) {
+        //                 '/manage/'   => true,
+        //                 '/settings/' => true,
+        //                 default      => false,
+        //             };
+        //         } break;
+            
+        //     default:
+        //         $this->matchRouteError();
+        // }
     }
     
     // -----------------------------------------------------------------------

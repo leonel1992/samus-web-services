@@ -1,0 +1,154 @@
+.session{
+    width: 100vw;
+    height: calc(var(--window-heigth) - var(--header-heigth));
+    overflow: hidden;
+    background: var(--color-back);
+}
+
+.session svg{
+    fill: var(--color-btn-custom-text);
+}
+
+.session img.logo{
+    height: 100px;
+    max-width: 100%;
+}
+
+.session a,
+.session a:hover,
+.session a:focus{
+    color: var(--color-a);
+}
+
+.session form{
+    width: 560px;
+    padding: 30px 40px;
+    border-radius: 10px;
+    transition: all 0.5s;
+    background: var(--color-back);
+    border: solid 1px var(--color-border);
+    -webkit-box-shadow: 0px 0px 30px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 0px 30px 2px rgba(0,0,0,0.05);
+    box-shadow: 0px 0px 30px 2px rgba(0,0,0,0.05);
+}
+
+@media screen and (max-width:600px) {
+    .session{
+        background: var(--color-back);
+    }
+
+    .session form{
+        width: 100%;
+        padding: 30px;
+        border-radius: 0;
+        border: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+/*------------------------*/
+
+.session .form-control,
+.session .form-control:hover,
+.session .form-control:active,
+.session .form-control:focus{
+    background-color: var(--color-back);
+    border-color: var(--color-btn-custom);
+}
+.session .form-control::placeholder{
+    opacity: 0.90;
+    font-size: 14px;
+};
+.session .form-control::-moz-placeholder{
+    opacity: 0.90;
+    font-size: 14px;
+}
+.session .form-control.is-invalid{
+    outline: none !important;
+}
+
+.session .custom-datepicker input::placeholder{
+    opacity: 0.90;
+    font-size: 14px;
+};
+.session .custom-datepicker input::-moz-placeholder{
+    opacity: 0.90;
+    font-size: 14px;
+}
+
+.session .select2-selection{ 
+    border-color: var(--color-btn-custom);
+}
+.session .select2-selection__placeholder{
+    opacity: 0.90;
+    font-size: 14px;
+}
+
+/*------------------------*/
+
+.session .input-group-text{
+    background: var(--color-btn-custom);
+    border-color: var(--color-btn-custom);
+    width: 38px;
+    height: 38px;
+    padding: 5px !important;
+}
+.session .is-invalid .input-group-text{
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+}
+.session .input-group-text.custom-password-icon{
+    color: var(--color-p);
+    background-color: var(--color-back);
+    border-color: var(--color-btn-custom);
+}
+
+/*------------------------*/
+
+.session .input-group-label{ 
+    width: 100%;
+}
+
+.session .input-group-label .form-control.no-shadow{
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.session .input-group-label .form-control::placeholder{
+    opacity: 0.75;
+    font-size: 14px;
+}
+.session .input-group-label .form-control::-moz-placeholder{
+    opacity: 0.75;
+    font-size: 14px;
+}
+
+.session .input-group-label .form-control[disabled],
+.session .input-group-label .form-control[disabled]:hover,
+.session .input-group-label .form-control[disabled]:focus,
+.session .input-group-label .form-control[disabled]:active{ 
+    outline: none !important;
+    box-shadow: none !important;
+    color: var(--color-form-disabled-text);
+    background-color: var(--color-form-disabled-back);
+    border-color: var(--color-form-disabled-text);
+}
+.session .input-group-label .input-group-text-label{
+    width: auto !important;
+    padding: 6px 12px !important;
+    background-color: var(--color-back) !important;
+}
+
+/*------------------------*/
+
+.session-message{
+    background-color: var(--color-back);
+    padding-top: var(--header-heigth);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

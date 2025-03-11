@@ -1,0 +1,853 @@
+/* FORM ---------------------------------------------*/
+
+form{
+    color: var(--color-p);
+}
+
+.form-divider{
+    width: 100%;
+    height: 0.5px;
+    background-color: var(--color-border);
+    display: block;
+    margin: 15px 0px;
+}
+
+/* ACORDION ---------------------------------------------*/
+
+form .custom-accordion .accordion-button:disabled{
+    color: var(--color-form-disabled-text);
+    background-color: var(--color-form-disabled-back);
+    --bs-accordion-btn-icon: var(--svg-accordion-icon-disabled);
+    --bs-accordion-btn-active-icon: var(--svg-accordion-icon-disabled);
+}
+
+/* FEEDBACK ---------------------------------------------*/
+
+.invalid-feedback{
+    font-size: 75%;
+    padding-left: 2px;
+    margin-top: 4px;
+    color: var(--color-danger);
+}
+
+.invalid-feedback::before{
+    content: "** ";
+}
+
+/* INPUT GROUP ---------------------------------------------*/
+
+.input-group{
+    border-radius: .375rem;;
+}
+.input-group:focus-within{
+    border-color: var(--color-btn-custom);
+    box-shadow: 0 0 0 .25rem var(--color-btn-custom-shadow-rgba);
+}
+.input-group.is-invalid:focus-within{
+    border-color: var(--color-btn-danger);
+    box-shadow: 0 0 0 .25rem var(--color-btn-danger-shadow-rgba);
+}
+
+.input-group-text {
+    color: var(--color-p);
+    background-color: var(--color-form-group-text);
+    border-color: var(--color-border);
+    line-height: 0px;
+    width: 120px;
+}
+.input-group.is-invalid .input-group-text{
+    color: var(--color-danger);
+    background-color: var(--color-light-danger);
+    border-color: var(--color-danger);
+}
+
+.input-group-text.custom-password-icon{
+    color: var(--color-p);
+    background-color: var(--color-back);
+    border-color: var(--color-border);
+    border-left: none;
+}
+.input-group-text.custom-password-icon .custom-password-btn[show="false"] svg{
+    fill: var(--color-p-light);
+}
+.input-group-text.custom-password-icon .custom-password-btn[show="true"] svg{
+    fill: var(--color-success);
+}
+
+.is-invalid .input-group-text.custom-password-icon{
+    border-color: var(--color-danger) !important;
+}
+.is-invalid .input-group-text.custom-password-icon .custom-password-btn svg{
+    fill: var(--color-danger);
+}
+
+@media only screen and (max-width: 576px) {
+    .input-group-text {
+        font-size: 13px;
+        width: 95px;
+    }
+}
+
+.input-group-info-link{
+    padding: 7px 10px;
+    font-size: 20px;
+}
+
+.input-group-info-link .bi{
+    opacity: 0.4;
+    cursor: pointer;
+    transition: opacity 0.5s;
+    color: var(--color-p);
+}
+.input-group-info-link .bi:hover,
+.input-group-info-link .bi:focus,
+.input-group-info-link .bi:active {
+    opacity: 0.7;
+    color: var(--color-p);
+}
+
+.input-group.is-invalid .input-group-info-link .bi{
+    opacity: 0.8;
+    color: var(--color-danger);
+}
+.input-group.is-invalid .input-group-info-link .bi:hover,
+.input-group.is-invalid .input-group-info-link .bi:focus,
+.input-group.is-invalid .input-group-info-link .bi:active {
+    opacity: 1;
+    color: var(--color-danger);
+}
+
+/* INPUT GROUP LABEL ---------------------------------------------*/
+
+#form-group-manage-id .input-group-label{
+    padding-top: 8px;
+}
+#form-group-manage-id .input-group-label{
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+#form-group-manage-id .input-label{
+    top: 0px;
+}
+
+/*---------------------------*/
+
+.input-group-label{
+    position: relative;
+    margin-bottom: 0px !important;
+    margin-top: 24px !important;
+}
+
+.input-group-label .form-control:focus,
+.input-group-label .form-control:active{
+    box-shadow: 0 0 0 .25rem var(--color-btn-custom-shadow-rgba) !important;
+}
+
+.input-group-label .input-label{
+    z-index: 100;
+    background-color: transparent;
+    color: var(--color-form-placeholder);
+    position: absolute;
+    transition: all .3s;
+    line-height: 12px;
+    padding: 2px 4px;
+    left: 10px;
+    top: 10px;
+}
+.input-group-label.focused .input-label{
+    color: var(--color-custom);
+}
+.input-group-label:not(.empty) .input-label,
+.input-group-label.focused .input-label,
+.input-group-label .input-label.fixed{
+    background-color: var(--color-back);
+    letter-spacing: 0.25px;
+    font-size: 80%;
+    top: -9px;
+}
+
+.input-group-label[disabled] .input-label{
+    background: transparent;
+    color: var(--color-form-placeholder);
+}
+.input-group-label[disabled] .input-label.fixed,
+.input-group-label:not(.empty)[disabled] .input-label{
+    background: linear-gradient( 
+        to bottom,
+        var(--color-back) 20%, 
+        var(--color-form-disabled-back) 100%
+    );
+}
+
+.is-invalid.input-group-label .form-control:focus,
+.is-invalid.input-group-label .form-control:active{
+    box-shadow: 0 0 0 .25rem var(--color-btn-danger-shadow-rgba) !important;
+}
+.is-invalid.input-group-label .input-label{
+    color: var(--color-light-2-danger) !important;
+}
+.is-invalid.input-group-label:not(.empty) .input-label,
+.is-invalid.input-group-label.focused .input-label,
+.is-invalid.input-group-label .input-label.fixed{
+    color: var(--color-danger) !important;
+}
+
+/* FORM CONTROL ---------------------------------------------*/
+
+.form-control{
+    color: var(--color-p);
+    border-color: var(--color-border);
+    transition: background-color 0.3s;
+}
+.form-control:focus{
+    color: var(--color-p);
+    border-color: var(--color-btn-custom);
+    box-shadow: none !important;
+}
+.form-control::placeholder{
+    color: var(--color-form-disabled-text);
+}
+.form-control::-moz-placeholder{
+    color: var(--color-form-disabled-text);
+}
+
+.form-control.is-invalid{
+    color: var(--color-danger);
+    border-color: var(--color-danger) !important;
+}
+.form-control.is-invalid:disabled{
+    background-color: var(--color-light-danger);
+}
+.form-control.is-invalid::placeholder{
+    color: var(--color-light-2-danger);
+}
+.form-control.is-invalid::-moz-placeholder{
+    color: var(--color-light-2-danger);
+}
+
+.form-control.disabled,
+.form-control[disabled]{
+    background-color: var(--color-form-disabled-back);
+    color: var(--color-form-disabled-text);
+}
+
+/* FORM CHECK ---------------------------------------------*/
+
+.custom-form-check .form-check-input:not(.is-invalid){
+    background-color: transparent;
+}
+.custom-form-check .form-check-input:not(.is-invalid):checked,
+.custom-form-check .form-check-input:not(.is-invalid):focus {
+    border-color: var(--color-btn-custom);
+    box-shadow: 0 0 0 .25rem var(--color-btn-custom-shadow-rgba);
+}
+.custom-form-check .form-check-input:not(.is-invalid):checked{
+    background-color: var(--color-btn-custom);
+}
+
+.custom-form-check .form-check-input,
+.custom-form-check .form-check-label{
+    color: var(--color-p);
+    cursor: pointer;
+}
+
+.custom-form-check .form-check-input[some-checked]{
+    background-color: var(--color-btn-custom);
+    box-shadow: 0 0 0 .25rem var(--color-btn-custom-shadow-rgba);
+    background-image: var(--svg-form-icon-check);
+}
+
+/* FORM FILE ---------------------------------------------*/
+
+.custom-file-container{
+    display: block;
+    position: relative;
+}
+
+.custom-file .custom-file-container-items{
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.custom-file{
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    cursor: default;
+    transition: all 0.3s;
+    display: block;
+    position: relative;
+}
+.custom-file.active{
+    background-color: var(--color-form-active-back);
+}
+.custom-file.is-invalid{
+    background-color: transparent;
+    background-image: none;
+    padding: 12px;
+}
+.custom-file.disabled,
+.custom-file[disabled]{
+    background-color: var(--color-form-disabled-back);
+    cursor: default;
+}
+
+.custom-file .custom-file-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--color-form-placeholder);
+}
+
+.custom-file .custom-file-label-text,
+.custom-file .custom-file-label-o{
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-form-placeholder);
+}
+.custom-file.custom-file-simple .custom-file-label-text{
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.custom-file.is-invalid .custom-file-label-text,
+.custom-file.is-invalid .custom-file-label-o,
+.custom-file.is-invalid .custom-file-icon{
+    color: var(--color-light-2-danger);
+}
+.custom-file[disabled] .custom-file-label-text,
+.custom-file.disabled  .custom-file-label-text,
+.custom-file[disabled] .custom-file-label-o
+.custom-file.disabled  .custom-file-label-o,
+.custom-file[disabled] .custom-file-icon
+.custom-file.disabled  .custom-file-icon{
+    color: var(--color-form-disabled-text);
+}
+
+.custom-file .custom-file-btn {
+    transition: all 0.3s;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    min-width: 100px;
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    color: var(--color-btn-custom-text);
+    background-color: var(--color-btn-custom);
+}
+.custom-file .custom-file-btn:active {
+    color: var(--color-btn-custom-text);
+    background-color: var(--color-btn-custom-active);
+}
+.custom-file .custom-file-btn svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+    margin-bottom: 2px;
+    fill: var(--color-btn-custom-text);
+}
+
+.custom-file.is-invalid .custom-file-btn{
+    background-color: var(--color-btn-danger);
+}
+.custom-file[disabled] .custom-file-btn,
+.custom-file.disabled  .custom-file-btn{
+    background-color: var(--color-btn-disabled);
+    color: var(--color-btn-disabled-text);
+    cursor: default;
+}
+.custom-file[disabled] .custom-file-btn svg,
+.custom-file.disabled .custom-file-btn svg{
+    fill: var(--color-btn-disabled-text);
+}
+
+/*---------------------------*/
+
+.custom-file .custom-file-container-image{
+    opacity: 0;
+    padding: 8px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: all 0.3s;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.custom-file .custom-file-image{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.custom-file .custom-file-image img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+/*---------------------------*/
+
+.custom-file-view-container{
+    position: relative;
+    display: block;
+}
+
+.custom-file-view{
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: solid 1px var(--color-border);
+    transition: all 0.3s;
+}
+.custom-file-view.is-invalid{
+    padding: 10px 12px;
+    padding-right: 7px;
+    background-image: none;
+    background-color: transparent;
+    border-color: var(--color-danger);
+}
+.custom-file-view.disabled,
+.custom-file-view[disabled]{
+    background-color:var(--color-form-disabled-back);
+    border-color: var(--color-border);
+}
+
+.custom-file-view .custom-file-view-icon{
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+.custom-file-view.disabled  .custom-file-view-icon,
+.custom-file-view[disabled] .custom-file-view-icon{
+    opacity: 0.3;
+}
+.custom-file-view .custom-file-view-icon img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.custom-file-view .custom-file-view-name{
+    width: calc( 100% );
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    overflow: hidden;
+}
+.custom-file-view.is-invalid .custom-file-view-name{
+    color: var(--color-danger);
+}
+.custom-file-view.disabled .custom-file-view-name,
+.custom-file-view:disabled .custom-file-view-name{
+    color: var(--color-form-disabled-text);
+}
+
+/*---------------------------*/
+
+.custom-file .custom-file-delete{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.custom-file .custom-file-delete,
+.custom-file-view .custom-file-delete{
+    transition: all 0.3s;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: var(--color-danger);
+    padding: 0;
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+    line-height: 25px;
+    background-color: transparent;
+    border-radius: 13px;
+}
+.custom-file .custom-file-delete:hover,
+.custom-file-view .custom-file-delete:hover{
+    background-color: rgba(var(--color-btn-danger-shadow-rgb), 0.15);
+    box-shadow: 0 0 0 1px rgba(var(--color-btn-danger-shadow-rgb), 0.25);
+}
+.custom-file.disabled .custom-file-delete,
+.custom-file:disabled .custom-file-delete,
+.custom-file .custom-file-delete.disabled,
+.custom-file .custom-file-delete:disabled,
+.custom-file-view.disabled .custom-file-delete,
+.custom-file-view:disabled .custom-file-delete,
+.custom-file-view .custom-file-delete.disabled,
+.custom-file-view .custom-file-delete:disabled{
+    cursor: default;
+    color: var(--color-form-disabled-text);
+    box-shadow: none !important;
+    background-color: transparent !important;;
+} 
+
+/*---------------------------*/
+
+.custom-file .custom-file-info-link{
+    position: absolute;
+    line-height: 100%;
+    font-size: 22px;
+    left: 0;
+    top: 0;
+}
+
+/* DATEPICKER -------------------------------------------------- */
+
+.custom-datepicker {
+    position: relative;
+    display: inline-block;
+    padding-right: 2.5rem;
+    min-height: 37.6px;
+    width: 100%;
+}
+.custom-datepicker:not(.is-invalid):has(input:focus){
+    border-color: var(--color-btn-custom);
+    box-shadow: 0 0 0 .25rem var(--color-btn-custom-shadow-rgba);
+    outline: none;
+}
+
+.custom-datepicker input {
+    border: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+}
+.custom-datepicker input::placeholder{
+    color: var(--color-form-disabled-text);
+}
+.custom-datepicker input::-moz-placeholder{
+    color: var(--color-form-disabled-text);
+}
+
+.custom-datepicker .datepicker-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/*---------------*/
+
+.custom-datepicker.is-invalid:has(input:focus) {
+    border-color: var(--color-btn-danger);
+    box-shadow: 0 0 0 .25rem var(--color-btn-danger-shadow-rgba);
+}
+
+.custom-datepicker.is-invalid input{
+    color: var(--color-danger);
+    border-color: var(--color-danger) !important;
+}
+.custom-datepicker.is-invalid:disabled input{
+    background-color: var(--color-light-danger);
+}
+.custom-datepicker.is-invalid input::placeholder{
+    color: var(--color-light-2-danger);
+}
+.custom-datepicker.is-invalid input::-moz-placeholder{
+    color: var(--color-light-2-danger);
+}
+
+.custom-datepicker.is-invalid .datepicker-icon {
+    color: transparent;
+}
+
+/*---------------*/
+
+.custom-datepicker.disabled input,
+.custom-datepicker[disabled] input{
+    pointer-events: none; 
+    cursor: not-allowed; 
+    background-color: var(--color-form-disabled-back);
+    color: var(--color-form-disabled-text); 
+}
+
+.custom-datepicker.disabled .datepicker-icon,
+.custom-datepicker[disabled] .datepicker-icon {
+    color: var(--color-form-disabled-text); 
+    pointer-events: none; 
+    cursor: not-allowed; 
+}
+
+/*---------------------------------------------*/
+
+.datepicker-popup {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: -1;
+    padding: 10px;
+    border-radius: 6px;
+    background: var(--color-back);
+    border: 1px solid var(--color-border);
+    display: none;
+    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.datepicker-popup .disabled-date{
+    opacity: 20% !important;
+    color: var(--color-btn-disabled-text) !important;
+    pointer-events: none;
+}
+
+.datepicker-popup .faded-date:not(:hover) {
+    opacity: 50%;
+}
+
+.datepicker-popup table .selected-date label{
+    background-color: var(--color-btn-custom) !important;
+    color: var(--color-btn-custom-text) !important;
+    opacity: 100% !important;
+}
+
+.datepicker-popup table .today-date label{
+    border: solid 1px var(--color-btn-custom);
+}
+
+/*---------------*/
+
+.datepicker-popup .calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.datepicker-popup .calendar-navigation .bi {
+    color: var(--color-custom);
+    border-radius: 5px;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 6px;
+}
+.datepicker-popup .calendar-navigation .bi:hover {
+    background-color: var(--color-table-hover);
+}
+
+.datepicker-popup .calendar-navigation .datepicker-select{
+    font-weight: bold;
+    text-align: center;
+    color: var(--color-custom);
+    border-radius: 5px;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 6px;
+    width: 100%;
+}
+.datepicker-popup .calendar-navigation .datepicker-select:hover {
+    background-color: var(--color-table-hover);
+}
+.datepicker-popup .calendar-navigation .datepicker-select.disabled{
+    background-color: transparent !important;
+    cursor: default;
+}
+
+/*---------------*/
+
+.datepicker-popup table {
+    text-align: center;
+    width: 250px;
+    height: 250px;
+}
+.datepicker-popup table th,
+.datepicker-popup table td{
+    font-size: 75%;
+    padding: 0;
+}
+.datepicker-popup table th{
+    color: var(--color-custom);
+    letter-spacing: 0.5px;
+    line-height: 1;
+    cursor: default;
+    font-size: 65%;
+}
+
+.datepicker-popup table label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    line-height: 1;
+    color: var(--color-p);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+}
+.datepicker-popup table label:hover{
+    opacity: 1 !important;
+    background: var(--color-table-hover);
+}
+
+/*---------------*/
+
+.datepicker-popup table.dates-grid th,
+.datepicker-popup table.dates-grid td{
+    width: calc(250px / 7);
+    height: calc(250px / 7);
+}
+
+.datepicker-popup table.months-grid td{
+    height: calc(250px / 4);
+}
+.datepicker-popup table.months-grid label{
+    font-size: 100%;
+    letter-spacing: 0.5px;
+    width: calc(250px / 4);
+    margin: 0 auto;
+}
+
+.datepicker-popup table.years-grid td{
+    height: calc(250px / 4);
+}
+
+/* SELECT -------------------------------------------------- */
+
+.select2-container--bootstrap-5 .select2-selection{
+    color: var(--color-p);
+    background-color: transparent;
+    border-color: var(--color-border);
+    border-radius: 6px;
+    width: 100%;
+}
+
+.select2-container--bootstrap-5.select2-container--focus .select2-selection,
+.select2-container--bootstrap-5.select2-container--open .select2-selection{
+    color: var(--color-p);
+    border-color: var(--color-custom);
+    box-shadow:0 0 0 .25rem var(--color-btn-custom-shadow-rgba);
+}
+
+.select2-container--bootstrap-5 .select2-dropdown{
+    color: var(--color-p);
+    background-color: var(--color-back);
+    border-color: var(--color-custom);
+}
+
+.select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field{
+    color: var(--color-p);
+    background-color:var(--color-back);
+    border-color: var(--color-border);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field:focus{
+    border-color: var(--color-light-2-custom);
+    box-shadow:0 0 0 .25rem var(--color-btn-custom-shadow-rgba);
+}
+
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__message{
+    color: var(--color-form-placeholder);
+}
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected,
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected=true]:not(.select2-results__option--highlighted){
+    color: var(--color-p);
+    background-color: var(--color-light-custom);
+}
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--highlighted{
+    color:var(--color-p);
+    background-color: var(--color-light-custom);
+    box-shadow: inset 0 0 100px var(--color-form-inset-shadow-rgba);
+}
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--disabled,
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-disabled=true]{
+    color: var(--color-form-placeholder);
+}
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[role=group] .select2-results__group{
+    color: var(--color-form-placeholder);
+}
+
+.select2-container--bootstrap-5 .select2-selection--single{
+    background-image: var(--svg-form-icon-select);
+}
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered{
+    color: var(--color-p);
+}
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered .select2-selection__placeholder{
+    color: var(--color-form-placeholder);
+}
+
+/*------------------------*/
+
+.is-invalid+.select2-container--bootstrap-5 .select2-selection{
+    border-color: var(--color-danger);
+    padding-right: calc(1.5em + .75rem);
+    background-image: var(--svg-form-icon-select-invalid);
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem)
+}
+
+.is-invalid+.select2-container--bootstrap-5.select2-container--focus .select2-selection,
+.is-invalid+.select2-container--bootstrap-5.select2-container--open .select2-selection{
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 .25rem var(--color-btn-danger-shadow-rgba);
+}
+.is-invalid+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered .select2-selection__placeholder{
+    color: var(--color-light-2-danger);
+}
+
+/*------------------------*/
+
+.select2-container--bootstrap-5.select2-container--disabled .select2-selection,
+.select2-container--bootstrap-5.select2-container--disabled.select2-container--focus .select2-selection{
+    color: var(--color-form-disabled-text);
+    background-color: var(--color-form-disabled-back);
+    border-color: var(--color-border);
+    cursor: default;
+}
+
+.select2-container--bootstrap-5.select2-container--disabled .select2-selection--single{
+    background-image: var(--svg-form-icon-select-disabled);
+}
+.select2-container--bootstrap-5.select2-container--disabled .select2-selection--single .select2-selection__rendered{
+    color: var(--color-form-disabled-text);
+}
+
+.select2-container--bootstrap-5.select2-container--disabled img,
+.select2-container--bootstrap-5.select2-container--disabled svg{
+    opacity: 0.3 !important;
+}
+
+
+
+
+
+
+
+
+

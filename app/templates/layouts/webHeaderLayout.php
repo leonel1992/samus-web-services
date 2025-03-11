@@ -48,6 +48,7 @@
 <link rel="stylesheet" type="text/css" href="<?= $GLOBALS['url-path'] . $GLOBALS['files']['lib']['style']['select2'] ?>">
 <link rel="stylesheet" type="text/css" href="<?= $GLOBALS['url-path'] . $GLOBALS['files']['lib']['style']['select2-bs'] ?>">
 
+<link rel="stylesheet" type="text/css" href="<?= $GLOBALS['url-path'] . $GLOBALS['files']['local']['style']['menus'] ?>">
 <link rel="stylesheet" type="text/css" href="<?= $GLOBALS['url-path'] . $GLOBALS['files']['local']['style']['general'] ?>">
 <?php if (isset($GLOBALS['web-info']) && $GLOBALS['web-info']->headers) {
     foreach ($GLOBALS['web-info']->headers as $header) {
