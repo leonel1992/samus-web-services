@@ -5,10 +5,10 @@
     </head>
     <body module="<?= $GLOBALS['web-info']->module ?>" class="basic-site">
         <?php
-            // include __DIR__ . '/../menus/navbarBasicMenu.php';
-            echo "<div id='content'>{$GLOBALS['web-content']}</div>";
-            include __DIR__ . '/../layouts/webLoadingLayout.php';
-            include __DIR__ . '/../layouts/webScriptsLayout.php';
+        include __DIR__ . '/../menus/navbarBasicMenu.php';
+        echo "<div id='content'>{$GLOBALS['web-content']}</div>";
+        include __DIR__ . '/../layouts/webLoadingLayout.php';
+        include __DIR__ . '/../layouts/webScriptsLayout.php';
         ?>
     </body>
 </html>
