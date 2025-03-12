@@ -1,15 +1,12 @@
--- ------------------
--- TIPOS DE MONEDA --
--- ------------------
-INSERT INTO `currency_type` (`id`, `name`) VALUES
+
+-- TIPOS DE MONEDA 
+INSERT IGNORE INTO `currency_type` (`id`, `name`) VALUES
 ('crypto', 'Cripto'),
 ('currency', 'Divisa');
 
 
--- --------------------
--- MONEDAS INICIALES --
--- --------------------
-INSERT INTO `currencies` (`id`, `type`, `code`, `symbol`, `name`) VALUES
+-- MONEDAS 
+INSERT IGNORE INTO `currencies` (`id`, `type`, `code`, `symbol`, `name`) VALUES
 ('ars', 'currency', 'ARS', '$', 'Peso Argentino'),
 ('bob', 'currency', 'BOB', 'Bs', 'Boliviano'),
 ('brl', 'currency', 'BRL', 'R$', 'Real Brasileño'),

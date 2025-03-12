@@ -1,7 +1,6 @@
--- ------------------
--- ROLES INICIALES --
--- ------------------
-INSERT INTO `roles` (`id`, `name`, `description`) VALUES
+
+-- ROLES 
+INSERT IGNORE INTO `roles` (`id`, `name`, `description`) VALUES
 ('master', 'Avanzado', 'El usuario avanzado tiene todos los permisos del sistema, incluyendo aquellos que requiren permisos especiales.'),
 ('admin', 'Administrador', 'El administrador tiene acceso a casi todos los módulos del sistema, excepto aquellos que requiren permisos especiales.'),
 ('coord', 'Coordinador', 'El coordinador tiene acceso de tipo administrador pero sólo para sus registros y los de sus oficinas.'),

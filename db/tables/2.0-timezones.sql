@@ -1,7 +1,6 @@
--- -----------------
--- ZONAS HORARIAS --
--- -----------------
-INSERT INTO `timezones` (`timezone`) VALUES
+
+-- ZONAS HORARIAS 
+INSERT IGNORE INTO `timezones` (`timezone`) VALUES
 ('Africa/Abidjan'),
 ('Africa/Accra'),
 ('Africa/Addis_Ababa'),

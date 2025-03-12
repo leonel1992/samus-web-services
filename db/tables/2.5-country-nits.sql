@@ -1,6 +1,7 @@
--- -----------------------------------------------
--- TIPOS DE DOCUMENTOS DE IDENTIFICACION FISCAL --
--- -----------------------------------------------
+
+-- TIPOS DE DOCUMENTOS DE IDENTIFICACION FISCAL POR PAIS
+INSERT IGNORE INTO `country_nits` (`id`, `code`, `name`, `country`) VALUES 
+
 -- Argentina
 ('arg-cuit', 'CUIT', 'Código Único de Identificación Tributaria', 'arg'),
 ('arg-other', 'OTRO', 'Otro', 'arg'),
