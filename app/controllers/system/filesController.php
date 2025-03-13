@@ -1,20 +1,21 @@
 <?php
-// require_once __DIR__ . '/../../models/server/filesModel.php';
+require_once __DIR__ . '/../../models/system/filesModel.php';
 
-// class FilesController extends Controller {
+class FilesController extends Controller {
     
-//     private $type;
-//     private $file;
-//     private $model;
+    private ?string $type;
+    private ?string $file;
+    private FilesModel $model;
 
-//     public function __construct() {
-//         global $_INPUT;
-//         $this->file ??= $GLOBALS['files']['file'];
-//         $this->type ??= $_POST['type'] ?? $_INPUT['type'];
-//         $this->model = new FilesModel($this->type, $this->file);
-//     }
+    public function __construct() {
+        global $_INPUT;
+        $this->file = $_FILES['file'] ?? null;
+        $this->type = VarsData::general('type');
+        $this->model = new FilesModel($this->type, $this->file);
+    }
 
-//     public function upload() {
-//         $this->json($this->model->upload());
-//     }
-// }
+    public function upload() {
+        $result = $this->model->upload();
+        $this->renderJson($result);
+    }
+}

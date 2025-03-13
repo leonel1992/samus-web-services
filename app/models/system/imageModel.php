@@ -1,23 +1,22 @@
 <?php
-// class ImageModel {
+require_once __DIR__ . '/filesModel.php';
 
-//     public function __construct() {}
+class ImageModel {
 
-//     // blob images
-//     public function blob($blob) {
-//         return base64_decode($blob);
-//     }
+    public function __construct() {}
 
-//     // Uploaded images
-//     public function uploaded($folder, $name) {
-//         require_once __DIR__ . '/../../models/server/filesModel.php';
-//         $path = __DIR__ . "/../../../assets/img/$folder/$name";
-//         $model = new FilesModel();
-//         $image = $model->read($path);
-//         if ($image['success']) {
-//             return $image['file'];
-//         } else {
-//             return null;
-//         }
-//     }
-// }
+    // blob images
+    public function getBlob(string $blob): bool|string {
+        return base64_decode($blob);
+    }
+
+    // Uploaded images
+    public function getUploaded(string $folder, string $name): array|null {
+        $model = new FilesModel();
+        $file = __DIR__ . "/../../../assets/img/$folder/$name";
+        $image = $model->read($file);
+        if ($image->success) {
+            return $image->data;
+        } return null;
+    }
+}

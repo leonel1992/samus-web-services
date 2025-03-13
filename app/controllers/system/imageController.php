@@ -1,62 +1,65 @@
 <?php
-// require_once __DIR__ . '/../../models/server/imageModel.php';
+require_once __DIR__ . '/../../models/server/imageModel.php';
 
-// class ImageController {
+class ImageController {
     
-//     protected $conn;
-//     private $model;
-//     private $image; 
-//     private $ext;
+    protected ?PDO $conn;
+    private ImageModel $model;
+    private ?string $image; 
+    private ?string $ext;
 
-//     public function __construct(?PDO $conn) {
-//         $url = mb_strtolower(URL);
-//         $expl = explode('?', $url);
-//         $explURL = explode('/', $expl[0]);
-//         $explATTR = explode('.', $explURL[3]);
+    public function __construct(?PDO $conn) {
+        $url = mb_strtolower($GLOBALS['url']);
+        $expl = explode('?', $url);
+        $explUrl = explode('/', $expl[0]);
+        $explData = explode('.', $explUrl[3]);
    
-//         $this->model = new ImageModel();
-//         $this->image = $explATTR[0];
-//         $this->ext = isset($explATTR[1]) ? $explATTR[1] : null;
-//         $this->conn = $conn;
-//     }
+        $this->model = new ImageModel();
+        $this->image = $explData[0] ?? null;
+        $this->ext = $explData[1] ?? null;
+        $this->conn = $conn;
+    }
 
-//     //images ---------------------------------------------
+    //uploaded images ---------------------------------------------
     
-//     public function data() {
-//         require_once __DIR__ . '/../../models/db/dataImagesModel.php';
-//         $dataModel = new DataImagesModel($this->conn);
-//         $dataImage = $dataModel->getByKey('id', $this->image);
+    public function countries(): void {
+        $this->printUploaded('countries');
+    }
 
-//         $type = null;
-//         $image = null;
-//         if ($dataImage['success']) {
-//             $type = $dataImage['data']['type'];
-//             $image = $this->model->blob($dataImage['data']['image']);
-//         } $this->print($image, $type);
-//     }
+    public function processors() {
+        $this->printUploaded('processors');
+    }
 
-//     // print ------------------------------------------------------
+    public function paymentMethods() {
+        $this->printUploaded('payment-methods');
+    }
+
+    // print ------------------------------------------------------
     
-//     private function print($image, $type) {
-//         if ($image && $type) {
-//             header("Content-type: " . $type);
-//             echo $image;
-//         } else {
-//             $this->printError('image/jpeg');
-//         }
-//     }
+    private function print(?string $image, ?string $type): void {
+        if (!$image || !$type) {
+            $this->printError();
+        } 
+         
+        header("Content-type: $type");
+        echo $image;
+        exit;
+    }
 
-//     private function printUploaded($folder, $id=null) {
-//         $image = $this->model->uploaded($folder, "{$this->image}.{$this->ext}");
-//         if ($image) {
-//             header("Content-type: " . image_type_to_mime_type($image['type']));
-//             echo $image['content'];
-//         } else {
-//             $this->printError('image/jpeg');
-//         }
-//     } 
+    private function printUploaded(string $folder): void {
+        $image = $this->model->uploaded($folder, "{$this->image}.{$this->ext}");
+        if (!$image) {
+            $this->printError();
+        }
+        
+        header("Content-type: ". image_type_to_mime_type($image['type']));
+        echo $image['content'];
+        exit;
+    } 
 
-//     private function printError($type) {
-//         header("Content-type: $type");
-//     }
-// }
+    private function printError(string $type='image/jpeg'): void {
+        header("HTTP/1.1 404 Not Found");
+        header("Content-type: $type");
+        exit;
+    }
+}
