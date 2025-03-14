@@ -44,12 +44,15 @@ class Forms {
     // VALIDATE --------------------------------------------------------------------------
 
     static initValidateForm() {
-        document.querySelectorAll(".validate-form .form-control[required]").forEach(input => {
-            if (input.tagName === "SELECT") {
+        document.querySelectorAll(".validate-form .form-control[required], .validate-form .custom-control[required]").forEach(input => {
+            if (input.classList.contains("custom-datepicker")) { 
                 input.addEventListener("change", function() {
                     Forms.clean(this);
                 });
-    
+            }else if (input.tagName === "SELECT") {
+                input.addEventListener("change", function() {
+                    Forms.clean(this);
+                });
                 if (input.classList.contains("custom-select")) {
                     $(input).on("select2:select", function() {
                         Forms.clean(this);
@@ -104,7 +107,7 @@ class Forms {
         let isValid = true;
         if (element.hasAttribute("required") && !element.hasAttribute("disabled")) {
             
-            let value = element.value.trim();
+            let value = element.value?.trim();
             let validateValue  = element.getAttribute("validate-value");
             let validateCheck  = element.getAttribute("validate-check");
             let validateAge    = element.getAttribute("validate-age");

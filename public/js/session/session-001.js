@@ -9,7 +9,7 @@ class Session {
         this.initModalCode();
 
         Forms.initValidateForm();
-        Inputs.initAll();
+        Inputs.initAll("#content");
     }
 
     // MODAL CODE ------------------------------------------------------------
@@ -82,11 +82,11 @@ class Session {
             }
         } else {
             typeToast = TypeToast.danger;
-            console.error(resp.message);
+            console.error(resp.message ?? LANGUAGE.error.default);
         } 
         
         $("#loading").fadeOut("fast");
-        showToast(typeToast, resp.message);
+        showToast(typeToast, resp.message ?? LANGUAGE.error.default);
         return ret;
     }
  
@@ -145,10 +145,14 @@ class Session {
         fields.forEach(field => {
             let element = document.querySelector(`#${key}-${field}`);
             if (element) {
-                if (element.tagName === "INPUT" && element.type === "checkbox") {
-                    data[field.replaceAll('-','_')] = element.checked;
+                let fieldKey = field.replaceAll('-', '_');
+                if (element.classList.contains("radio-group")) {
+                    let checkedRadio = element.querySelector('input[type="radio"]:checked');
+                    data[fieldKey] = checkedRadio ? checkedRadio.value : null;
+                } else if (element.tagName === "INPUT" && element.type === "checkbox") {
+                    data[fieldKey] = element.checked;
                 } else {
-                    data[field.replaceAll('-','_')] = element.value;
+                    data[fieldKey] = element.value;
                 }
             }
         });

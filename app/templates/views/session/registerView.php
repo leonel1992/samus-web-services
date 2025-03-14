@@ -1,31 +1,52 @@
+
+<?php 
+    require_once __DIR__ . '/../../../models/db/userAccountsModel.php';
+    $conn = DatabaseService::init();
+
+    $accounts = [];
+    $model = new UserAccountsModel($conn);
+    $data = $model->getAll(null, 'id');
+    $accounts = $data->data ?? [];
+?>
+
 <?php include __DIR__ ."/../../modals/codeModal.php" ?>
+<section class="session d-flex align-items-center justify-content-center py-0 py-sm-5">
+    <form id="register-form" action="<?= generateRouteLink('session-register') ?>?form=true" method="POST" class="validate-form d-flex flex-column align-items-center">
+        
+        <div class="mt-1 mb-2 d-flex justify-content-center align-items-center">
+            <img class="logo" src="<?= $GLOBALS['url-path'] ?>/assets/img/logo.png" alt="<?= $GLOBALS['title'] ?>">
+        </div>
 
-<section class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
-        <h1 class="text-center mb-4 h-2">Registro</h1>
-        <form id="register-form" action="<?= generateRouteLink('session-register') ?>?form=true" class="validate-form">
-            <!-- Input de Correo -->
-            <div class="mb-3">
-                <label for="register-email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="register-email" name="email" validate-email="true" required>
+        <div class="mb-2 text-center">
+            <h1 class="h2 fw-expanded"><?= $GLOBALS['lang-view']['title'] ?></h1>
+        </div>
+
+        <div class="mb-3 w-100">
+            <p class="mb-2"><?= $GLOBALS['lang-view']['account'] ?></p>
+            <div id="register-account" name="register-account" class="btn-group radio-group w-100" role="group" aria-label="account-type-group">
+                <?php foreach ($accounts as $key => $item) {
+                    $checked = ($key === 'personal') ? 'checked' : '';
+                    echo '<input type="radio" class="btn-check" name="register-account" id="register-account-'. $key .'" value="'. $item['id'] .'" autocomplete="off" '. $checked .' >';
+                    echo '<label class="btn custom-outline-btn" for="register-account-'. $key .'">'. $GLOBALS['lang-view']['account-'.$key] .'</label>';
+                }?>
             </div>
+        </div>
 
-            <!-- Checkbox términos -->
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="register-terms" name="register-terms" validate-check="true" required>
-                <label class="form-check-label" for="register-terms">
-                    Acepto lo términos y condiciones
-                </label>
-            </div>
+        <div class="input-group mb-3">
+            <input id="register-email" type="email" class="form-control text-center" maxlength="50" placeholder="<?= $GLOBALS['lang-view']['email'] ?>" validate-email="true" required />
+        </div>
 
-            <!-- Botón de enviar -->
-            <button id="register-submit" type="submit" class="btn btn-primary w-100">Enviar</button>
-                
-            <!-- Mensajes de error -->
-            <input type="hidden" id="register-toast-email" value="Debe ingresar un correo válido">
-            <input type="hidden" id="register-toast-terms" value="Debe aceptar los términos y condiciones">
-        </form>
-    </div>
+        <div class="form-check custom-form-check w-100 mb-4 ms-1">
+            <input class="form-check-input custom-control" type="checkbox" id="register-terms" validate-value="false" validate-check="true" required >
+            <label class="form-check-label" for="register-terms"><?= $GLOBALS['lang-view']['terms'] ?></label>
+        </div>
+ 
+        <button id="register-submit" type="submit" class="btn custom-btn w-100"><?= $GLOBALS['lang-view']['button'] ?></button>
+        
+        <input id="register-toast-email" type="hidden" value="<?= $GLOBALS['lang-view']['toast-email'] ?>">
+        <input id="register-toast-terms" type="hidden" value="<?= $GLOBALS['lang-view']['toast-terms'] ?>">
+
+    </form>
 </section>
 
 <?php

@@ -1,6 +1,31 @@
 <?php
 $GLOBALS['lang-layouts']['scripts'] = [
-    
+    "calendar" => [
+        "days" => [
+            "DOM", 
+            "LUN", 
+            "MAR", 
+            "MIE", 
+            "JUE", 
+            "VIE", 
+            "SAB"
+        ],
+        "months" => [
+            "ene", 
+            "feb", 
+            "mar", 
+            "abr", 
+            "may", 
+            "jun", 
+            "jul",
+            "ago", 
+            "sep", 
+            "oct", 
+            "nov", 
+            "dic"
+        ]
+    ],
+
     "error" => [
         "0" => "Ocurrió un error desconocido. Por favor, intenta nuevamente.",
       "400" => "La solicitud contiene datos incorrectos. Revisa y vuelve a intentarlo.",
@@ -44,22 +69,22 @@ $GLOBALS['lang-layouts']['scripts'] = [
         "info" => "Información"
     ],
 
-    // "inputFile" => [
-    //     "or" => "o",
-    //     "button" => "Subir",
-    //     "text" => "Arrastra el archivo",
-    //     "error" => [
-    //         "default" => [
-    //             "resp" => "Ocurrió un error inesperado, intenta nuevamente.",
-    //             "type" => "El archivo seleccionado es inválido.",
-    //             "size" => "El archivo debe pesar menos de [[SIZE]]kB"
-    //         ],
-    //         "image" => [
-    //             "type" => "Sólo se permiten archivos de tipo IMAGEN.",
-    //             "size" => "La imagen debe pesar menos de [[SIZE]]kB",
-    //             "equal" => "La imagen debe ser cuadrada<br>ANCHO = ALTO",
-    //             "pixels" => "La resolución de la imagen tiene que ser mayor a [[WIDTH]]x[[HEIGHT]]px"
-    //         ]
-    //     ]
-    // ],
+    "inputFile" => [
+        "or" => "o",
+        "button" => "Subir",
+        "text" => "Arrastra el archivo",
+        "error" => [
+            "default" => [
+                "resp" => "Ocurrió un error inesperado, intenta nuevamente.",
+                "type" => "El archivo seleccionado es inválido.",
+                "size" => "El archivo debe pesar menos de [[SIZE]]kB"
+            ],
+            "image" => [
+                "type" => "Sólo se permiten archivos de tipo IMAGEN.",
+                "size" => "La imagen debe pesar menos de [[SIZE]]kB",
+                "equal" => "La imagen debe ser cuadrada<br>ANCHO = ALTO",
+                "pixels" => "La resolución de la imagen tiene que ser mayor a [[WIDTH]]x[[HEIGHT]]px"
+            ]
+        ]
+    ],
 ];

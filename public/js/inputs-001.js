@@ -5,7 +5,13 @@ class Inputs {
         this.initInputsLowerCase(parent);
         this.initInputsCodeFormat(parent);
         this.initInputsKeyFormat(parent);
-        this.initFormatNumber(parent);
+        this.initInputsPrefixFormat(parent);
+        this.initInputsUserCodeFormat(parent);
+        this.initInputsFormatNumber(parent);
+
+        this.initInputsPassword(parent);
+        this.initInputsDatepicker(parent);
+        this.initInputFile(parent);
         this.initSelects(parent);
     }
 
@@ -39,33 +45,23 @@ class Inputs {
             });
         });
     }
-    
-    static initInputsUserCodeFormat(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
-        context.querySelectorAll("input[input-case='user-code']").forEach(input => {
-            input.addEventListener("keyup", function() {
-                const pattern = /[^0-9]/g;
-                this.value = this.value.replace(pattern, "").substr(0, 4);
-            });
-        });
-    }
 
     static initInputsKeyFormat(parent = null) {
         const context = parent ? document.querySelector(parent) : document;
         context.querySelectorAll("input[input-case='key']").forEach(input => {
             input.addEventListener("input", function() {
                 const pattern = /[^A-Za-z0-9_.-]/g;
-                this.value = this.value.replaceAll(" ", "-").replace(pattern, "").toLowerCase();
+                input.value = input.value.replaceAll(" ", "-").replace(pattern, "").toLowerCase();
             });
         });
-    }
-
+    }    
+    
     static initInputsPrefixFormat(parent = null) {
         const context = parent ? document.querySelector(parent) : document;
         context.querySelectorAll("input[input-case='prefix']").forEach(input => {
             input.addEventListener("keyup", function() {
                 const pattern = /[^0-9+]/g;
-                let inputValue = this.value.replace(pattern, "");
+                let inputValue = input.value.replace(pattern, "");
                 
                 if (!inputValue.startsWith("+")) {
                     inputValue = "+" + inputValue.replace(/\+/g, "");
@@ -73,12 +69,21 @@ class Inputs {
                     inputValue = "+" + inputValue.slice(1).replace(/\+/g, "");
                 }
         
-                this.value = inputValue.substr(0, this.getAttribute('maxlength'));
+                input.value = inputValue.substr(0, input.getAttribute('maxlength'));
+            });
+        });
+    }
+    
+    static initInputsUserCodeFormat(parent = null) {
+        const context = parent ? document.querySelector(parent) : document;
+        context.querySelectorAll("input[input-case='user-code']").forEach(input => {
+            input.addEventListener("keyup", function() {
+                input.value = input.value.replace(/[^0-9]/g, "").substr(0, 4);
             });
         });
     }
 
-    static initFormatNumber(parent = null) {
+    static initInputsFormatNumber(parent = null) {
         const context = parent ? document.querySelector(parent) : document;
         context.querySelectorAll("input[format-number], input[format-percent]").forEach(input => {
             input.addEventListener('keydown', function(event) {
@@ -325,6 +330,7 @@ class Inputs {
         });
         
         context.querySelectorAll('.custom-datepicker').forEach(datepicker => {
+            if (datepicker.querySelector('input')) return; 
 
             let input = document.createElement('input');
             input.type = 'text';
@@ -348,23 +354,24 @@ class Inputs {
 
     static createDatepickerMethods(datepicker) {
         let input = datepicker.querySelector('input');
-
-        Object.defineProperty(datepicker, 'value', {
-            get: function() {
-                let val = getLocaleDate(input.value);
-                return val ? `${val.year}/${val.month}/${val.day}` : undefined;
-            },
-            set: function(newValue) {
-                let val = '';
-                if (newValue) {
-                    let data = newValue.split("/");
-                    val = setLocaleDate(data[2], data[1], data[0]);
-                } 
-                
-                this._value = val;
-                input.value = val;
-            }
-        });
+        if (!Object.getOwnPropertyDescriptor(datepicker, 'value')) {
+            Object.defineProperty(datepicker, 'value', {
+                get: function() {
+                    let val = getLocaleDate(input.value);
+                    return val ? `${val.year}/${val.month + 1}/${val.day}` : undefined;
+                },
+                set: function(newValue) {
+                    let val = '';
+                    if (newValue) {
+                        let data = newValue.split("/");
+                        val = setLocaleDate(data[2], data[1] - 1, data[0]);
+                    }
+                    
+                    this._value = val;
+                    input.value = val;
+                }
+            });
+        }
     }
 
     static formatDatepicker(input) {
@@ -516,11 +523,16 @@ class Inputs {
     }
 
     static selectionCalendarDatesEvents(calendar) {
-        let input = calendar.closest('.custom-datepicker').querySelector('input');
+        let parent = calendar.closest('.custom-datepicker');
+        let input = parent.querySelector('input');
         calendar.querySelectorAll('.date-item').forEach(cell => {
             cell.addEventListener('click', function() {
                 let selectedDate = this.getAttribute('data-date');
                 input.value = selectedDate;
+                
+                let eventChange = new Event('change', { bubbles: true });
+                input.dispatchEvent(eventChange);
+
                 $(calendar).fadeOut(200, function() {
                     calendar.remove();
                 });
@@ -1057,7 +1069,8 @@ class Inputs {
         const selects = context.querySelectorAll(".custom-select");
 
         selects.forEach(select => {
-            let optionCount = select.options.length;
+            let visibleOptions = Array.from(select.options).filter(option => !option.classList.contains("d-none"));
+            let optionCount = visibleOptions.length;
             let showSearch = optionCount > 10 ? 0 : Infinity;
             
             $(select).select2({
@@ -1087,7 +1100,7 @@ class Inputs {
         if (obj.element && !obj.element.classList.contains("d-none")) {
             let text = obj.element.textContent;
             if (text) {
-                return Inputs.templateItem(obj, '19', '-1');
+                return Inputs.templateItem(obj, 'selection', '19', '-1');
             }
         } else {
             if (obj.id === '' && obj.text) {
@@ -1103,102 +1116,73 @@ class Inputs {
         if (obj.element && !obj.element.classList.contains("d-none")) {
             let text = obj.element.textContent;
             if (text) {
-                return Inputs.templateItem(obj, '26', '-2');
+                return Inputs.templateItem(obj, 'result', '26', '-2');
             }
         }
     }
     
-    static templateItem(obj, iconSize, marginTop) {
-        let text = obj.element.textContent;
-        let imgAvatar = obj.element.getAttribute("img-avatar");
-        let imgIcon = obj.element.getAttribute("img-icon");
-        let svgIcon = obj.element.getAttribute("svg-icon");
-    
+    static templateItem(obj, type, iconSize, marginTop) {
+
+        let element = obj.element;
+        let text = element.textContent;
+        let subtitle = element.getAttribute('subtitle');
+        let imgAvatar = element.getAttribute('img-avatar');
+        let imgIcon = element.getAttribute('img-icon');
+        let svgIcon = element.getAttribute('svg-icon');
+
+        // html icon
+        let iconHtml = '';
         if (imgIcon) {
-            let img = document.createElement("img");
-            img.alt = "";
-            img.src = imgIcon;
-            img.width = iconSize;
-            img.height = iconSize;
-            img.style.marginRight = "8px";
-            img.style.marginTop = `${marginTop}px`;
-    
-            let span = document.createElement("span");
-            span.textContent = text;
-    
-            let fragment = document.createDocumentFragment();
-            fragment.appendChild(img);
-            fragment.appendChild(span);
-            return fragment;
-    
+            iconHtml = `<img src="${imgIcon}" alt="" width="${iconSize}" height="${iconSize}" style="margin-right:8px; margin-top:${marginTop}px;"/>`;
         } else if (svgIcon) {
-            let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("class", "custom-icon");
-            svg.setAttribute("width", iconSize);
-            svg.setAttribute("height", iconSize);
-            svg.style.marginRight = "8px";
-            svg.style.marginTop = `${marginTop}px`;
-    
-            let use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-            use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", svgIcon);
-    
-            svg.appendChild(use);
-    
-            let span = document.createElement("span");
-            span.textContent = text;
-    
-            let fragment = document.createDocumentFragment();
-            fragment.appendChild(svg);
-            fragment.appendChild(span);
-            return fragment;
-    
+            let svgIconFill = element.getAttribute('svg-icon-fill');
+            svgIconFill = svgIconFill ? `fill:${svgIconFill};` : '';
+            iconHtml = `<svg class="custom-icon" width="${iconSize}" height="${iconSize}" style="margin-right:8px; margin-top:${marginTop}px; ${svgIconFill}">
+                <use style="${svgIconFill}" xlink:href="${svgIcon}"></use>
+            </svg>`;
         } else if (imgAvatar) {
-            if (obj.element.getAttribute("data-avatar")) {
-                let img = document.createElement("img");
-                img.classList.add("rounded-circle");
-                img.src = imgAvatar;
-                img.alt = "";
-                img.width = iconSize;
-                img.height = iconSize;
-                img.style.marginRight = "8px";
-                img.style.marginTop = `${marginTop}px`;
-    
-                let span = document.createElement("span");
-                span.textContent = text;
-    
-                let fragment = document.createDocumentFragment();
-                fragment.appendChild(img);
-                fragment.appendChild(span);
-                return fragment;
-    
+            if (element.getAttribute('data-avatar')) {
+                iconHtml = `<img class="rounded-circle" src="${avatar}" width="${iconSize}" height="${iconSize}" style="margin-right: 8px; margin-top:${marginTop}px;"/>`;
             } else {
-                let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                svg.setAttribute("class", "bi text-secondary opacity-75");
-                svg.setAttribute("width", iconSize);
-                svg.setAttribute("height", iconSize);
-                svg.setAttribute("fill", "currentColor");
-                svg.style.marginRight = "8px";
-                svg.style.marginTop = `${marginTop}px`;
-    
-                let use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-                use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", `${URL_PATH}/assets/icons/bootstrap.svg#person-circle`);
-    
-                svg.appendChild(use);
-    
-                let span = document.createElement("span");
-                span.classList.add("avatar");
-                span.textContent = text;
-    
-                let fragment = document.createDocumentFragment();
-                fragment.appendChild(svg);
-                fragment.appendChild(span);
-                return fragment;
+                iconHtml = `<svg class="bi text-secondary opacity-75" width="${iconSize}" height="${iconSize}" fill="currentColor" style="margin-right: 8px; margin-top:${marginTop}px;">
+                    <use xlink:href="${URL_PATH}/assets/icons/bootstrap-icons.svg#person-circle"></use>
+                </svg>`;
             }
-        } else {
-            let span = document.createElement("span");
-            span.textContent = text;
-            return span;
         }
+
+        // contenedor general
+        let wrapper = document.createElement('div');
+        wrapper.style.display = 'flex';
+        wrapper.style.alignItems = 'center';
+
+        // contenedor icon
+        if (iconHtml) {
+            let iconWrapper = document.createElement('div');
+            iconWrapper.innerHTML = iconHtml;
+            wrapper.appendChild(iconWrapper);
+        }
+
+        // Contenedor texto
+        let textWrapper = document.createElement('div');
+        textWrapper.style.display = 'flex';
+        textWrapper.style.flexDirection = 'column';
+        textWrapper.style.justifyContent = 'center';
+
+        // Texto principal
+        let textSpan = document.createElement('span');
+        textSpan.textContent = text;
+        textWrapper.appendChild(textSpan);
+
+        // Texto subtitulo
+        if (subtitle && type === 'result') {
+            let subtitleSpan = document.createElement('small');
+            subtitleSpan.className = 'select2-results__subtitle';
+            subtitleSpan.textContent = subtitle;
+            textWrapper.appendChild(subtitleSpan);
+        }
+
+        wrapper.appendChild(textWrapper);
+        return wrapper;
     }
     
 }

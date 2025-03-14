@@ -266,12 +266,12 @@ section p{
     line-height: 25px;
 }
 
-section h1, 
-section h2, 
-section h3, 
-section h4, 
-section h5,
-section h6{
+section h1, section .h1,
+section h2, section .h2,
+section h3, section .h3,
+section h4, section .h4,
+section h5, section .h5,
+section h6, section .h6{
     font-family: 'Mulish Black', 'Arial Black', 'Arial Bold', arial, sans-serif !important;
     color: var(--color-h);
     font-weight: bold;
@@ -537,16 +537,36 @@ section .fw-bold{
     border-color: var(--color-warning);
 }
 
+.custom-toast.danger .list-group-item{
+    border-color: var(--color-light-2-danger);
+}
+.custom-toast.info .list-group-item{
+    border-color: var(--color-light-2-info);
+}
+.custom-toast.success .list-group-item{
+    border-color: var(--color-light-2-success);
+}
+.custom-toast.warning .list-group-item{
+    border-color: var(--color-light-2-warning);
+}
+.custom-toast .list-group-item{
+    border-color: var(--color-p);
+}
+
 .custom-toast.danger .toast-header{
+    border-color: var(--color-light-2-danger);
     color: var(--color-danger);
 }
 .custom-toast.info .toast-header{
+    border-color: var(--color-light-2-info);
     color: var(--color-info);
 }
 .custom-toast.success .toast-header{
+    border-color: var(--color-light-2-success);
     color: var(--color-success);
 }
 .custom-toast.warning .toast-header{
+    border-color: var(--color-light-2-warning);
     color: var(--color-warning);
 }
 .custom-toast .toast-body{

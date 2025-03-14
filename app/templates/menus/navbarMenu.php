@@ -60,10 +60,10 @@
         //     "text" => $GLOBALS['lang-menu']['navbar']['button-login'],
         //     "link" => $GLOBALS['routes']['session-login'][$GLOBALS['lang']]
         // ],
-        // 'button-register' => [
-        //     "text" => $GLOBALS['lang-menu']['navbar']['button-register'],
-        //     "link" => $GLOBALS['routes']['session-register'][$GLOBALS['lang']]
-        // ]
+        'button-register' => [
+            "text" => $GLOBALS['lang-menu']['navbar']['button-register'],
+            "link" => $GLOBALS['routes']['session-register'][$GLOBALS['lang']]
+        ]
     ];
 ?>
 

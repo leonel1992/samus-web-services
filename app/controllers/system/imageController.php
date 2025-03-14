@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../models/server/imageModel.php';
+require_once __DIR__ . '/../../models/system/imageModel.php';
 
 class ImageController {
     
@@ -47,8 +47,8 @@ class ImageController {
     }
 
     private function printUploaded(string $folder): void {
-        $image = $this->model->uploaded($folder, "{$this->image}.{$this->ext}");
-        if (!$image) {
+        $image = $this->model->getUploaded($folder, "{$this->image}.{$this->ext}");
+        if (!$image || !is_array($image)) {
             $this->printError();
         }
         

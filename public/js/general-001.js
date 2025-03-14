@@ -67,29 +67,33 @@ function appendScript(url) {
 
 // // HISTORY ---------------------------------------------------------------------
 
-$(window).on("popstate", function(e) {
+window.addEventListener("popstate", function (e) {
     if (window.history.state && window.history.state["load"]) {
-        loadView(window.history.state.page, false).then(()=>{
-            historyMenu( $('.nav-link[href="'+ window.history.state.page +'"]') );
+        loadView(window.history.state.page, false).then(() => {
+            historyMenu(document.querySelector('.nav-link[href="' + window.history.state.page + '"]'));
         });
     }
 });
 
 function historyMenu(item) {
-    $(".submenu").removeClass("show");
-    $(".nav-link").removeClass("active");
-    $(".nav-link").removeClass("expanded");
-    $(".nav-link").removeAttr("aria-expanded");
+    document.querySelectorAll(".submenu").forEach(el => el.classList.remove("show"));
+    document.querySelectorAll(".nav-link").forEach(el => {
+        el.classList.remove("active", "expanded");
+        el.removeAttribute("aria-expanded");
+    });
 
-    $(item).addClass("active");
-    $(item).parents(".dropdown").find(".dropdown-toggle").addClass("active");
-    if( $(item).parent().parent().hasClass("collapse") ){
-        let parents = $(item).parent().parent();
-        for (let i=0; i<parents.length; i++) {
-            let id = $(parents[i]).attr("id");
-            $('#'+id).addClass("show");
-            $('a[href="#'+ id +'"]').addClass("expanded");
-            $('a[href="#'+ id +'"]').attr("aria-expanded", 'true');
+    item.classList.add("active");
+
+    let parentCollapse = item.closest(".collapse");
+    if (parentCollapse) {
+        let id = parentCollapse.id;
+        if (id) {
+            parentCollapse.classList.add("show");
+            let link = document.querySelector('a[href="#' + id + '"]');
+            if (link) {
+                link.classList.add("expanded");
+                link.setAttribute("aria-expanded", "true");
+            }
         }
     }
 }
@@ -153,6 +157,7 @@ async function loadView(url, history=true, view=true){
             $("#loading").fadeOut("slow");
             if (response.success) {
                 document.getElementById("content").innerHTML = response.content;
+                executeViewScripts();
             } else {
                 document.getElementById("content").innerHTML = htmlViewError(response);
                 document.title = response.errorTitle;
@@ -223,6 +228,18 @@ function loadViewData(url, view=true){
                 }
             }
         });
+    });
+}
+
+function executeViewScripts() {
+    document.querySelectorAll("#content script").forEach((script) => {
+        let newScript = document.createElement("script");
+        if (script.src) {
+            newScript.src = script.src;
+            newScript.async = false;
+        } else {
+            newScript.textContent = script.textContent;
+        } script.replaceWith(newScript);
     });
 }
 

@@ -432,8 +432,8 @@ class Manage {
         // if (responseID) {
         //     $(responseID).css("opacity","1");
         //     if (response) {
-        //         $(responseID).find(".title").text(response.title);
-        //         $(responseID).find(".message").text(response.message);
+        //         $(responseID).find(".title").text(response.title ?? LANGUAGE.error.title.replace('[[CODE]]', '000));
+        //         $(responseID).find(".message").text(response.message ?? LANGUAGE.error.default);
         //     }
         // } else {
         //     $("#response-empty").css("opacity","0");

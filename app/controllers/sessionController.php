@@ -14,7 +14,11 @@ class SessionController extends Controller {
 
         $webInfo = new WebInfo('session', $view);
         $webInfo->module = "session-$module";
-        $webInfo->headers = [];
+
+        $webInfo->headers = [
+            $GLOBALS['files']['local']['style']['forms'],
+            $GLOBALS['files']['local']['style']['session'],
+        ];
 
         $webInfo->scripts = [
             $GLOBALS['files']['local']['script']['data'],

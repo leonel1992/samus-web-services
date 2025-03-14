@@ -18,7 +18,7 @@ $GLOBALS['lang-controllers']['session'] = [
     "error-logout" => "No se pudo cerrar la sesión, intenta nuevamente.",
     "error-recover-email" => "El correo no es válido o no existe, intenta nuevamente.",
     "error-register-terms" => "Debe aceptar los Términos y Condiciones para crear una cuenta.",
-    "error-register-user" => "Ya tiene una cuenta registrada en {$GLOBALS['title']}",
+    "error-register-user" => "Ya tiene una cuenta registrada en Servicios Samus",
     
     "success-logout" => "Se ha cerrado la sesión correctamente.",
     "success-login" => "Inicio de sesión exitoso.",

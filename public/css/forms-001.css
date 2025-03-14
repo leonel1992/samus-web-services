@@ -790,6 +790,12 @@ form .custom-accordion .accordion-button:disabled{
     color: var(--color-form-placeholder);
 }
 
+.select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__subtitle{
+    opacity: 65%;
+    font-size: 80%;
+    display: block;
+}
+
 .select2-container--bootstrap-5 .select2-selection--single{
     background-image: var(--svg-form-icon-select);
 }

@@ -1,29 +1,6 @@
 <?php
 $GLOBALS['lang-controllers']['db'] = [
 
-    // "app_emails" => [
-    //     "insert" => "Se registro su email correctamente, pronto te estaremos contactando.",
-    //     "invalid-app" => "Dato inválido. Debe indicar la app del registro.",
-    //     "invalid-email" => "Dato inválido. Debe indicar un correo válido.",
-    // ],
-
-    // "api_apps" => [
-    //     "insert" => "Se generó correctamente una nueva aplicación para la API.",
-    //     "update" => "Se editó la aplicación de la API correctamente.",
-    //     "delete" => "Se eliminó la aplicación de la API correctamente.",
-    //     "invalid-user" => "Dato inválido. No se especificó el usuario de la API o es incorrecto.",
-    //     "invalid-name" => "Dato inválido. Debe indicar un nombre válido para la aplicación.",
-    // ],
-    // "api_keys" => [
-    //     "insert" => "Se generó correctamente una nueva llave para la API.",
-    //     "delete" => "Se eliminó la llave de la API correctamente.",
-    //     "invalid-app" => "Dato inválido. No se especificó la aplicación o es incorrecta.",
-    // ],
-    // "api_users" => [
-    //     "insert" => "Se registró el usuario para la API.",
-    //     "invalid-user" => "El usuario es inválido.",
-    // ],
-
     "users" => [
         "insert" => "Se registró el usuario.",
         "update" => "Se editó el usuario.",
@@ -32,13 +9,37 @@ $GLOBALS['lang-controllers']['db'] = [
         "update-pass-success" => "Su nueva clave se ha guardado con éxito.",
         "register-succes" => "Se ha registrado satisfactoriamente.",
         "register-error" => "No se ha podido completar el registro, intenta nuevamente.",
+        "invalid-account" => "Dato inválido. Debe indicar un tipo de cuenta.",
+        "invalid-gender" => "Dato inválido. Debe indicar un género.",
         "invalid-name" => "Dato inválido. Debe indicar un nombre válido.",
         "invalid-last-name" => "Dato inválido. Debe indicar un apellido válido.",
-        "invalid-country" => "Dato inválido. Debe indicar un país válido.",
-        "invalid-email" => "Dato inválido. Debe indicar un correo válido.",
+        "invalid-birthdate" => "Dato inválido. Debe indicar una fecha de nacimiento válida, debe ser mayor de edad.",
+        "invalid-document-type" => "Dato inválido. Debe indicar su tipo de documento de identidad.",
+        "invalid-document-number" => "Dato inválido. Debe indicar un documento de identidad válido.",
+        "invalid-country" => "Dato inválido. Debe indicar su país de residencia.",
+        "invalid-state" => "Dato inválido. Debe su estado o departamento de residencia.",
+        "invalid-city" => "Dato inválido. Debe indicar su ciudad de residencia.",
+        "invalid-address" => "Dato inválido. Debe indicar su dirección completa.",
         "invalid-phone" => "Dato inválido. Debe indicar un número de teléfono válido.",
-        "invalid-password" => "Contraseña inválida. Debe tener entre 8 y 20 caracteres, al menos 1 mayúscula, 1 minúscula, 1 número y un símbolo.",
-        "invalid-password-equal" => "Las contraseñas no coinciden.",
+        "invalid-email" => "Dato inválido. Debe indicar un correo válido.",
+        "invalid-password-1" => "Contraseña inválida. Debe tener entre 8 y 20 caracteres, al menos 1 mayúscula, 1 minúscula, 1 número y un símbolo.",
+        "invalid-password-2" => "Las contraseñas no coinciden.",
+    ],
+    "user_business" => [
+        "insert" => "Se registró la empresa del usuario.",
+        "update" => "Se editó la empresa del usuario.",
+        "delete" => "Se eliminó la empresa del usuario.",
+        "invalid-name" => "Dato inválido. Debe ingresar el nombre de la empresa.",
+        "invalid-country" => "Dato inválido. Debe indicar el país donde opera la empresa.",
+        "invalid-state" => "Dato inválido. Debe indicar el estado o provincia de la empresa.",
+        "invalid-city" => "Dato inválido. Debe indicar la ciudad donde opera la empresa.",
+        "invalid-address" => "Dato inválido. Debe ingresar la dirección fiscal de la empresa.",
+        "invalid-type" => "Dato inválido. Debe indicar el tipo de empresa.",
+        "invalid-date" => "Dato inválido. Debe indicar la fecha de constitución de la empresa.",
+        "invalid-register-type" => "Dato inválido. Debe seleccionar el tipo de identificación fiscal.",
+        "invalid-register-number" => "Dato inválido. Debe ingresar un número de identificación fiscal válido.",
+        "invalid-phone" => "Dato inválido. Debe ingresar un número de teléfono válidopara la empresa..",
+        "invalid-email" => "Dato inválido. Debe ingresar un correo electrónico válido para la empresa.",
     ],
 
     "actions" => [
