@@ -84,7 +84,7 @@ class Router {
             };
         }
  
-        // USER HOME 
+        // USER 
         elseif ($url === $GLOBALS['routes']['user-home'][$lang]) {
             $this->controller = 'user'; 
             $this->method = 'home';
@@ -96,10 +96,10 @@ class Router {
             $this->controller = 'settings';
             $this->folder = '/';
             $this->method = match ($url) {
-                $GLOBALS['routes']['settings-actions'][$lang]     => 'actions',
-                $GLOBALS['routes']['settings-modules'][$lang]     => 'modules',
+                $GLOBALS['routes']['settings-actions'][$lang] => 'actions',
+                $GLOBALS['routes']['settings-modules'][$lang] => 'modules',
                 $GLOBALS['routes']['settings-permissions'][$lang] => 'permissions',
-                $GLOBALS['routes']['settings-roles'][$lang]       => 'roles',
+                $GLOBALS['routes']['settings-roles'][$lang] => 'roles',
                 default => null
             };
         }
@@ -109,9 +109,9 @@ class Router {
             $this->controller = 'email';
             $this->folder = '/';
             $this->method = match ($url) {
-                $GLOBALS['routes']['email-template-login']         => 'login',
-                $GLOBALS['routes']['email-template-login-code']    => 'loginCode',
-                $GLOBALS['routes']['email-template-register']      => 'register',
+                $GLOBALS['routes']['email-template-login'] => 'login',
+                $GLOBALS['routes']['email-template-login-code'] => 'loginCode',
+                $GLOBALS['routes']['email-template-register']   => 'register',
                 $GLOBALS['routes']['email-template-register-code'] => 'registerCode',
                 $GLOBALS['routes']['email-template-recover-code']  => 'recoverCode',
                 default => null
@@ -136,7 +136,6 @@ class Router {
                         $this->method = $expl[2];
                         $this->folder = "/system/";
                     } elseif (
-                        strpos($url, '/data/') === 0 ||
                         strpos($url, '/system/') === 0 ||
                         strpos($url, '/session/') === 0 ||
                         strpos($url, '/settings/') === 0 ) {
@@ -152,37 +151,6 @@ class Router {
                     $this->matchRouteError();
             }
         }
-
-
-
-
-        //         // MANAGE -------------------------------------------------------------
-        //         elseif (strpos($url, ROUTES['manage'][LANG]) === 0) {
-        //             $this->folder = '/';
-        //             $this->controller = 'manage'; 
-        //             $this->method = match ($url) {
-        //                 default                                => 'error',
-        //             };
-        //         }
-                
-        //         // SETTINGS -------------------------------------------------------------
-        //         elseif (strpos($url, ROUTES['settings'][LANG]) === 0) {
-        //             $this->folder = '/';
-        //             $this->controller = 'settings'; 
-        //             $this->method = match ($url) {
-        //                 ROUTES['settings-currencies'][LANG]      => 'currencies',
-        //                 ROUTES['settings-countries'][LANG]       => 'countries',
-        //                 ROUTES['settings-processors'][LANG]      => 'processors',
-        //                 ROUTES['settings-payment-methods'][LANG] => 'paymentMethods',
-        //                 //----------------------------------------------------------,
-        //                 ROUTES['settings-actions'][LANG]     => 'actions',
-        //                 ROUTES['settings-modules'][LANG]     => 'modules',
-        //                 ROUTES['settings-permissions'][LANG] => 'permissions',
-        //                 ROUTES['settings-roles'][LANG]       => 'roles',
-        //                 //---------------------------------------------------,
-        //                 default => 'error',
-        //             };
-        //         }
     }
     
     // -----------------------------------------------------------------------

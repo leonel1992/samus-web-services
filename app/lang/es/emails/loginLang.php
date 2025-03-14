@@ -1,7 +1,7 @@
 <?php
 $GLOBALS['lang-email']['login'] = [
     "mail-subject" => "Nuevo inicio de sesión en tu cuenta",
-    "mail-description" => "Hola [[user-name]], hemos detectado un nuevo inicio de sesión en tu cuenta de {$GLOBALS['title']}, si no has sido tú contacta a soporte.",
+    "mail-description" => "Hola [[user-name]], hemos detectado un nuevo inicio de sesión en tu cuenta de Servicios Samus, si no has sido tú contacta a soporte.",
     
     "text-unknown" => "Desconocido",
     "text-title" => "Nuevo inicio de sesión",
@@ -10,9 +10,9 @@ $GLOBALS['lang-email']['login'] = [
     "text-device" => "<b>Dispositivo utilizado</b><br>[[user-device]]",
     "text-location" => "<b>Ubicación</b><br>[[user-location]]",
     "text-datetime" => "<b>Fecha y hora</b><br>[[user-datetime]]",
-    "text-info-1" => "Hemos detectado un nuevo inicio de sesión reciente en tu cuenta de {$GLOBALS['title']}. Si fuiste tú, no es necesario hacer nada más.",
+    "text-info-1" => "Hemos detectado un nuevo inicio de sesión reciente en tu cuenta de <b>Servicios Samus.</b> Si fuiste tú, no es necesario hacer nada más.",
     "text-info-2" => "Si no fuiste tú quien inició sesión, te recomendamos cambiar tu contraseña de inmediato y contactar a nuestro soporte para investigar cualquier actividad sospechosa.",
-    "text-end" => "Saludos,<br>El equipo de {$GLOBALS['title']}.",
+    "text-end" => "Saludos,<br>El equipo de Servicios Samus.",
 
     "browser-firefox" => "Mozilla Firefox",
     "browser-chrome" => "Google Chrome",
