@@ -62,7 +62,8 @@ class UsersModel extends DBModelAbstract {
             $newData['user']['address'] = trimstrval($data['user']['address'] ?? '');
             $newData['user']['phone'] = bigintval($data['user']['phone'] ?? 0);
             $newData['user']['email'] = mb_strtolower(trimstrval($data['user']['email'] ?? ''));
-            $newData['user']['password'] = Encrypt::generateHash($data['user']['password_1']);
+            $newData['user']['password_1'] = isset($data['user']['password_1']) ? strval($data['user']['password_1']) : null;
+            $newData['user']['password_2'] = isset($data['user']['password_2']) ? strval($data['user']['password_2']) : null;
 
             if ($newData['user']['account'] === 'business') {
                 $newData['business'] = $this->businesModel->parseData($data['business'] ?? null);
@@ -110,7 +111,11 @@ class UsersModel extends DBModelAbstract {
             return $this->setError();
         } 
 
-        if (!$reg) {
+        if ($reg) {
+            if (!$this->validatePassword($data['user'])) {
+                return false;
+            } 
+        } else {
             if (!isset($data['user']['status']) || !$data['user']['status']) {
                 return $this->setError('invalid-status');
             }  
@@ -153,11 +158,11 @@ class UsersModel extends DBModelAbstract {
 
     public function validatePassword(?array $data): bool {
         $this->error = null;
-        if (!$data || !$data['user']) {
+        if (!$data) {
             return $this->setError();
-        } if (!isset($data['user']['password_1']) || !validatePassword($data['user']['password_1'])) {
+        } if (!isset($data['password_1']) || !validatePassword($data['password_1'])) {
             return $this->setError('invalid-password-1');
-        } if (!isset($data['user']['password_2']) || $data['user']['password_1'] !== $data['user']['password_2']) {
+        } if (!isset($data['password_2']) || $data['password_1'] !== $data['password_2']) {
             return $this->setError('invalid-password-2');
         } return true;
     }
@@ -168,6 +173,11 @@ class UsersModel extends DBModelAbstract {
         if ($this->conn) {
             try {
                 $this->conn->beginTransaction();
+                
+                $data['user']['password'] = Encrypt::generateHash($data['user']['password_1']);
+                unset($data['user']['password_1']);
+                unset($data['user']['password_2']);
+
                 $insertUser = $this->insert($data['user']);
                 $execUser = $insertUser->success && $insertUser->data;
 
@@ -198,7 +208,7 @@ class UsersModel extends DBModelAbstract {
 				
 				// Update password
                 $updateUser = $this->updateByKey('id', $user, [
-                    'password' => Encrypt::generateHash($data['password'])
+                    'password' => Encrypt::generateHash($data['password_1'])
                 ]);
 
 				// Delete devices

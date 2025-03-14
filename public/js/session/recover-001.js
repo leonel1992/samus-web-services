@@ -29,6 +29,8 @@ class SessionRecover extends Session {
                     document.getElementById("content").innerHTML = response.content;
                     document.getElementById("recover-code-id").value = this.codeID;
                     document.getElementById("recover-code").value = this.code;
+
+                    executeViewScripts();
                     new SessionRecoverPass();
                 } else {
                     showToast(TypeToast.danger, response.errorTitle + '<br>' + response.errorMessage);
@@ -52,8 +54,8 @@ class SessionRecoverPass extends Session{
     ];
 
     fieldsData = [
-        "password",
-        "password-confirm"
+        "password-1",
+        "password-2"
     ];
 
     constructor() {
@@ -72,7 +74,16 @@ class SessionRecoverPass extends Session{
                 data.data = this.getFormData('recover', this.fieldsData);
                 this.sendData(data, 'recover').then((resp) => {
                     if (resp?.success) {
-                        $('#recover-success').fadeIn();
+                        let containerSuccess = document.getElementById('recover-success');
+                        if (containerSuccess) {
+                            containerSuccess.style.opacity = '0';
+                            containerSuccess.style.display = 'block';
+                            setDimensContainerMessage();
+                            setTimeout(() => {
+                                containerSuccess.style.transition = 'opacity 0.5s';
+                                containerSuccess.style.opacity = '1';
+                            }, 100);
+                        }
                     }
                 });
             }

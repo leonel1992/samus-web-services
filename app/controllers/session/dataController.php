@@ -104,14 +104,9 @@ class DataController extends Controller  {
                 if ($result->success) {
                     $model = new UsersModel($this->conn);
                     $data = VarsData::general('data');
-                    $data = $model->parseDataPassword($data);
-                    if ($model->validatePassword($data)) {
-                        $data = $model->parseDataRegister($data, $result->data['email']);
-                        if ($model->validateRegister($data)) {
-                            $result = $model->register($data); 
-                        } else {
-                            $result = $model->error ?? new ResultError($GLOBALS['lang-controllers']['db'][$model->table]['register-error']);
-                        }
+                    $data = $model->parseDataRegister($data, $result->data['email']);
+                    if ($model->validateRegister($data)) {
+                        $result = $model->register($data); 
                     } else {
                         $result = $model->error ?? new ResultError($GLOBALS['lang-controllers']['db'][$model->table]['register-error']);
                     }

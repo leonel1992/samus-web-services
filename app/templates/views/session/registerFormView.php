@@ -317,4 +317,3 @@
 </section>
 
 <script type="text/javascript" src="<?= $GLOBALS['url-path'] . $GLOBALS['files']['local']['script']['messages'] ?>"></script>
-<?php echo getScript('new SessionRegisterForm()');
