@@ -1,7 +1,6 @@
 <?php
 $GLOBALS['lang-view'] = [
-    "header-title" => "Error",
-    "header-desc" => "Acceso denegado",
-    // "code" => "Error 403",
-    // "title" => "Acceso Denegado"
+    "header-title" => "Error 403",
+    "header-desc" => "Error 403: acceso denegado",
+    "message" => "ACCESO DENEGADO"
 ];
