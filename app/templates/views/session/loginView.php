@@ -1,38 +1,51 @@
 <?php include __DIR__ ."/../../modals/codeModal.php" ?>
+<section class="session d-flex align-items-center justify-content-center py-0 py-sm-5">
+    <form id="login-form" action="" method="POST" class="validate-form d-flex flex-column align-items-center">
+        
+        <div class="mt-1 mb-2 d-flex justify-content-center align-items-center">
+            <img class="logo" src="<?= $GLOBALS['url-path'] ?>/assets/img/logo.png" alt="<?= $GLOBALS['title'] ?>">
+        </div>
 
-<section class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
-        <h1 class="text-center mb-4 h-2">Iniciar Sesión</h1>
-        <form id="login-form" class="validate-form">
-            <!-- Input de Correo -->
-            <div class="mb-3">
-                <label for="login-email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="login-email" name="email" validate-email="true" required>
-            </div>
+        <div class="mb-2 text-center">
+            <h1 class="h2 fw-expanded"><?= $GLOBALS['lang-view']['title'] ?></h1>
+        </div>
 
-            <!-- Input de Contraseña -->
-            <div class="mb-3">
-                <label for="login-password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="login-password" name="password" validate-value="true" required>
-            </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                <svg class="bi" width="26" height="26" fill="currentColor">
+                    <use xlink:href="<?= $GLOBALS['url-path'] ?>/assets/icons/bootstrap.svg#person"/>
+                </svg>
+            </span>
+            <input id="login-email" type="email" class="form-control" maxlength="50" placeholder="<?= $GLOBALS['lang-view']['email'] ?>" value="" validate-email="true" required />
+        </div>
 
-            <!-- Checkbox para mantener sesión abierta -->
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="login-remember" name="remember">
-                <label class="form-check-label" for="login-remember">
-                    Mantener sesión abierta
-                </label>
-            </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                <svg class="bi" width="26" height="26" fill="currentColor">
+                    <use xlink:href="<?= $GLOBALS['url-path'] ?>/assets/icons/bootstrap.svg#lock"/>
+                </svg>
+            </span>
+            <input id="login-password" type="password" class="form-control password custom-password" maxlength="50" placeholder="<?= $GLOBALS['lang-view']['password'] ?>" value="" required />
+        </div>
 
-            <!-- Botón de enviar -->
-            <button id="login-submit" type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-                
-            <!-- Mensajes de error -->
-             <input type="hidden" id="login-toast-email" value="Debe ingresarun correo válido">
-             <input type="hidden" id="login-toast-password" value="Debe ingresar la contraseña.">
-
-        </form>
-    </div>
+        <div class="form-check custom-form-check w-100 mb-4 ms-1">
+            <input class="form-check-input" type="checkbox" value="" id="login-remember" >
+            <label class="form-check-label" for="login-remember"><?= $GLOBALS['lang-view']['remember'] ?></label>
+        </div>
+ 
+        <button id="login-submit" type="submit" class="btn custom-btn w-100"><?= $GLOBALS['lang-view']['button'] ?></button>
+        
+        <div class="mt-4 mb-2">
+            <p class="m-0 text-center">
+                <span><?= $GLOBALS['lang-view']['question'] ?></span> 
+                <a href="<?= generateRouteLink('session-register') ?>"><?= $GLOBALS['lang-view']['register'] ?></a> 
+            </p>
+            <p class="m-0 text-center mt-2">
+                <a href="<?= generateRouteLink('session-recover') ?>"><?= $GLOBALS['lang-view']['recover'] ?></a>
+            </p>
+        </div>
+        
+    </form>
 </section>
 
 <?php 
