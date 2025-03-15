@@ -76,6 +76,13 @@ class SettingsPermissions extends Manage {
 
     // HTML ---------------------------------------------
 
+    htmlSelectOption(index, key, item) {
+        const selected = key === this.submitKey ? 'selected' : '';
+        return `<option data-index="${index}" value="${key}" subtitle="${key}" ${selected}>
+            ${this.#htmlTextPermision(item)}
+        <option>`;
+    }
+
     htmlTableRow(index, key, item){
         return `
         <tr data-index="${index}" data-key="${key}">
@@ -85,6 +92,17 @@ class SettingsPermissions extends Manage {
             <td style="min-width:100px">${this.#dataActions?.[item.action]?.name ?? item.action}</td>
             ${this.htmlTableDeleteButton()}
         </tr>`;
+    }
+
+    // ---------------------------------------------
+
+    #htmlTextPermision(item){
+        const submodule = this.#dataModules?.[item.module]?.submodule;
+        const module = this.#dataModules?.[item.module]?.module ?? item.module;
+        const action = this.#dataActions?.[item.action]?.name ?? item.action;
+        if (submodule) {
+            return `${module} // ${submodule} // ${action}`;
+        } return `${module} // ${action}`;
     }
 
     #htmlSelectAction(key, item){

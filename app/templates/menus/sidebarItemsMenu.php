@@ -2,10 +2,10 @@
 
 $sidebarItems = [
 
-    'account-home' => [
-        "module" => 'account-home',
-        "link" => $GLOBALS['routes']['account-home'][$GLOBALS['lang']],
-        "title" => $GLOBALS['lang-menu']['sidebar']['account-home'],
+    'account' => [
+        "module" => 'account',
+        "link" => $GLOBALS['routes']['account'][$GLOBALS['lang']],
+        "title" => $GLOBALS['lang-menu']['sidebar']['account'],
         "icon" => "house-fill",
         "local" => true,
         "items" => null

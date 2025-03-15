@@ -15,11 +15,11 @@
             "local" => true,
             "items" => null
         ],
-        'account-home' => [
-            "module" => 'account-home',
-            "title" => $GLOBALS['lang-menu']['navbar']['account-home'],
+        'account' => [
+            "module" => 'account',
+            "title" => $GLOBALS['lang-menu']['navbar']['account'],
             "icon" => null,
-            "link" => $GLOBALS['routes']['account-home'][$GLOBALS['lang']],
+            "link" => $GLOBALS['routes']['account'][$GLOBALS['lang']],
             "access" => Permissions::login(),
             "view" => false,
             "local" => true,

@@ -85,7 +85,7 @@ class Router {
         }
  
         // ACCOUNT 
-        elseif ($url === $GLOBALS['routes']['account-home'][$lang]) {
+        elseif ($url === $GLOBALS['routes']['account'][$lang]) {
             $this->controller = 'account'; 
             $this->method = 'home';
             $this->folder = '/';

@@ -1,7 +1,7 @@
 <?php
 $GLOBALS['lang-menu']['sidebar'] = [
 
-    'account-home' => "Inicio",
+    'account' => "Inicio",
 
     'calculator' => "Calculadora",
     'calculator-public' => "Pública",

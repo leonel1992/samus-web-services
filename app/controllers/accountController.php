@@ -12,7 +12,7 @@ class AccountController extends ControllerPermissions {
 
     private function page(string $view) {
         $webInfo = new WebInfo('account', $view);
-        $webInfo->module = "account-$view";
+        $webInfo->module = "account";
 
         $webInfo->scripts = [
             $GLOBALS['files']['local']['script']['data'],

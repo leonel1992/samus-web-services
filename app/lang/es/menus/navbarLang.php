@@ -1,6 +1,6 @@
 <?php
 $GLOBALS['lang-menu']['navbar'] = [
-    'account-home' => "Cuenta",
+    'account' => "Cuenta",
     'public-home' => "Inicio",
     'public-about' => "Nosotros",
     'public-contact' => "Contacto",

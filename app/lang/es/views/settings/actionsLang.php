@@ -9,12 +9,12 @@ $GLOBALS['lang-view'] = [
     "button-update-form" => "Guardar",
     "button-delete-form" => "Eliminar",
     "button-delete-question" => "Se eliminarán los permisos y los roles asociados a la acción.<br><br><b>¿Quieres continuar?</b>",
-
+    
     "table-id" => "ID",
     "table-name" => "Nombre",
     "table-description" => "Descripción",
     "table-filter" => "Acciones // buscar en la tabla",
-
+    
     "form-manage-id-label" => null,
     "form-manage-id-placeholder" => "Seleccione la acción...",
     "form-manage-id-invalid-feedback" => "Debe seleccionar la acción.",

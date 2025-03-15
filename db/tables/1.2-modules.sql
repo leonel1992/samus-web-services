@@ -1,7 +1,7 @@
 
 -- PANEL USER 
 INSERT IGNORE INTO `modules` (`id`, `module`, `submodule`, `link_es`) VALUES
-('account-home', 'Cuenta', 'Inicio', '/cuenta');
+('account', 'Cuenta', 'Inicio', '/cuenta');
 
 
 -- CALCULADORA 
