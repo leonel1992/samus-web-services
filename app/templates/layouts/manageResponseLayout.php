@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<div id="response-error-data" class="response">
+<div id="response-error" class="response">
     <div class="error data">
         <div class="icon">
             <svg class="bi" fill="currentColor">

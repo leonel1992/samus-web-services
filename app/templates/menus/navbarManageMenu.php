@@ -11,7 +11,7 @@
             "title" => $GLOBALS['lang-menu']['navbar-manage']['table'],
             "access" => Permissions::validate('access'),
             "view" => in_array('table', $BUTTONS),
-            "for" => 'view-table'
+            "for" => 'manage-view-table'
         ],
         'insert' => [
             "id" => 'tab-insert-manage',
@@ -19,7 +19,7 @@
             "title" => $GLOBALS['lang-menu']['navbar-manage']['insert'],
             "access" => Permissions::validate('insert'),
             "view" => in_array('insert', $BUTTONS),
-            "for" => 'view-form'
+            "for" => 'manage-view-form'
         ],
         'update' => [
             "id" => 'tab-update-manage',
@@ -27,7 +27,7 @@
             "title" => $GLOBALS['lang-menu']['navbar-manage']['update'],
             "access" => Permissions::validate('update'),
             "view" => in_array('update', $BUTTONS),
-            "for" => 'view-form'
+            "for" => 'manage-view-form'
         ],
         'delete' => [
             "id" => 'tab-delete-manage',
@@ -35,7 +35,7 @@
             "title" => $GLOBALS['lang-menu']['navbar-manage']['delete'],
             "access" => Permissions::validate('delete'),
             "view" => in_array('delete', $BUTTONS),
-            "for" => 'view-form'
+            "for" => 'manage-view-form'
         ]
     ];
 

@@ -8,21 +8,29 @@ class SettingsController extends DMController {
         parent::__construct('settings');
     } 
 
+    private function page(string $view): void {
+        parent::loadView($view, null, null, [
+            $GLOBALS['files']['local']['script']['tables'] ?? null,
+        ], [
+            $GLOBALS['files']['local']['script']['tables'] ?? null,
+        ]);
+    }
+
     //-------------------------------------
 
-    public function actions() {
-        parent::loadView('actions');
+    public function actions(): void {
+        $this->page('actions');
     }
 
-    public function modules() {
-        parent::loadView('modules');
+    public function modules(): void {
+        $this->page('modules');
     }
 
-    public function permissions() {
-        parent::loadView('permissions');
+    public function permissions(): void {
+        $this->page('permissions');
     }
 
-    public function roles() {
-        parent::loadView('roles');
+    public function roles(): void {
+        $this->page('roles');
     }
 }

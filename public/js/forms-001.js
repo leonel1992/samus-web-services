@@ -18,11 +18,9 @@ class Forms {
             }, 100);
         });
 
-        $(".input-group-label").find(".form-control").on('paste',function () { 
+        $(".input-group-label").find(".form-control").on('input',function () { 
             Forms.changeInputLabel(this);
         }).change(function () { 
-            Forms.changeInputLabel(this);
-        }).keyup(function () { 
             Forms.changeInputLabel(this);
         });
 

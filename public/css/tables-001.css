@@ -43,16 +43,19 @@
 
 .table-head-sticky .custom-table thead th{
     top: 0;
+    z-index: 100;
     position: sticky;
 }
 
 .table-head-sticky .custom-table thead th {
     border-top: none;
     border-bottom: var(--border-sticky-table);
+}
+.table-head-sticky .custom-table.table-bordered thead th {
     border-right: var(--border-sticky-table);
     border-left: none;
 }
-.table-head-sticky .custom-table thead tr th:first-child{
+.table-head-sticky .custom-table.table-bordered thead tr th:first-child{
     border-left: var(--border-sticky-table);
 }
 .table-head-sticky .custom-table thead tr:first-child th{
@@ -61,13 +64,18 @@
 
 .table-head-sticky .custom-table tbody th {
     border-top: none;
-    border-left: var(--border-sticky-table);
-    border-right: var(--border-sticky-table);
     border-bottom: var(--border-sticky-table);
 }
+.table-head-sticky .custom-table.table-bordered tbody th {
+    border-left: var(--border-sticky-table);
+    border-right: var(--border-sticky-table);
+}
+
 .table-head-sticky .custom-table tbody td {
     border-top: none;
     border-bottom: var(--border-sticky-table);
+}
+.table-head-sticky .custom-table.table-bordered tbody td {
     border-right: var(--border-sticky-table);
     border-left: none;
 }
@@ -124,23 +132,23 @@
     max-width: 40px;
     text-align: center;
     padding: 0px;
-    padding-top: 2px
+    border: none;
+    background: transparent;
 }
-.custom-table .cell-btn .bi{
-    cursor: pointer;
+.custom-table .cell-btn button{
+    padding: 0px;
+    border: none;
     transition: all 0.3s;
+    background: transparent;
     font-size: 21px;
     opacity: 0.7;
 }
-.custom-table .cell-btn .bi:hover{
+.custom-table .cell-btn button:hover{
     color: var(--color-custom);
     opacity: 1;
 }
-.custom-table .text-danger .cell-btn .bi:hover{
-    color: var(--color-danger);
-}
-
-.custom-table .cell-btn.disabled .bi{
+.custom-table .cell-btn button.disabled{
+    pointer-events: none;
     opacity: 0.3 !important;
     cursor: default;
 }
@@ -191,7 +199,8 @@
 
 .custom-table-container .filter {
     background-color: var(--color-table-head);
-    border: solid 1px var(--color-table-border);
+    border-top: solid 1px var(--color-table-border);
+    border-bottom: solid 1px var(--color-table-border);
     border-bottom: none;
     display: flex;
     flex-direction: row;

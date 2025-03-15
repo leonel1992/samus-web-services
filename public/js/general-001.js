@@ -388,7 +388,7 @@ function htmlModalAlert(message){
     <div id="alertModal" class="modal fade alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content text-center px-3 pb-4 pt-3">
-                <div class="position-absolute top-0 end-0 mt-2 me-2">
+                <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
                     <button type="button" class="form-control submit border-0 shadow-none p-0" data-bs-dismiss="modal">
                         <svg width="20" height="20" fill="currentColor">
                             <use xlink:href="${URL_PATH}/assets/icons/bootstrap.svg#x-lg"/>
@@ -414,7 +414,7 @@ function htmlModalError(message){
     <div id="errorModal" class="modal fade error-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content text-center px-3 pb-4 pt-3">
-                <div class="position-absolute top-0 end-0 mt-2 me-2">
+                <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
                     <button type="button" class="form-control submit border-0 shadow-none p-0" data-bs-dismiss="modal">
                         <svg width="20" height="20" fill="currentColor">
                             <use xlink:href="${URL_PATH}/assets/icons/bootstrap.svg#x-lg"/>
@@ -441,7 +441,7 @@ function htmlModalSuccess(message){
     <div id="successModal" class="modal fade success-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content text-center px-3 pb-4 pt-3">
-                <div class="position-absolute top-0 end-0 mt-2 me-2">
+                <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
                     <button type="button" class="form-control submit border-0 shadow-none p-0" data-bs-dismiss="modal">
                         <svg width="20" height="20" fill="currentColor">
                             <use xlink:href="${URL_PATH}/assets/icons/bootstrap.svg#x-lg"/>
@@ -467,7 +467,7 @@ function htmlModalQuestion(question){
     <div id="questionModal" class="modal fade question-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content text-center px-3 pb-4 pt-3">
-                <div class="position-absolute top-0 end-0 mt-2 me-2">
+                <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
                     <button type="button" class="form-control submit border-0 shadow-none p-0" data-bs-dismiss="modal">
                         <svg width="20" height="20" fill="currentColor">
                             <use xlink:href="${URL_PATH}/assets/icons/bootstrap.svg#x-lg"/>

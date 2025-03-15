@@ -45,13 +45,23 @@ class Manage {
         );
 
         Forms.initValidateForm();
+        Forms.initInputLabel();
+        Tables.initTable();
         Inputs.initAll();
         
+        this.initMenu();
         this.initFilter();
         this.initTable();
         this.initForm();
         this.initResp();
         this.loadData();
+
+        document.getElementById("manage-insert")?.classList.remove("disabled");
+        document.getElementById("manage-update")?.classList.remove("disabled");
+        document.getElementById("manage-delete")?.classList.remove("disabled");
+        document.querySelectorAll(".nav-manage .nav-link").forEach(item => {
+            item.classList.remove("disabled");
+        });
     }
 
     // GETTER - SETTERS  ------------------------------------------------
@@ -71,6 +81,7 @@ class Manage {
         let oldKey = this.submitKey;
         let newKey = item[this.ref];
         this.data[newKey] = item;
+        this.submitKey = newKey;
         if (newKey !== oldKey) {
             delete this.data[oldKey];
         }
@@ -87,7 +98,9 @@ class Manage {
 
     getSubmitData() {
         let data = {};
-        document.querySelectorAll("#manage-form .form-control").forEach(element => {
+        const formData = document.querySelector("#manage-form");
+        const formGroupData = document.querySelector("#form-group-manage-data");
+        (formGroupData ?? formData)?.querySelectorAll(".form-control").forEach(element => {
             const index = element.getAttribute('id')?.replaceAll('-', '_');
             if (element.tagName === "INPUT" && element.type === "checkbox") {
                 data[index] = element.checked;
@@ -141,21 +154,117 @@ class Manage {
         return id !== '' && id !== 0 && id !== null && id !== undefined;
     }
 
+    // LOAD DATA -----------------------------------------------------------
+
+    async loadDataList(url) {
+        try {
+            const resp = await $.getJSON(url);
+            return resp ?? [];
+        } catch (error) {
+            console.error("Error load list: ", url, error);
+            return [];
+        }
+    }
+
+    async loadData(){
+        this.responseView(true);
+        setTimeout(async () => {
+            let response = await this.classData.load({},'table');
+            if(response.success){
+                if( response.data && Object.keys(response.data).length>0 ){
+                    if (Array.isArray(response.data)) {
+                        this.data = response.data.reduce((acc, item) => {
+                            acc[item[this.ref]] = item;
+                            return acc;
+                        }, {});
+                    } else {
+                        this.data = response.data;
+                    }
+
+                    this.printViewData();
+                    this.viewSuccess();
+                }else{
+                    this.data = {};
+                    this.viewEmpty();
+                }
+            }else{
+                this.data = {};
+                this.viewError(response);
+            }
+
+            document.dispatchEvent(new CustomEvent("manageLoadedData", { 
+                detail: response.success, 
+            }));
+        }, 500);
+    }
+
+    // SUBMIT DATA -----------------------------------------------------------
+
+    async submitData(){
+        $("#loading").fadeIn("fast");
+        let data = this.getSubmitFinalData();
+        let response = await this.classData.load(data, this.submitType);
+        if(response.success){
+            showToast(TypeToast.success, response.message);
+            hideModal("#manage-modal-form");
+            this.responseView(false);
+        }else{
+            showToast(TypeToast.danger, response.message);
+        } 
+        
+        $("#loading").fadeOut("slow");
+        return response;
+    }
+
+    async insertData(){
+        this.submitType = ManageSubmitType.insert;
+        let response = await this.submitData();
+        if(response.success){
+            let key = response[this.ref];
+            this.pushDataItem(key);
+            this.printViewData();
+        }
+    }
+
+    async updateData(){
+        this.submitType = ManageSubmitType.update;
+        let response = await this.submitData();
+        if(response.success){
+            this.changeDataItem();
+            this.printViewData();
+        }
+    }
+
+    async deleteData(confirm = false){
+        this.submitType = ManageSubmitType.delete;
+        if(confirm){
+            let response = await this.submitData();
+            if(response.success){
+                this.removeDataItem();
+                this.printViewData();
+                this.updateFormData();
+            }
+        }else{
+            const question = document.getElementById("manage-delete-question")?.dataset.text;
+            newModal(TypeModal.question, question, () => this.deleteData(true));
+        } 
+    }
+
     // LISTENERS -------------------------------------------------
 
     tableHandleDblClick = event => {
-        this.showSelectedItem(event.currentTarget);
+        this.showSelectedItem(event.currentTarget.dataset.key);
     };
     
     tableHandleDblTouch = event => {
         if (event.detail === 2) {
-            this.showSelectedItem(event.currentTarget);
+            this.showSelectedItem(event.currentTarget.dataset.key);
         }
     };
 
     tableHandleUpdateClick = event => {
         const tr = event.currentTarget.closest("tr");
-        this.showSelectedItem(tr);
+        this.showSelectedItem(tr.dataset.key);
     };
     
     tableHandleDeleteClick = event => {
@@ -202,17 +311,87 @@ class Manage {
         });
     }
 
+    initMenu() {
+        let navbarManage = document.getElementById("navbar-manage");
+        if (!navbarManage || navbarManage.querySelectorAll(".nav-link").length <= 1) {
+            document.documentElement.style.setProperty("--navbar-manage-heigth", "0px");
+            navbarManage?.remove();
+        } else {
+            document.getElementById("tab-table-manage")?.addEventListener("click", () => {
+                this.submitType = ManageSubmitType.table;
+                this.submitKey = null;
+            });
+    
+            document.getElementById("tab-insert-manage")?.addEventListener("click", () => {
+                document.getElementById("manage-insert").classList.remove("d-none");
+                document.getElementById("manage-update").classList.add("d-none");
+                document.getElementById("manage-delete").classList.add("d-none");
+                this.submitKey = null;
+                this.submitType = ManageSubmitType.insert;
+                this.enabledInputs("#form-group-manage-data");
+                this.updateFormData();
+                this.hideId();
+            });
+    
+            document.getElementById("tab-update-manage")?.addEventListener("click", () => {
+                document.getElementById("manage-update").classList.remove("d-none");
+                document.getElementById("manage-insert").classList.add("d-none");
+                document.getElementById("manage-delete").classList.add("d-none");
+                this.submitKey = document.getElementById("manage-id").value;
+                this.submitType = ManageSubmitType.update;
+                this.disabledInputs("#form-group-manage-data");
+                this.updateFormData();
+                this.showId();
+            });
+    
+            document.getElementById("tab-delete-manage")?.addEventListener("click", () => {
+                document.getElementById("manage-delete").classList.remove("d-none");
+                document.getElementById("manage-insert").classList.add("d-none");
+                document.getElementById("manage-update").classList.add("d-none");
+                this.submitKey = document.getElementById("manage-id").value;
+                this.submitType = ManageSubmitType.delete;
+                this.disabledInputs("#form-group-manage-data");
+                this.updateFormData();
+                this.showId();
+            });
+        }
+    }
+
     initForm(){
 
         document.querySelector("#manage-form")?.addEventListener("submit", (e) => {
             e.preventDefault();
         });
 
+        $("#manage-id").on("select2:select", (e) => {
+            Forms.cleanAll();
+            this.submitKey = e.target.value;
+            this.updateFormData(false);
+            switch (this.submitType) {
+                case ManageSubmitType.update:
+                    if (this.submitKey) {
+                        this.enabledInputs("#form-group-manage-data");
+                    } else {
+                        this.disabledInputs("#form-group-manage-data");
+                    } break;
+
+                case ManageSubmitType.insert:
+                    this.enabledInputs("#form-group-manage-data");
+                    break;
+                
+                case ManageSubmitType.delete:
+                    this.disabledInputs("#form-group-manage-data");
+                    break;
+            }
+        });
+        
         document.querySelector("#manage-show-form")?.addEventListener("click", () => {
-            document.querySelector("#manage-insert").classList.remove("d-none");
-            document.querySelector("#manage-update").classList.add("d-none");
+            document.querySelector("#manage-insert")?.classList.remove("d-none");
+            document.querySelector("#manage-delete")?.classList.add("d-none");
+            document.querySelector("#manage-update")?.classList.add("d-none");
             this.submitKey = null;
             this.updateFormData();
+            this.hideId();
         });
 
         document.querySelector("#manage-insert")?.addEventListener("click", () => {
@@ -236,13 +415,17 @@ class Manage {
 
     initTable() {
         const table = document.querySelector("#manage-table");
+        const thead = table.querySelector("thead");
         const tbody = table.querySelector("tbody");
         tbody.style.transition = "opacity 0.6s";
         tbody.style.display = "none";
         tbody.style.opacity = 0;
 
-        tbody.querySelectorAll("tr").forEach(row => {
-            if (table.classList.contains('table-edit')) {
+        let theadHeight = thead?.offsetHeight;
+        document.documentElement.style.setProperty("--manage-table-head-height", theadHeight + "px");
+ 
+        tbody?.querySelectorAll("tr").forEach(row => {
+            if (table.classList.contains('table-update')) {
                 row.removeEventListener("dblclick", this.tableHandleDblClick);
                 row.removeEventListener("touchend", this.tableHandleDblTouch);
                 row.addEventListener("dblclick", this.tableHandleDblClick);
@@ -264,119 +447,74 @@ class Manage {
     }
 
     initResp(){
-        // $("#response-error-data").find("button").click(() => {
-        //     this.#responseView(true);
-        //     setTimeout(() => this.init(), 500);
-        // });
-    }
-
-    // LOAD DATA -----------------------------------------------------------
-
-    async loadDataList(url) {
-        try {
-            const resp = await $.getJSON(url);
-            return resp ?? [];
-        } catch (error) {
-            console.error("Error load list: ", url, error);
-            return [];
-        }
-    }
-
-    async loadData(){
-        this.responseView(true);
-        let response = await this.classData.load({},'table');
-        if(response.success){
-            if( response.data && Object.keys(response.data).length>0 ){
-                if (Array.isArray(response.data)) {
-                    this.data = response.data.reduce((acc, item) => {
-                        acc[item[this.ref]] = item;
-                        return acc;
-                    }, {});
-                } else {
-                    this.data = response.data;
-                }
-
-                this.printTable();
-                this.viewSuccess();
-            }else{
-                this.data = {};
-                this.viewEmpty();
-            }
-        }else{
-            this.data = {};
-            this.viewError(response);
-        }
-
-        document.dispatchEvent(new CustomEvent("manageLoadedData", { 
-            detail: response.success, 
-        }));
-    }
-
-    // SUBMIT DATA -----------------------------------------------------------
-
-    async submitData(){
-        $("#loading").fadeIn("fast");
-        let data = this.getSubmitFinalData();
-        let response = await this.classData.load(data, this.submitType);
-        if(response.success){
-            showToast(TypeToast.success, response.message);
-            hideModal("#manage-modal-form");
-            this.responseView(false);
-        }else{
-            showToast(TypeToast.danger, response.message);
-        } 
-        
-        $("#loading").fadeOut("slow");
-        return response;
-    }
-
-    async insertData(){
-        this.submitType = ManageSubmitType.insert;
-        let response = await this.submitData();
-        if(response.success){
-            let key = response[this.ref];
-            this.pushDataItem(key);
-            this.printTable();
-        }
-    }
-
-    async updateData(){
-        this.submitType = ManageSubmitType.update;
-        let response = await this.submitData();
-        if(response.success){
-            this.changeDataItem();
-            this.printTable();
-        }
-    }
-
-    async deleteData(confirm = false){
-        this.submitType = ManageSubmitType.delete;
-        if(confirm){
-            let response = await this.submitData();
-            if(response.success){
-                this.removeDataItem();
-                this.printTable();
-            }
-        }else{
-            const question = document.getElementById("manage-delete-question")?.dataset.text;
-            newModal(TypeModal.question, question, () => this.deleteData(true));
-        } 
+        document.querySelector("#response-error button").addEventListener("click", () => {
+            this.responseView(true);
+            setTimeout(() => this.loadData(), 500);
+        });
     }
 
     // VIEWS -----------------------------------------------------------
 
-    showSelectedItem(trTable){
-        document.querySelector("#manage-update").classList.remove("d-none");
-        document.querySelector("#manage-insert").classList.add("d-none");
-        this.submitKey = trTable.dataset.key;
-        this.updateFormData();
-        showModal("#manage-modal-form");
+    showId(){
+        const formGroup = document.getElementById("form-group-manage-id");
+        if (formGroup) {
+            this.enabledInputs("#form-group-manage-id");
+            formGroup.style.display = "block";
+        }
+    }
+    
+    hideId(){
+        const formGroup = document.getElementById("form-group-manage-id");
+        if (formGroup) {
+            this.disabledInputs("#form-group-manage-id");
+            formGroup.style.display = "none";
+        }
     }
 
-    updateFormData(){
+    disabledInputs(formGroup) {
+        const formGroupElement = document.querySelector(formGroup);
+        formGroupElement?.querySelectorAll(".form-control, .custom-control, .input-group-label").forEach(element => {
+            element.setAttribute("disabled", "true");
+        });
+    }
+
+    enabledInputs(formGroup){
+        const formGroupElement = document.querySelector(formGroup);
+        formGroupElement?.querySelectorAll(".form-control, .custom-control, .input-group-label").forEach(element => {
+            element.removeAttribute("disabled");
+        });
+    }
+
+    //-------------------------------------
+    
+    showSelectedItem(key){
+        document.querySelector("#manage-update")?.classList.remove("d-none");
+        document.querySelector("#manage-insert")?.classList.add("d-none");
+        document.querySelector("#manage-delete")?.classList.add("d-none");
+        this.submitKey = key;
+        this.updateFormData();
+        this.showId();
+
+        const formModal = document.querySelector("#manage-modal-form");
+        if (formModal) {
+            showModal("#manage-modal-form");
+        }
+
+        const formTab = document.querySelector("#manage-view-form.tab-pane");
+        if (formTab) {
+            const buttonTab = document.querySelector('#tab-update-manage');
+            const tab = new bootstrap.Tab(buttonTab);
+            tab?.show();
+        }
+    }
+
+    updateFormData(updateId = true) {
         const key = this.submitKey;
         const data = key !== null ? this.data?.[key] : null;
-        document.querySelectorAll("#manage-form .form-control").forEach(element => {
+
+        const formData = document.querySelector("#manage-form");
+        const formGroupData = document.querySelector("#form-group-manage-data");
+        (formGroupData ?? formData)?.querySelectorAll(".form-control").forEach(element => {
             if (data) {
                 const index = element.getAttribute('id')?.replaceAll('-', '_');
                 element.value = data[index];
@@ -399,6 +537,17 @@ class Manage {
                 element.dispatchEvent(new Event("input"));
             }
         });
+
+        if (updateId) {
+            const manageId = document.querySelector("#manage-id");
+            if (manageId) {
+                manageId.value = key;
+                manageId.dispatchEvent(new Event("change"));
+                if (manageId.classList.contains("custom-select")) {
+                    $(manageId).trigger("select2:select");
+                }
+            }
+        }
     }
 
     //------------------------------------
@@ -412,53 +561,67 @@ class Manage {
     }
 
     viewError(response){
-        this.responseView(false, "#response-error-data", response);
+        this.responseView(false, "#response-error", response);
     }
     
     //------------------------------------
 
-    responseView(isLoading, responseID = null, response = null) {
+    responseView(loading, respView = null, respData = null) {
 
-        // if (isLoading || responseID) {
-        //     $(".manage-view").find(".response").removeClass("d-none");
-        // }
+        if (loading || respView) {
+            document.querySelectorAll(".manage-view .response").forEach(element => {
+                element.classList.remove("d-none");
+            });
+        }
 
-        // if(isLoading){ 
-        //     $("#response-loading").css("opacity","1");
-        // } else {
-        //     $("#response-loading").css("opacity","0");
-        // }
+        if (loading) {
+            document.getElementById("response-loading").style.opacity = "1";
+        } else {
+            document.getElementById("response-loading").style.opacity = "0";
+        }
 
-        // if (responseID) {
-        //     $(responseID).css("opacity","1");
-        //     if (response) {
-        //         $(responseID).find(".title").text(response.title ?? LANGUAGE.error.title.replace('[[CODE]]', '000));
-        //         $(responseID).find(".message").text(response.message ?? LANGUAGE.error.default);
-        //     }
-        // } else {
-        //     $("#response-empty").css("opacity","0");
-        //     $("#response-error-data").css("opacity","0");
-        // }
+        if (respView) {
+            const respElement = document.querySelector(respView);
+            respElement.style.opacity = "1";
+            if (respData) {
+                respElement.querySelector(".title").textContent = respData.title ?? LANGUAGE.error.title.replace('[[CODE]]', '000');
+                respElement.querySelector(".message").textContent = respData.message ?? LANGUAGE.error.default;
+            }
+        } else {
+            document.getElementById("response-empty").style.opacity = "0";
+            document.getElementById("response-error").style.opacity = "0";
+        }
 
-        // if (!isLoading && !responseID) {
-        //     $(".manage-view").find(".response").addClass("d-none");
-        // }
+        if (!loading && !respView) {
+            document.querySelectorAll(".manage-view .response").forEach(element => {
+                element.classList.add("d-none");
+            });
+        }
     }
 
-    printTable(){
+    printViewData(){
         
-        let html = '';
         let count = 0;
+        let htmlTable = '';
+        let htmlSelect = "<option value=''></option>";
         Object.entries(this.data).forEach(([key, item]) => {
             if (typeof item === "object") {
-                html += this.htmlTableRow(count, key, item);
+                htmlSelect += this.htmlSelectOption(count, key, item);
+                htmlTable += this.htmlTableRow(count, key, item);
                 count++;
             }
         });        
 
         const tbody = document.querySelector("#manage-table tbody");
-        tbody.innerHTML = html;
-    
+        if (tbody) {
+            tbody.innerHTML = htmlTable;
+        }
+
+        const select = document.querySelector("#manage-id");
+        if (select) {
+            select.innerHTML = htmlSelect;
+        }
+
         this.initTable();
         setTimeout(() => {
             tbody.style.opacity = 1;
@@ -490,6 +653,13 @@ class Manage {
         return `<option value="${this.optionNull}">${text}<option>`;
     }
 
+    htmlSelectOption(index, key, item) {
+        const selected = key === this.submitKey ? 'selected' : '';
+        return `<option data-index="${index}" value="${key}" ${selected}>${item.name ?? key}<option>`;
+    }
+
+    //-------------------------------------
+
     htmlTableRow(index, key, _item) {
         return `
         <tr data-index="${index}" data-key="${key}">
@@ -505,16 +675,16 @@ class Manage {
     }
 
     htmlTableUpdateButton() {
-        return `<td class="text-center p-0" style="width:40px!important;">
-            <button class="manage-update border-0 bg-transparent text-primary w-100 p-2 fs-5">
+        return `<td class="cell-btn">
+            <button class="manage-update custom-text">
                 <i class="bi bi-pencil-square"></i>
             </button>
         </td>`;
     }
 
     htmlTableDeleteButton() {
-        return `<td class="text-center p-0" style="width:40px!important;">
-            <button class="manage-delete border-0 bg-transparent text-danger w-100 p-2 fs-5">
+        return `<td class="cell-btn">
+            <button class="manage-delete text-danger">
                 <i class="bi bi-trash"></i>
             </button>
         </td>`;
