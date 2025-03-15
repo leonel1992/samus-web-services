@@ -248,7 +248,7 @@ class LoginService {
 			if ($device->success) {
 				$this->updateDeviceDB();
 				$this->updateSessionDB();
-				$this->permissions();
+				$this->updatePermissions();
 				$this->saveCookies();
 				$this->saveSession();
 				$this->sendMail();
@@ -275,7 +275,7 @@ class LoginService {
             $this->email = $this->codeEmail;
             $this->updateDeviceDB();
             $this->updateSessionDB();
-            $this->permissions();
+            $this->updatePermissions();
             $this->saveCookies();
             $this->saveSession();
             $this->sendMail();
@@ -301,7 +301,7 @@ class LoginService {
                     $this->email = $this->data['email'];
                     $this->updateDeviceDB();
                     $this->updateSessionDB();
-                    $this->permissions();
+                    $this->updatePermissions();
                     $this->saveCookies();
                     $this->saveSession();
                 } else {
@@ -338,7 +338,7 @@ class LoginService {
         }
     }
 
-	private function permissions(): void {
+	private function updatePermissions(): void {
 		$data = $this->queryPermissionsDB();
 		if ($data->success) {
 			$this->permissions = $data->data;

@@ -5,6 +5,6 @@
 </div>
 
 <div id="manage-delete-question" data-text="<?= $GLOBALS['lang-view']['button-delete-question'] ?>"></div>
-<div id="manage-delete-permission" data-value="<?= Permissions::validate('delete') ? 'true' : 'false' ?>"></div>
-<div id="manage-insert-permission" data-value="<?= Permissions::validate('insert') ? 'true' : 'false' ?>"></div>
-<div id="manage-update-permission" data-value="<?= Permissions::validate('update') ? 'true' : 'false' ?>"></div>
+<div id="manage-delete-permission" data-value="<?= Permissions::validate('delete', $GLOBALS['web-info']->module) ? 'true' : 'false' ?>"></div>
+<div id="manage-insert-permission" data-value="<?= Permissions::validate('insert', $GLOBALS['web-info']->module) ? 'true' : 'false' ?>"></div>
+<div id="manage-update-permission" data-value="<?= Permissions::validate('update', $GLOBALS['web-info']->module) ? 'true' : 'false' ?>"></div>

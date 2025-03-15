@@ -146,8 +146,13 @@ class SettingsRoles extends Manage {
 
     // VIEWS ---------------------------------------------
 
-    updateFormData(){
-        super.updateFormData();
+    updateFormData(updateId = true){
+        super.updateFormData(updateId);
+
+        document.querySelectorAll("#permissions input[type='checkbox']").forEach((input) => {
+            input.removeAttribute("some-checked");
+            input.checked = false;
+        });
 
         if(this.submitKey){
             let permissions = this.data?.[this.submitKey]?.permissions ?? {};
@@ -161,15 +166,52 @@ class SettingsRoles extends Manage {
                     this.#accordionCheckButtons(module, RolesAccordionCkeckType.module);
                 }
             });
-        }else {
-            document.querySelectorAll("#permissions input[type='checkbox']").forEach((input) => {
-                input.removeAttribute("some-checked");
-                input.checked = false;
-            });
         }
 
         const accordion = document.getElementById("permissions");
         this.#accordionCheckButtons(accordion, RolesAccordionCkeckType.all);
+    }
+
+    disabledInputs(formGroup) {
+        super.disabledInputs(formGroup);
+        this.#enabledAccordion();
+    }
+
+    enabledInputs(formGroup){
+        super.enabledInputs(formGroup);
+        this.#enabledAccordion();
+    }
+
+    #enabledAccordion() {
+        document.querySelector("#form-group-manage-permissions")?.querySelectorAll(".form-control, .custom-control").forEach((element) => {
+            switch (this.submitType) {
+                case ManageSubmitType.update:
+                    if (this.submitKey) {
+                        element.removeAttribute("disabled");
+                    } else {
+                        element.setAttribute("disabled", "true");
+                    } break;
+    
+                case ManageSubmitType.insert:
+                    element.removeAttribute("disabled");
+                    break;
+                
+                case ManageSubmitType.delete:
+                    element.setAttribute("disabled", "true");
+                    break;
+            }
+            
+            if (element.classList.contains("accordion-button")) {
+                const target = element.getAttribute("data-bs-target") || element.getAttribute("aria-controls");
+                if (target) {
+                    const collapseElement = document.querySelector(target);
+                    if (collapseElement) {
+                        const bsCollapse = new bootstrap.Collapse(collapseElement, {toggle: false});
+                        bsCollapse.hide();
+                    }
+                }
+            }
+        });
     }
 
     #printAccordion() {
@@ -192,7 +234,14 @@ class SettingsRoles extends Manage {
             ${this.htmlTableUpdateButton()}
             ${this.htmlTableDeleteButton()}
         </tr>`;
-    }  
+    } 
+    
+    htmlSelectOption(index, key, item) {
+        const selected = key === this.submitKey ? 'selected' : '';
+        return `<option data-index="${index}" value="${key}" subtitle="${key}" ${selected}>
+            ${item.name}
+        <option>`;
+    }
 
     // HTML ACCORDION ----------------------------------------
 
@@ -258,8 +307,8 @@ class SettingsRoles extends Manage {
         let submodule = this.#htmlAccordionUniqueId('sub');
         return `<div class="accordion-item border-1" id="permissions-accordion-item-${module}-${submodule}">
             <p class="accordion-header" id="permissions-accordion-header-${module}-${submodule}">
-                <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#permissions-accordion-collapse-${module}-${submodule}" aria-expanded="false" aria-controls="permissions-accordion-collapse-${module}-${submodule}">
-                    <span class="form-check" style="margin-left:20px">
+                <button class="accordion-button collapsed custom-control p-2" type="button" data-bs-toggle="collapse" data-bs-target="#permissions-accordion-collapse-${module}-${submodule}" aria-expanded="false" aria-controls="permissions-accordion-collapse-${module}-${submodule}">
+                    <span class="form-check custom-form-check" style="margin-left:20px">
                         <input id="permissions-accordion-check-${module}-${submodule}" type="checkbox" class="form-check-input form-check-submodule custom-control" for-item="${module}-${submodule}" for-module="${module}">
                     </span>
                     ${this.#htmlAccordionFormatText(this.#dataModules?.[itemSubmodule.id]?.submodule ?? itemSubmodule.id)}
@@ -276,9 +325,9 @@ class SettingsRoles extends Manage {
 
         if (permissions && Object.values(permissions).length > 0) {
             Object.values(permissions).forEach(item => {
-                html += `<div class="form-check py-1 my-0" style="margin-left:${marg}px">
+                html += `<div class="form-check custom-form-check py-1 my-0" style="margin-left:${marg}px">
                     <input id="permission-${item.id}" data-id="${item.id}" type="checkbox" 
-                        class="form-check-input form-check-action" 
+                        class="form-check-input form-check-action custom-control" 
                         for-item="${refItem}" for-module="${refModule}">
                     <label class="form-check-label" for="permission-${item.id}">
                         ${this.#htmlAccordionFormatText(this.#dataActions?.[item.action]?.name ?? item.action)}

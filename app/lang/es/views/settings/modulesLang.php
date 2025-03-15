@@ -29,10 +29,10 @@ $GLOBALS['lang-view'] = [
     "form-module-invalid-feedback" => "Debe indicar el nombre del módulo, debe contener al menos 3 letras.",
     
     "form-submodule-label" => "Submódulo",
-    "form-submodule-placeholder" => "Ingrese el nombre del submódulo (si aplica)",
+    "form-submodule-placeholder" => "Ingrese el nombre del submódulo (opcional)",
     "form-submodule-invalid-feedback" => null,
     
     "form-link-es-label" => "URL Español",
-    "form-link-es-placeholder" => "Ingrese el enlace del módulo (si aplica)",
+    "form-link-es-placeholder" => "Ingrese el enlace del módulo (opcional)",
     "form-link-es-invalid-feedback" => null,
 ];

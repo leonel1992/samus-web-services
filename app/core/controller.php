@@ -99,7 +99,7 @@ class ControllerPermissions extends Controller {
         } parent::renderView($site, $folder, $view, $webInfo);
     }
 
-    public function isValid(string $action, string $module): bool { return true;
+    public function isValid(string $action, string $module): bool {
         if (Permissions::login()) {
             return Permissions::validate($action, $module);
         } return false;

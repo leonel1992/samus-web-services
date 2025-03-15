@@ -14,7 +14,7 @@ $GLOBALS['lang-view'] = [
     "table-name" => "Nombre",
     "table-description" => "Descripción",
     "table-filter" => "Acciones // buscar en la tabla",
-    
+
     "form-manage-id-label" => null,
     "form-manage-id-placeholder" => "Seleccione la acción...",
     "form-manage-id-invalid-feedback" => "Debe seleccionar la acción.",
@@ -28,6 +28,6 @@ $GLOBALS['lang-view'] = [
     "form-name-invalid-feedback" => "Debe indicar el nombre de la acción inherente al permiso, debe contener al menos 3 letras.",
     
     "form-description-label" => "Descripción",
-    "form-description-placeholder" => "Ingrese la descripción de la acción (si aplica)",
+    "form-description-placeholder" => "Ingrese la descripción de la acción (opcional)",
     "form-description-invalid-feedback" => null,
 ];

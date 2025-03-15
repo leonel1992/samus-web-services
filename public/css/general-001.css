@@ -437,10 +437,8 @@ section .fw-bold{
 }
 
 .custom-accordion .accordion-header button:not(.collapsed){
-    font-size: 102%;
     font-weight: bold;
     transition: all .4s;
-    letter-spacing: .2px;
 }
 
 /* BUTTONS --------------------------------------------------*/

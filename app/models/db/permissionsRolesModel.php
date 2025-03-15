@@ -95,7 +95,7 @@ class PermissionsRolesModel extends DBModelAbstract {
     public function getAllPermissionsByRol(?string $rol): ResultData|ResultError {
         $sql = "SELECT `permission`,`value` FROM `{$this->table}` WHERE `rol` = :rol";
         return $this->getAll($sql, 'permission', false, [
-            'rol'=> $rol ?? 'client'
+            'rol' => $rol ?? 'client'
         ]);
     }
 

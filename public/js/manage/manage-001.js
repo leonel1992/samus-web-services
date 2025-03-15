@@ -11,6 +11,10 @@ class ManageSubmitType {
  * @class Manage
  */
 class Manage {
+
+    DELETE = false;
+    UPDATE = false;
+    INSERT = false;
     
     classData;
     classDataUrl = null;
@@ -36,6 +40,10 @@ class Manage {
         if (this.classDataUrl === '' || this.classDataUrl === null || this.classDataUrl === undefined) {
             throw new Error("URL for data Managa not defined");
         }
+
+        this.DELETE = document.getElementById('manage-delete-permission')?.dataset.value === "true";
+        this.INSERT = document.getElementById('manage-insert-permission')?.dataset.value === "true";
+        this.UPDATE = document.getElementById('manage-update-permission')?.dataset.value === "true";
 
         this.classData = new Data(
             this.classDataUrl, 
@@ -677,6 +685,10 @@ class Manage {
     }
 
     htmlTableUpdateButton() {
+        if (!this.UPDATE) {
+            return `<td class="p-0"></td>`;
+        } 
+
         return `<td class="cell-btn">
             <button class="manage-update custom-text">
                 <i class="bi bi-pencil-square"></i>
@@ -685,6 +697,10 @@ class Manage {
     }
 
     htmlTableDeleteButton() {
+        if (!this.DELETE) {
+            return `<td class="p-0"></td>`;
+        }
+
         return `<td class="cell-btn">
             <button class="manage-delete text-danger">
                 <i class="bi bi-trash"></i>

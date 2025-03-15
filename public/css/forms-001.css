@@ -21,6 +21,10 @@ form .custom-accordion .accordion-button:disabled{
     --bs-accordion-btn-active-icon: var(--svg-accordion-icon-disabled);
 }
 
+form .custom-accordion .accordion-button:not(.collapsed) .custom-form-check .form-check-input{
+    border-color: var(--color-btn-custom);
+}
+
 /* FEEDBACK ---------------------------------------------*/
 
 .invalid-feedback{
@@ -118,20 +122,6 @@ form .custom-accordion .accordion-button:disabled{
 }
 
 /* INPUT GROUP LABEL ---------------------------------------------*/
-
-#form-group-manage-id .input-group-label{
-    padding-top: 8px;
-}
-#form-group-manage-id .input-group-label{
-    margin: 0;
-    padding-bottom: 10px;
-}
-
-#form-group-manage-id .input-label{
-    top: 0px;
-}
-
-/*---------------------------*/
 
 .input-group-label{
     position: relative;
@@ -248,11 +238,13 @@ form .custom-accordion .accordion-button:disabled{
 
 .custom-form-check .form-check-input,
 .custom-form-check .form-check-label{
+    border-color: var(--color-border);
     color: var(--color-p);
     cursor: pointer;
 }
 
 .custom-form-check .form-check-input[some-checked]{
+    border-color: var(--color-btn-custom);
     background-color: var(--color-btn-custom);
     box-shadow: 0 0 0 .25rem var(--color-btn-custom-shadow-rgba);
     background-image: var(--svg-form-icon-check);

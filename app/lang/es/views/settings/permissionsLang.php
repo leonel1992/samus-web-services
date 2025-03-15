@@ -29,6 +29,6 @@ $GLOBALS['lang-view'] = [
     "form-module-invalid-feedback" => "Debe seleccionar el módulo.",
     
     "form-submodule-label" => "Submódulo",
-    "form-submodule-placeholder" => "Seleccione el submódulo (si aplica)",
+    "form-submodule-placeholder" => "Seleccione el submódulo (opcional)",
     "form-submodule-invalid-feedback" => null,
 ];
