@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends ControllerPermissions {
+class AccountController extends ControllerPermissions {
 
     protected ?PDO $conn;
 
@@ -11,8 +11,8 @@ class UserController extends ControllerPermissions {
     // GENERAL -----------------------------------------------
 
     private function page(string $view) {
-        $webInfo = new WebInfo('user', $view);
-        $webInfo->module = "user-$view";
+        $webInfo = new WebInfo('account', $view);
+        $webInfo->module = "account-$view";
 
         $webInfo->scripts = [
             $GLOBALS['files']['local']['script']['data'],
@@ -20,7 +20,7 @@ class UserController extends ControllerPermissions {
             $GLOBALS['files']['local']['script']['session-logout']
         ];
 
-        $this->renderView('panel', 'user', $view, $webInfo);
+        $this->renderView('panel', 'account', $view, $webInfo);
     }
 
     // PAGES -----------------------------------------------

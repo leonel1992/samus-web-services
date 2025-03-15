@@ -32,12 +32,56 @@
         "es": "/registro"
     },
 
-    "user-home": {
+    "account-home": {
         "es": "/cuenta"
+    },
+
+    "calculator": {
+        "es": "/calculadora"
+    },
+
+    "flayers": {
+        "es": "/folletos"
+    },
+
+    "accounts": {
+        "es": "/cuentas"
+    },
+
+    "customers": {
+        "es": "/clientes"
+    },
+
+    "users": {
+        "es": "/usuarios"
+    },
+
+    "records": {
+        "es": "/registros"
+    },
+
+    "security": {
+        "es": "/seguridad"
+    },
+
+    "manage": {
+        "es": "/admin"
     },
 
     "settings": {
         "es": "/ajustes"
+    },
+    "settings-currencies": {
+        "es": "/ajustes/monedas"
+    },
+    "settings-countries": {
+        "es": "/ajustes/paises"
+    },
+    "settings-processors": {
+        "es": "/ajustes/procesadores"
+    },
+    "settings-payment-methods": {
+        "es": "/ajustes/metodos-de-pago"
     },
     "settings-actions": {
         "es": "/ajustes/acciones"

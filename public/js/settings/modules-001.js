@@ -37,6 +37,13 @@ class SettingsModules extends Manage {
     
     // HTML ---------------------------------------------
 
+    htmlSelectOption(index, key, item) {
+        const selected = key === this.submitKey ? 'selected' : '';
+        return `<option data-index="${index}" value="${key}" subtitle="${key}" ${selected}>
+            ${this.#htmlTextModule(item)}
+        <option>`;
+    }
+
     htmlTableRow(index, key, item){
         return `
         <tr data-index="${index}" data-key="${key}" >
@@ -50,18 +57,26 @@ class SettingsModules extends Manage {
         </tr>`;
     }
 
+    //--------------------------------------------
+    
     #htmlTableLink(link, lang){
         if (!link) return '-';
         return `<a class="custom-text" target="_blank" href="${URL_PATH}/${lang}${link}">
             ${link}
         </a>`;
     }
-
+    
     #htmlDatalistModules(_key, item){
         return `<option value="${item.name}"><option>`;
     }
 
-    #htmlSelectId(key, _item){
-        return `<option value="${key}">${key}<option>`;
+    #htmlTextModule(item){
+        if (item.submodule) {
+            return `${item.module} // ${item.submodule}`;
+        } return item.module;
+    }
+
+    #htmlSelectId(key, item){
+        return `<option value="${key}" subtitle="${item[LANG] ?? item.es}">${key}<option>`;
     }
 }

@@ -15,16 +15,16 @@
             "local" => true,
             "items" => null
         ],
-        // 'panel-home' => [
-        //     "module" => 'panel-home',
-        //     "title" => $GLOBALS['lang-menu']['navbar']['panel-home'],
-        //     "icon" => null,
-        //     "link" => $GLOBALS['routes']['panel-home'][$GLOBALS['lang']],
-        //     "access" => Permissions::login(),
-        //     "view" => false,
-        //     "local" => true,
-        //     "items" => null
-        // ],
+        'account-home' => [
+            "module" => 'account-home',
+            "title" => $GLOBALS['lang-menu']['navbar']['account-home'],
+            "icon" => null,
+            "link" => $GLOBALS['routes']['account-home'][$GLOBALS['lang']],
+            "access" => Permissions::login(),
+            "view" => false,
+            "local" => true,
+            "items" => null
+        ],
         'public-about' => [
             "module" => 'public-about',
             "title" => $GLOBALS['lang-menu']['navbar']['public-about'],

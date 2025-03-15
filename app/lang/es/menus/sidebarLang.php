@@ -1,15 +1,15 @@
 <?php
 $GLOBALS['lang-menu']['sidebar'] = [
 
-    'panel-home' => "Inicio",
+    'account-home' => "Inicio",
 
-    'calculator' => "Calculadoras",
+    'calculator' => "Calculadora",
     'calculator-public' => "Pública",
     'calculator-office' => "Oficina",
     'calculator-preference' => "Preferencial",
     'calculator-recharges' => "Recargas",
 
-    'flayers' => "Folletos",
+    'flayers' => "Folleto",
     'flayers-general-rates' => "Tasas generales",
     'flayers-country-rates' => "Tasas por país",
     'flayers-social-media' => "Redes sociales",

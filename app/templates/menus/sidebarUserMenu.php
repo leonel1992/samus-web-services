@@ -1,7 +1,12 @@
 <div class="offcanvas offcanvas-end offcanvas-user" tabindex="-1" id="offcanvasAvatar" aria-labelledby="offcanvasAvatarLabel">
     <div class="offcanvas-header">
-        <h5 id="offcanvasAvatarLabel">Offcanvas right</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        
+        <div class="w-100 text-center">
+            <form id="logout-form" action="<?= generateRouteLink('session-login') ?>" method="POST" class="mt-3">
+                <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+            </form>
+        </div>
+
     </div>
     <div class="offcanvas-body"></div>
 </div>

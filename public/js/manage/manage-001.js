@@ -150,6 +150,7 @@ class Manage {
     } 
 
     validateSubmitId(){
+        Forms.validate("#manage-id");
         let id = this.submitKey;
         return id !== '' && id !== 0 && id !== null && id !== undefined;
     }
@@ -623,6 +624,7 @@ class Manage {
         }
 
         this.initTable();
+        Inputs.initSelects();
         setTimeout(() => {
             tbody.style.opacity = 1;
             tbody.style.display = "table-row-group";

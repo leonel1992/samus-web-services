@@ -1072,7 +1072,7 @@ class Inputs {
             let visibleOptions = Array.from(select.options).filter(option => !option.classList.contains("d-none"));
             let optionCount = visibleOptions.length;
             let showSearch = optionCount > 10 ? 0 : Infinity;
-            
+
             $(select).select2({
                 theme: "bootstrap-5",
                 templateResult: Inputs.templateResult,

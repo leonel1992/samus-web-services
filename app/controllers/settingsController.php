@@ -9,11 +9,7 @@ class SettingsController extends DMController {
     } 
 
     private function page(string $view): void {
-        parent::loadView($view, null, null, [
-            $GLOBALS['files']['local']['script']['tables'] ?? null,
-        ], [
-            $GLOBALS['files']['local']['script']['tables'] ?? null,
-        ]);
+        parent::loadView($view);
     }
 
     //-------------------------------------

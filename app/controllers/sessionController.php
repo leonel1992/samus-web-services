@@ -44,7 +44,7 @@ class SessionController extends Controller {
         if (isset($_COOKIE['LOGIN_VIEW']) && $_COOKIE['LOGIN_VIEW']) {
             $GLOBALS['web-redirect'] = $_COOKIE['LOGIN_VIEW'];
         } else {
-            $default = generateRouteLink('user-home');
+            $default = generateRouteLink('account-home');
             $GLOBALS['web-redirect'] = VarsData::string('redirect') ?? $default;
         }
 
