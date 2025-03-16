@@ -35,7 +35,7 @@ form .custom-accordion .accordion-button:not(.collapsed) .custom-form-check .for
 }
 
 .invalid-feedback::before{
-    content: "** ";
+    content: "";
 }
 
 /* INPUT GROUP ---------------------------------------------*/

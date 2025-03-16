@@ -86,7 +86,7 @@ class SettingsPermissions extends Manage {
     htmlTableRow(index, key, item){
         return `
         <tr data-index="${index}" data-key="${key}">
-            <th class="text-center" style="width:40px;">${index + 1}</th>
+            <th class="text-center">${index + 1}</th>
             <td style="min-width:100px">${this.#dataModules?.[item.module]?.module ?? item.module}</td>
             <td style="min-width:100px">${super.htmlTableEmptyText(this.#dataModules?.[item.module]?.submodule)}</td>
             <td style="min-width:100px">${this.#dataActions?.[item.action]?.name ?? item.action}</td>

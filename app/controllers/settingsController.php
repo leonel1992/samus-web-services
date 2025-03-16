@@ -14,6 +14,12 @@ class SettingsController extends DMController {
 
     //-------------------------------------
 
+    public function currencies(): void {
+        $this->page('currencies');
+    }
+
+    //-------------------------------------
+
     public function actions(): void {
         $this->page('actions');
     }

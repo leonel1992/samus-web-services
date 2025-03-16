@@ -1,4 +1,4 @@
-<section class="manage-view psdding-top">
+<section class="manage-view">
 
     <?php 
         $BUTTONS = ['table', 'insert', 'update', 'delete'];

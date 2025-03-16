@@ -14,7 +14,7 @@ class SettingsActions extends Manage {
     htmlTableRow(index, key, item){
         return `
         <tr data-index="${index}" data-key="${key}">
-            <th class="text-center" style="width:40px;">${index + 1}</th>
+            <th class="text-center">${index + 1}</th>
             <td>${item.id}</td>
             <td>${item.name}</td>
             <td style="min-width:250px">${this.htmlTableEmptyText(item.description)}</td>

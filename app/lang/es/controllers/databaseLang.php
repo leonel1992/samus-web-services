@@ -42,6 +42,16 @@ $GLOBALS['lang-controllers']['db'] = [
         "invalid-email" => "Dato inválido. Debe ingresar un correo electrónico válido para la empresa.",
     ],
 
+    "currencies" => [
+        "insert" => "Se registró la moneda en el sistema.",
+        "update" => "Se editó la moneda correctamente.",
+        "delete" => "Se eliminó la moneda correctamente.",
+        "invalid-type" => "Debe indicar el tipo de moneda.",
+        "invalid-code" => "Debe ingresar un código válido para la moneda.",
+        "invalid-name" => "Debe ingresar un nombre para la moneda.",
+        "invalid-symbol" => "Debe ingresar un símbolo para la moneda.",
+    ],
+
     "actions" => [
         "insert" => "Se registró la acción en el sistema.",
         "update" => "Se editó la acción correctamente.",

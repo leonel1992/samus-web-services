@@ -69,6 +69,15 @@ class Forms {
     }
     
     static clean(element) {
+        if (typeof element === "string") {
+            element = document.querySelector(element);
+            if (!element) return false;
+        }
+    
+        if (!(element instanceof HTMLElement)) {
+            return false;
+        }
+        
         element.classList.remove("is-invalid");
         element.closest('.input-group')?.classList.remove("is-invalid");
         element.closest('.input-group-label')?.classList.remove("is-invalid");

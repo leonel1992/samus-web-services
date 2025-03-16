@@ -96,6 +96,8 @@ class Router {
             $this->controller = 'settings';
             $this->folder = '/';
             $this->method = match ($url) {
+                $GLOBALS['routes']['settings-currencies'][$lang] => 'currencies',
+                /////////////////////////////////////////////////////////////////
                 $GLOBALS['routes']['settings-actions'][$lang] => 'actions',
                 $GLOBALS['routes']['settings-modules'][$lang] => 'modules',
                 $GLOBALS['routes']['settings-permissions'][$lang] => 'permissions',
