@@ -25,7 +25,7 @@ $GLOBALS['lang-controllers']['db'] = [
         "invalid-password-1" => "Contraseña inválida. Debe tener entre 8 y 20 caracteres, al menos 1 mayúscula, 1 minúscula, 1 número y un símbolo.",
         "invalid-password-2" => "Las contraseñas no coinciden.",
     ],
-    "user_business" => [
+    "users_business" => [
         "insert" => "Se registró la empresa del usuario.",
         "update" => "Se editó la empresa del usuario.",
         "delete" => "Se eliminó la empresa del usuario.",

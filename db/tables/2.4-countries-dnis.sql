@@ -1,6 +1,6 @@
 
 -- TIPOS DE DOCUMENTOS DE IDENTIFICACION POR PAIS
-INSERT IGNORE INTO `country_dnis` (`id`, `code`, `name`, `country`) VALUES 
+INSERT IGNORE INTO `countries_dnis` (`id`, `code`, `name`, `country`) VALUES 
 
 -- Argentina
 ('arg-dni', 'DNI', 'Documento Nacional de Identidad', 'arg'),  

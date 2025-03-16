@@ -1,6 +1,6 @@
 -- TIPOS DE COMPAÑIA POR PAIS
 
-INSERT IGNORE INTO `country_companies` (`id`, `code`, `name`, `country`) VALUES
+INSERT IGNORE INTO `countries_companies` (`id`, `code`, `name`, `country`) VALUES
 
 -- Argentina
 ('arg-sa', 'SA', 'Sociedad Anónima', 'arg'),

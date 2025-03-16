@@ -1,6 +1,6 @@
 
 -- TIPOS DE MONEDA 
-INSERT IGNORE INTO `currency_type` (`id`, `name`) VALUES
+INSERT IGNORE INTO `currencies_type` (`id`, `name`) VALUES
 ('crypto', 'Cripto'),
 ('currency', 'Divisa');
 

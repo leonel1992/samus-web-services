@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . "/../abstract/dbModelAbstract.php";
 
-class UserBusinessModel extends DBModelAbstract {
+class UsersBusinessModel extends DBModelAbstract {
 
-    public string $table = 'user_business';
-	public string $query = "SELECT * FROM `user_business` ORDER BY `name` ASC";
+    public string $table = 'users_business';
+	public string $query = "SELECT * FROM `users_business` ORDER BY `name` ASC";
 
 	public function __construct(?PDO $conn) {
 		parent::__construct($conn);

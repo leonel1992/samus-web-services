@@ -1,9 +1,9 @@
 <?php
-class CountryCompaniesModel extends ORM {
+class CountriesDnisModel extends ORM {
 
-    public string $table = "country_companies";
+    public string $table = "countries_dnis";
     public string $query = "SELECT * 
-    FROM `country_companies` 
+    FROM `countries_dnis` 
     ORDER BY 
         `country` ASC, 
         CASE 

@@ -11,7 +11,7 @@ class CurrenciesModel extends DBModelAbstract {
         C.`symbol` as `symbol`,
         C.`name` as `name`
     FROM `currencies` C
-    LEFT JOIN `currency_type` T ON T.`id` = C.`type`
+    LEFT JOIN `currencies_type` T ON T.`id` = C.`type`
     ORDER BY 
         T.`name` DESC, 
         C.`code` ASC";

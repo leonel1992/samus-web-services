@@ -1,35 +1,35 @@
 <?php
     require_once __DIR__ . '/../../../models/db/countriesModel.php';
-    require_once __DIR__ . '/../../../models/db/countryNitsModel.php';
-    require_once __DIR__ . '/../../../models/db/countryDnisModel.php';
-    require_once __DIR__ . '/../../../models/db/countryCompaniesModel.php';
-    require_once __DIR__ . '/../../../models/db/userAccountsModel.php';
-    require_once __DIR__ . '/../../../models/db/userGendersModel.php';
+    require_once __DIR__ . '/../../../models/db/countriesNitsModel.php';
+    require_once __DIR__ . '/../../../models/db/countriesDnisModel.php';
+    require_once __DIR__ . '/../../../models/db/countriesCompaniesModel.php';
+    require_once __DIR__ . '/../../../models/db/usersAccountsModel.php';
+    require_once __DIR__ . '/../../../models/db/usersGendersModel.php';
     $conn = DatabaseService::init();
 
-    $userAccountsModel = new UserAccountsModel($conn);
-    $userAccountsData = $userAccountsModel->getAll($userAccountsModel->query);
-    $userAccounts = $userAccountsData->data ?? [];
+    $usersAccountsModel = new UsersAccountsModel($conn);
+    $usersAccountsData = $usersAccountsModel->getAll($usersAccountsModel->query);
+    $usersAccounts = $usersAccountsData->data ?? [];
 
-    $userGendersModel = new UserGendersModel($conn);
-    $userGendersData = $userGendersModel->getAll($userGendersModel->query);
-    $userGenders = $userGendersData->data ?? [];
+    $usersGendersModel = new UsersGendersModel($conn);
+    $usersGendersData = $usersGendersModel->getAll($usersGendersModel->query);
+    $usersGenders = $usersGendersData->data ?? [];
 
     $countriesModel = new CountriesModel($conn);
     $countriesData = $countriesModel->getAllForRegister();
     $countries = $countriesData->data ?? [];
 
-    $countryDnisModel = new CountryDnisModel($conn);
-    $countryDnisData = $countryDnisModel->getAll($countryDnisModel->query);
-    $countryDnis = $countryDnisData->data ?? [];
+    $countriesDnisModel = new CountriesDnisModel($conn);
+    $countriesDnisData = $countriesDnisModel->getAll($countriesDnisModel->query);
+    $countriesDnis = $countriesDnisData->data ?? [];
 
-    $countryNitsModel = new CountryNitsModel($conn);
-    $countryNitsData = $countryNitsModel->getAll($countryNitsModel->query);
-    $countryNits = $countryNitsData->data ?? [];
+    $countriesNitsModel = new CountriesNitsModel($conn);
+    $countriesNitsData = $countriesNitsModel->getAll($countriesNitsModel->query);
+    $countriesNits = $countriesNitsData->data ?? [];
 
-    $countryCompaniesModel = new CountryCompaniesModel($conn);
-    $countryCompaniesData = $countryCompaniesModel->getAll($countryCompaniesModel->query);
-    $countryCompanies = $countryCompaniesData->data ?? [];
+    $countriesCompaniesModel = new CountriesCompaniesModel($conn);
+    $countriesCompaniesData = $countriesCompaniesModel->getAll($countriesCompaniesModel->query);
+    $countriesCompanies = $countriesCompaniesData->data ?? [];
 ?>
 
 <section class="session d-flex align-items-center justify-content-center py-0 py-sm-4">
@@ -52,7 +52,7 @@
                 <label class="input-label fixed" for="register-user-account"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-user-account'] ?></label>
                 <select id="register-user-account" name="register-user-account" class="form-control" data-placeholder="<?= $GLOBALS['lang-view']['placeholder-user-account'] ?>" validate-value="true" disabled required>
                     <option value=""></option>
-                    <?php foreach($userAccounts as $value){
+                    <?php foreach($usersAccounts as $value){
                         echo "<option value='{$value['id']}'>{$value['name']}</option>";
                     } ?>
                 </select>
@@ -72,7 +72,7 @@
                 <label class="input-label fixed" for="register-user-gender"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-user-gender'] ?></label>
                 <select id="register-user-gender" name="register-user-gender" class="custom-select form-control" data-placeholder="<?= $GLOBALS['lang-view']['placeholder-user-gender'] ?>"  validate-value="true" required>
                     <option value=""></option>
-                    <?php foreach($userGenders as $value){
+                    <?php foreach($usersGenders as $value){
                         echo "<option value='{$value['id']}'>{$value['name']}</option>";
                     } ?>
                 </select>
@@ -124,7 +124,7 @@
                         <label class="input-label fixed" for="register-user-document-type"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-user-document-type'] ?></label>
                         <select id="register-user-document-type" name="register-user-document-type" class="custom-select form-control" data-placeholder="<?= $GLOBALS['lang-view']['placeholder-user-document-type'] ?>"  validate-value="true" required>
                             <option value=""></option>
-                            <?php foreach($countryDnis as $value){
+                            <?php foreach($countriesDnis as $value){
                                 echo "<option value='{$value['id']}' subtitle='{$value['name']}' data-country='{$value['country']}' class='d-none'>{$value['code']}</option>";
                             } ?>
                         </select>
@@ -219,7 +219,7 @@
                         <label class="input-label fixed" for="register-business-type"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-business-type'] ?></label>
                         <select id="register-business-type" name="register-business-type" class="custom-select form-control" data-placeholder="<?= $GLOBALS['lang-view']['placeholder-business-type'] ?>" validate-value="true" required>
                             <option value=""></option>
-                            <?php foreach($countryCompanies as $value){
+                            <?php foreach($countriesCompanies as $value){
                                 echo "<option value='{$value['id']}' subtitle='{$value['name']}' data-country='{$value['country']}' class='d-none'>{$value['code']}</option>";
                             } ?>
                         </select>
@@ -238,7 +238,7 @@
                         <label class="input-label fixed" for="register-business-register-type"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-business-register-type'] ?></label>
                         <select id="register-business-register-type" name="register-business-register-type" class="custom-select form-control" data-placeholder="<?= $GLOBALS['lang-view']['placeholder-business-register-type'] ?>" validate-value="true" required>
                             <option value=""></option>
-                            <?php foreach($countryNits as $value){
+                            <?php foreach($countriesNits as $value){
                                 echo "<option value='{$value['id']}' subtitle='{$value['name']}' data-country='{$value['country']}' class='d-none'>{$value['code']}</option>";
                             } ?>
                         </select>

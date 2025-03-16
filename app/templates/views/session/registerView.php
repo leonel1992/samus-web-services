@@ -1,10 +1,10 @@
 
 <?php 
-    require_once __DIR__ . '/../../../models/db/userAccountsModel.php';
+    require_once __DIR__ . '/../../../models/db/usersAccountsModel.php';
     $conn = DatabaseService::init();
 
     $accounts = [];
-    $model = new UserAccountsModel($conn);
+    $model = new UsersAccountsModel($conn);
     $data = $model->getAll(null, 'id');
     $accounts = $data->data ?? [];
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/userBusinessModel.php";
+require_once __DIR__ . "/usersBusinessModel.php";
 require_once __DIR__ . "/../abstract/dbModelAbstract.php";
 require_once __DIR__ . "/../../helpers/encrypt.php";
 require_once __DIR__ . "/../../helpers/validate.php";
@@ -8,13 +8,13 @@ require_once __DIR__ . "/../../lang/{$GLOBALS['lang']}/controllers/databaseLang.
 
 class UsersModel extends DBModelAbstract {
 
-    public UserBusinessModel $businesModel;
+    public UsersBusinessModel $businesModel;
 
     public string $table = 'users';
 	public string $query = "SELECT * FROM `users` ORDER BY `name` ASC";
 
 	public function __construct(?PDO $conn) {
-        $this->businesModel = new UserBusinessModel($conn);
+        $this->businesModel = new UsersBusinessModel($conn);
 		parent::__construct($conn);
 	}
 

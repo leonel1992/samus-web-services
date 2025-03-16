@@ -1,19 +1,19 @@
 
 -- TIPOS DE CUENTA 
-INSERT IGNORE INTO `user_accounts` (`id`, `name`) VALUES
+INSERT IGNORE INTO `users_accounts` (`id`, `name`) VALUES
 ('business', 'Empresarial'),
 ('personal', 'Personal');
 
 
 -- GENEROS 
-INSERT IGNORE INTO `user_genders` (`id`, `name`) VALUES
+INSERT IGNORE INTO `users_genders` (`id`, `name`) VALUES
 ('F', 'Femenino'),
 ('M', 'Masculino'),
 ('O', 'Prefiero no decirlo');
 
 
 -- ESTATUS 
-INSERT IGNORE INTO `user_status` (`id`, `name`) VALUES
+INSERT IGNORE INTO `users_status` (`id`, `name`) VALUES
 ('active', 'Activo'),
 ('blocked', 'Bloqueado');
 
