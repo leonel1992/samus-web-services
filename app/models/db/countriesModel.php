@@ -12,11 +12,18 @@ class CountriesModel extends DBModelAbstract {
         parent::__construct($conn);
     }
 
-    public function parseKey(mixed $key): mixed {
-        return idxval($key);
+    //-----------------------------------------
+
+    public function getParseItem(?array $item): array|null {
+        if ($item) {
+            $item['prefix'] = "+{$item['prefix']}";
+            $item['status_reg'] = strboolval($item['status_reg']);
+            $item['status_calc'] = strboolval($item['status_calc']);
+            $item['icon_url'] = $GLOBALS['url-path'] ."/image/countries/{$item['icon']}";
+        } return $item;
     }
-    
-    public function parseData(?array $data): array|null { return $data;
+
+    public function setParseData(?array $data): array|null { return $data;
         // if($data){
         //     $data['id'] = idxval($data['iso_3']);
         //     $data['icon'] = strval($data['icon']);
@@ -44,23 +51,6 @@ class CountriesModel extends DBModelAbstract {
         // return $data;    
     }
 
-    public function parseTable(ResultData|ResultError|ResultPaginate $data): ResultData|ResultError|ResultPaginate {
-        if ($data->success && is_array($data->data)) {
-            foreach ($data->data as $key => $item) {
-                $data->data[$key] = $this->parseTableItem($item);
-            }
-        } return $data;
-    }
-
-    public function parseTableItem(?array $item): array|null {
-        if ($item) {
-            $item['prefix'] = "+{$item['prefix']}";
-            $item['status_reg'] = strboolval($item['status_reg']);
-            $item['status_calc'] = strboolval($item['status_calc']);
-            $item['icon_url'] = $GLOBALS['url-path'] ."/image/countries/{$item['icon']}";
-        } return $item;
-    }
-
     public function validate(?array $data): bool {
         // if (!$data['icon']) return false;
         // if (!is_numeric($data['prefix']) || $data['prefix'] < 1) return false;
@@ -79,6 +69,6 @@ class CountriesModel extends DBModelAbstract {
 
     public function getAllForRegister(?string $index=null, bool $sublist=false, ?string $msg=null): ResultError|ResultData {
         $sql = "SELECT * FROM {$this->table} WHERE `status_reg` = TRUE ORDER BY `name` ASC";
-        return $this->parseTable($this->getAll($sql, $index, $sublist, $msg));
+        return $this->getParseData($this->getAll($sql, $index, $sublist, $msg));
     }
 }

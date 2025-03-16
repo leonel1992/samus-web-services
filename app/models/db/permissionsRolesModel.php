@@ -12,11 +12,21 @@ class PermissionsRolesModel extends DBModelAbstract {
 
     //-----------------------------------------
 
-    public function parseKey(mixed $key): string {
-        return idxval($key);
+    public function getParseDataArray(?array $data): array|null{
+        if ($data && is_array($data)) {
+            foreach ($data as $key => $item) {
+                $data[$key] = $this->getParseItem($item);
+            }
+        } return $data;
     }
 
-    public function parseData(?array $data): array|null {
+    public function getParseItem(?array $item): array|null {
+        if ($item) {
+            $item['value'] = strboolval($item['value']);
+        } return $item;
+    }
+
+    public function setParseData(?array $data): array|null {
         if($data){
             $data['rol'] = idxval($data['rol'] ?? '');
             $data['permission'] = idxval($data['permission'] ?? '');
@@ -24,39 +34,15 @@ class PermissionsRolesModel extends DBModelAbstract {
         } return $data;
     }
 
-    public function parseDataFromRoles(?string $rol, ?array $data): array|null {
+    public function setParseDataFromRoles(?string $rol, ?array $data): array|null {
         if ($rol && $data && is_array($data)) {
             foreach ($data as $key => $item) {
                 $item['rol'] = $rol;
-                $data[$key] = $this->parseData($item);
+                $data[$key] = $this->setParseData($item);
             }
         } return $data;
     }
 
-    public function parseTable(ResultError|ResultData|ResultPaginate $data): ResultError|ResultData|ResultPaginate {
-        if ($data->success && is_array($data->data)) {
-            foreach ($data->data as $key => $item) {
-                $data->data[$key] = $this->parseTableItem($item);
-            }
-        } return $data;
-    }
-
-    public function parseTableArray(?array $data): array|null{
-        if ($data && is_array($data)) {
-            foreach ($data as $key => $item) {
-                $data[$key] = $this->parseTableItem($item);
-            }
-        } return $data;
-    }
-
-    public function parseTableItem(?array $item): array|null {
-        if ($item) {
-            $item['value'] = strboolval($item['value']);
-        } return $item;
-    }
-
-    //-----------------------------------------
-    
     public function validate(?array $data): bool {
         $this->error = null;
         if ($data) {

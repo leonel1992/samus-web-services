@@ -99,7 +99,7 @@ class LoginService {
 	private function queryPermissionsDB(): ResultData|ResultError {
 		$model = new PermissionsRolesModel($this->conn);
 		$permissions = $model->getAllPermissionsByRol($this->data['rol']);
-		return $model->parseTable($permissions);
+		return $model->getParseData($permissions);
 	}
 
 	//----------------------------------------

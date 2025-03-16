@@ -104,7 +104,7 @@ class DataController extends Controller  {
                 if ($result->success) {
                     $model = new UsersModel($this->conn);
                     $data = VarsData::general('data');
-                    $data = $model->parseDataRegister($data, $result->data['email']);
+                    $data = $model->setParseDataRegister($data, $result->data['email']);
                     if ($model->validateRegister($data)) {
                         $result = $model->register($data); 
                     } else {
@@ -135,7 +135,7 @@ class DataController extends Controller  {
                 if ($result->success) {
                     $model = new UsersModel($this->conn);
                     $data = VarsData::general('data');
-                    $data = $model->parseDataPassword($data);
+                    $data = $model->setParseDataPassword($data);
                     if ($model->validatePassword($data)) {
                         $result = $model->updatePassword($data, (int) $result->data['user']);
                     } else {

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../core/dbController.php';
 require_once __DIR__ . '/../../models/db/currenciesModel.php';
-require_once __DIR__ . '/../../models/db/currenciesTypeModel.php';
+require_once __DIR__ . '/../../models/db/currenciesTypesModel.php';
 
 class CurrenciesController extends DBController {
     public function __construct(?PDO $conn) {
@@ -12,7 +12,7 @@ class CurrenciesController extends DBController {
     public function dataTypes(): void {
         $list = [];
         if($this->isValid('access', $this->module)){
-            $model = new CurrenciesTypeModel($this->conn);
+            $model = new CurrenciesTypesModel($this->conn);
             $result = $model->getAll($model->query, 'id');
             $list = $result->data ?? [];
         } $this->renderArray($list);

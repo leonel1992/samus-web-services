@@ -26,9 +26,23 @@ abstract class DBModelAbstract extends ORM {
         return false;
     }
 
-    abstract public function parseKey(mixed $key): mixed;
-    abstract public function parseData(?array $data): array|null;
-    abstract public function parseTable(ResultError|ResultData|ResultPaginate $data): ResultError|ResultData|ResultPaginate;
-    abstract public function parseTableItem(?array $item): array|null;
+    public function getParseData(ResultError|ResultData|ResultPaginate $data): ResultError|ResultData|ResultPaginate {
+        if ($data->success && is_array($data->data)) {
+            foreach ($data->data as $key => $item) {
+                $data->data[$key] = $this->getParseItem($item);
+            }
+        } return $data;
+    }
+
+    public function getParseItem(?array $item): array|null {
+        return $item;
+    }
+
+    public function setParseKey(mixed $key): mixed {
+        return idxval($key);
+    }
+    
+    abstract public function setParseData(?array $data): array|null;
+    
     abstract public function validate(?array $data): bool;
 }

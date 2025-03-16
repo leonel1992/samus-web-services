@@ -12,11 +12,17 @@ class UsersBusinessModel extends DBModelAbstract {
 
     // DATA -------------------------------------------------------------
 
-    public function parseKey(mixed $key): mixed {
+    public function getParseItem(?array $item): array|null {
+        if ($item) {
+            $item['id'] = bigintval($item['id']);
+        } return $item;
+    }
+
+    public function setParseKey(mixed $key): mixed {
         return bigintval($key);
     }
 
-    public function parseData(?array $data): array|null { return $data;
+    public function setParseData(?array $data): array|null { return $data;
         if($data){
             $newData['user'] = bigintval($data['user'] ?? '');
             $newData['date'] = dateval($data['date'] ?? '');
@@ -32,20 +38,6 @@ class UsersBusinessModel extends DBModelAbstract {
             $newData['email'] = mb_strtolower(trimstrval($data['email'] ?? null, true));
             $newData['web'] = trimstrval($data['web'] ?? null, true);
         } return $data;
-    }
-
-    public function parseTable(ResultData|ResultError|ResultPaginate $data): ResultData|ResultError|ResultPaginate {
-        if ($data->success && is_array($data->data)) {
-            foreach ($data->data as $key => $item) {
-                $data->data[$key] = $this->parseTableItem($item);
-            }
-        } return $data;
-    }
-
-    public function parseTableItem(?array $item): array|null {
-        if ($item) {
-            $item['id'] = bigintval($item['id']);
-        } return $item;
     }
 
     // VALIDATE -------------------------------------------------------------

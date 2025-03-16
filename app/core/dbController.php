@@ -20,8 +20,8 @@ class DBController extends ControllerPermissions {
         $this->module = $module;
         $this->ref = $ref;
 
-        $this->key = $this->model->parseKey(VarsData::general('key'));
-        $this->data = $this->model->parseData(VarsData::general( 'data'));
+        $this->key = $this->model->setParseKey(VarsData::general('key'));
+        $this->data = $this->model->setParseData(VarsData::general( 'data'));
     }
 
     private function renderInvalidKey() {
@@ -38,7 +38,7 @@ class DBController extends ControllerPermissions {
     public function table(): void {
         if($this->isValid('access', $this->module)){
             $data = $this->model->getAll($this->model->query);
-            $data = $this->model->parseTable($data);
+            $data = $this->model->getParseData($data);
             $this->renderJson($data);
         } $this->renderJson403();
     }
@@ -52,7 +52,7 @@ class DBController extends ControllerPermissions {
             }
 
             $data = $this->model->paginate($page, $limit, $this->model->query);
-            $data = $this->model->parseTable($data);
+            $data = $this->model->getParseData($data);
             $this->renderJson($data);
         } $this->renderJson403();
     }

@@ -12,11 +12,7 @@ class ModulesModel extends DBModelAbstract {
 
     //-----------------------------------------
 
-    public function parseKey(mixed $key): string {
-        return idxval($key);
-    }
-
-    public function parseData(?array $data): array|null {
+    public function setParseData(?array $data): array|null {
         if($data){
             $data['id'] = idxval($data['id'] ?? '');
             $data['module'] = trimstrval($data['module'] ?? '');
@@ -24,16 +20,6 @@ class ModulesModel extends DBModelAbstract {
             $data['link_es'] = trimstrval($data['link_es'] ?? null, true);
         } return $data;
     }
-
-    public function parseTable(ResultError|ResultData|ResultPaginate $data): ResultError|ResultData|ResultPaginate {
-        return $data;
-    }
-
-    public function parseTableItem(?array $item): array|null {
-        return $item;
-    }
-    
-    //-----------------------------------------
 
     public function validate(?array $data): bool {
         $this->error = null;

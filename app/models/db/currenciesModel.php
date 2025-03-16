@@ -11,7 +11,7 @@ class CurrenciesModel extends DBModelAbstract {
         C.`symbol` as `symbol`,
         C.`name` as `name`
     FROM `currencies` C
-    LEFT JOIN `currencies_type` T ON T.`id` = C.`type`
+    LEFT JOIN `currencies_types` T ON T.`id` = C.`type`
     ORDER BY 
         T.`name` DESC, 
         C.`code` ASC";
@@ -22,11 +22,7 @@ class CurrenciesModel extends DBModelAbstract {
 
     //-----------------------------------------
 
-    public function parseKey(mixed $key): string {
-        return idxval($key);
-    }
-    
-    public function parseData(?array $data): array|null {
+    public function setParseData(?array $data): array|null {
         if($data){
             $data['id'] = idxval($data['code'] ?? '');
             $data['type'] = idxval($data['type'] ?? '');
@@ -35,16 +31,6 @@ class CurrenciesModel extends DBModelAbstract {
             $data['symbol'] = $data['symbol'] ? strval($data['symbol']) : null;
         } return $data;
     }
-
-    public function parseTable(ResultError|ResultData|ResultPaginate $data): ResultError|ResultData|ResultPaginate {
-        return $data;
-    }
-
-    public function parseTableItem(?array $item): array|null {
-        return $item;
-    }
-
-    //-----------------------------------------
 
     public function validate(?array $data): bool {
         $this->error = null;

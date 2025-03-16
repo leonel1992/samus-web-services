@@ -20,20 +20,33 @@ class UsersModel extends DBModelAbstract {
 
     // DATA -------------------------------------------------------------
 
-    public function parseKey(mixed $key): mixed {
+    public function getParseItem(?array $item): array|null {
+        if ($item) {
+            $item['id'] = bigintval($item['id']);
+        } return $item;
+    }
+
+    public function setParseKey(mixed $key): mixed {
         return bigintval($key);
     }
 
-    public function parseData(?array $data): array|null {
-        return $this->parseDataAll($data, false);
+    public function setParseData(?array $data): array|null {
+        return $this->setParseDataAll($data, false);
     }
 
-    public function parseDataRegister(?array $data, string $email): array|null {
+    public function setParseDataRegister(?array $data, string $email): array|null {
         $data['user']['email'] = $email;
-        return $this->parseDataAll($data, true);
+        return $this->setParseDataAll($data, true);
     }
 
-    public function parseDataAll(?array $data, bool $reg): array|null {
+    public function setParseDataPassword(?array $data): array|null {
+        if($data){
+            $data['password_1'] = isset($data['password_1']) ? strval($data['password_1']) : null;
+            $data['password_2'] = isset($data['password_2']) ? strval($data['password_2']) : null;
+        } return $data;
+    }
+
+    public function setParseDataAll(?array $data, bool $reg): array|null {
         if($data){
             $newData = [];
 
@@ -66,32 +79,11 @@ class UsersModel extends DBModelAbstract {
             $newData['user']['password_2'] = isset($data['user']['password_2']) ? strval($data['user']['password_2']) : null;
 
             if ($newData['user']['account'] === 'business') {
-                $newData['business'] = $this->businesModel->parseData($data['business'] ?? null);
+                $newData['business'] = $this->businesModel->setParseData($data['business'] ?? null);
             }
 
             return $newData;
         } return $data;
-    }
-
-    public function parseDataPassword(?array $data): array|null {
-        if($data){
-            $data['password_1'] = isset($data['password_1']) ? strval($data['password_1']) : null;
-            $data['password_2'] = isset($data['password_2']) ? strval($data['password_2']) : null;
-        } return $data;
-    }
-
-    public function parseTable(ResultData|ResultError|ResultPaginate $data): ResultData|ResultError|ResultPaginate {
-        if ($data->success && is_array($data->data)) {
-            foreach ($data->data as $key => $item) {
-                $data->data[$key] = $this->parseTableItem($item);
-            }
-        } return $data;
-    }
-
-    public function parseTableItem(?array $item): array|null {
-        if ($item) {
-            $item['id'] = bigintval($item['id']);
-        } return $item;
     }
 
     // VALIDATE -------------------------------------------------------------
@@ -102,6 +94,17 @@ class UsersModel extends DBModelAbstract {
 
     public function validateRegister(?array $data): bool {
         return $this->validateAll($data, true);
+    }
+
+    public function validatePassword(?array $data): bool {
+        $this->error = null;
+        if (!$data) {
+            return $this->setError();
+        } if (!isset($data['password_1']) || !validatePassword($data['password_1'])) {
+            return $this->setError('invalid-password-1');
+        } if (!isset($data['password_2']) || $data['password_1'] !== $data['password_2']) {
+            return $this->setError('invalid-password-2');
+        } return true;
     }
 
     public function validateAll(?array $data, bool $reg): bool {
@@ -155,18 +158,7 @@ class UsersModel extends DBModelAbstract {
             return $valid;
         } return true;
     }
-
-    public function validatePassword(?array $data): bool {
-        $this->error = null;
-        if (!$data) {
-            return $this->setError();
-        } if (!isset($data['password_1']) || !validatePassword($data['password_1'])) {
-            return $this->setError('invalid-password-1');
-        } if (!isset($data['password_2']) || $data['password_1'] !== $data['password_2']) {
-            return $this->setError('invalid-password-2');
-        } return true;
-    }
-
+    
     // METHODS --------------------------------------
 
 	public function register(array $data): ResultError|ResultSuccess {

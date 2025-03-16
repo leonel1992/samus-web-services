@@ -20,26 +20,12 @@ class PermissionsModel extends DBModelAbstract {
 
     //-----------------------------------------
 
-    public function parseKey(mixed $key): string {
-        return idxval($key);
-    }
-
-    public function parseData(?array $data): array|null {
+    public function setParseData(?array $data): array|null {
         if($data){
             $data['module'] = idxval($data['module'] ?? '');
             $data['action'] = idxval($data['action'] ?? '');
         } return $data;
     }
-
-    public function parseTable(ResultError|ResultData|ResultPaginate $data): ResultError|ResultData|ResultPaginate {
-        return $data;
-    }
-
-    public function parseTableItem(?array $item): array|null {
-        return $item;
-    }
-
-    //-----------------------------------------
 
     public function validate(?array $data): bool {
         $this->error = null;

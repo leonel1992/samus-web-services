@@ -38,35 +38,21 @@ class RolesModel extends DBModelAbstract {
 
     //-----------------------------------------
 
-    public function parseKey(mixed $key): string {
-        return idxval($key);
+    public function getParseItem(?array $item): array|null {
+        if ($item) {
+            $permissions = json_decode($item['permissions'], JSON_OBJECT_AS_ARRAY);
+            $item['permissions'] = $this->permModel->getParseDataArray($permissions);
+        } return $item;
     }
 
-    public function parseData(?array $data): array|null {
+    public function setParseData(?array $data): array|null {
         if($data){
             $data['id'] = idxval($data['id'] ?? '');
             $data['name'] = trimstrval($data['name'] ?? '');
             $data['description'] = trimstrval($data['description'] ?? null, true);
-            $data['permissions'] = $this->permModel->parseDataFromRoles($data['id'], $data['permissions'] ?? null); 
+            $data['permissions'] = $this->permModel->setParseDataFromRoles($data['id'], $data['permissions'] ?? null); 
         } return $data;
     }
-
-    public function parseTable(ResultError|ResultData|ResultPaginate $data): ResultError|ResultData|ResultPaginate {
-        if ($data->success && is_array($data->data)) {
-            foreach ($data->data as $key => $item) {
-                $data->data[$key] = $this->parseTableItem($item);
-            }
-        } return $data;
-    }
-
-    public function parseTableItem(?array $item): array|null {
-        if ($item) {
-            $permissions = json_decode($item['permissions'], JSON_OBJECT_AS_ARRAY);
-            $item['permissions'] = $this->permModel->parseTableArray($permissions);
-        } return $item;
-    }
-
-    //-----------------------------------------
 
     public function validate(?array $data): bool {
         $this->error = null;
