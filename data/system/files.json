@@ -41,8 +41,9 @@
             "session-recover":  "/js/session/recover-001.js",
             "session-register": "/js/session/register-001.js" ,
 
-            "settings-currencies": "/js/settings/currencies-001.js",
-
+            "settings-currencies":      "/js/settings/currencies-001.js",
+            "settings-payment-methods": "/js/settings/payment-methods-001.js",
+            
             "settings-actions":     "/js/settings/actions-001.js",
             "settings-modules":     "/js/settings/modules-001.js",
             "settings-permissions": "/js/settings/permissions-001.js",

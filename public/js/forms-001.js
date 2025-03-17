@@ -47,7 +47,7 @@ class Forms {
                 input.addEventListener("change", function() {
                     Forms.clean(this);
                 });
-            }else if (input.tagName === "SELECT") {
+            } else if (input.tagName === "SELECT") {
                 input.addEventListener("change", function() {
                     Forms.clean(this);
                 });
@@ -77,10 +77,14 @@ class Forms {
         if (!(element instanceof HTMLElement)) {
             return false;
         }
-        
-        element.classList.remove("is-invalid");
-        element.closest('.input-group')?.classList.remove("is-invalid");
-        element.closest('.input-group-label')?.classList.remove("is-invalid");
+
+        let current = element;
+        while (current) {
+            current.classList.remove('is-invalid');
+            if ([...current.classList].some(cls => cls === 'input-group' || cls.startsWith('input-group-'))) {
+                break;
+            } current = current.parentElement;
+        }
     }
     
     static cleanAll() {
@@ -123,6 +127,8 @@ class Forms {
             let validateEmail  = element.getAttribute("validate-email");
             let validatePhone  = element.getAttribute("validate-phone");
             let validatePass   = element.getAttribute("validate-password");
+            let validateFile   = element.getAttribute("validate-file");
+
             let validateEqual  = element.getAttribute("validate-equal");
             let validateLength = element.getAttribute("validate-length");
     
@@ -133,22 +139,24 @@ class Forms {
             let boolEmail  = validateEmail === null  || validateEmail === 'false'  ? true : Forms.validateEmail(value);
             let boolPhone  = validatePhone === null  || validatePhone === 'false'  ? true : Forms.validatePhone(value);
             let boolPass   = validatePass === null   || validatePass === 'false'   ? true : Forms.validatePassword(value);
+            let boolFile   = validateFile === null   || validateFile === 'false'   ? true : Forms.validateFile(element);
 
-            let boolEqual      = validateEqual === null ? true : Forms.validateEqual(value, validateEqual);
-            let boolLength     = validateLength === null ? true : Forms.validateLength(value, validateLength);
+            let boolEqual  = validateEqual === null ? true : Forms.validateEqual(value, validateEqual);
+            let boolLength = validateLength === null ? true : Forms.validateLength(value, validateLength);
             let boolAge    = validateAge === null ? true : Forms.validateAge(value, validateAge);
 
-            if (!boolValue || !boolCheck || !boolNumber || !boolName || !boolEmail || !boolPhone || !boolPass || !boolEqual || !boolLength || !boolAge) {
+            if (!boolValue || !boolCheck || !boolNumber || !boolName || !boolEmail || !boolPhone || !boolPass || !boolFile || !boolEqual || !boolLength || !boolAge) {
                 isValid = false;
                 element.value = value;
-                element.classList.add("is-invalid");
     
-                let parentGroup = element.closest(".input-group");
-                if (parentGroup) parentGroup.classList.add("is-invalid");
-    
-                let parentLabel = element.closest(".input-group-label");
-                if (parentLabel) parentLabel.classList.add("is-invalid");
-    
+                let current = element;
+                while (current) {
+                    current.classList.add('is-invalid');
+                    if ([...current.classList].some(cls => cls === 'input-group' || cls.startsWith('input-group-'))) {
+                        break;
+                    } current = current.parentElement;
+                }
+
                 try {
                     let contentDiv = document.querySelector(".scrollable");
                     let elementDiv = document.querySelector(".is-invalid");
@@ -213,6 +221,11 @@ class Forms {
     static validatePassword(value) {
         let pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[ \°\|\¡\!\¿\?\@\#\$\%\&\(\)\{\}\[\]\<\>\\\/\^\*\~\-\+\_\.\,\:\;\=\'\"\`]).{8,20}$/;
         return pattern.test(value);
+    }
+
+    static validateFile(element) {
+        let value = element?.dataset.value;
+        return value !== '' && value !== null && value !== undefined;
     }
 
     static validateEqual(value, element) {

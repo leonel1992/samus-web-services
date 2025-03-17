@@ -13,7 +13,7 @@ class ImageController {
         $expl = explode('?', $url);
         $explUrl = explode('/', $expl[0]);
         $explData = explode('.', $explUrl[3]);
-   
+
         $this->model = new ImageModel();
         $this->image = $explData[0] ?? null;
         $this->ext = $explData[1] ?? null;

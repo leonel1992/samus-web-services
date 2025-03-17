@@ -55,11 +55,11 @@ function appendScript(url) {
             success: function() {
                 let script = document.createElement("script");
                 script.type = "text/javascript";
-                script.href = url;
+                script.setAttribute("href", url);
                 document.body.appendChild(script);
             },
             error: function() {
-                console.log(`ERROR: Don't load ${url}"`);
+                console.error(`Don't load script: ${url}`);
             }
         });
     }

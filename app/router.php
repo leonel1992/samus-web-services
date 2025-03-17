@@ -97,7 +97,8 @@ class Router {
             $this->folder = '/';
             $this->method = match ($url) {
                 $GLOBALS['routes']['settings-currencies'][$lang] => 'currencies',
-                /////////////////////////////////////////////////////////////////
+                $GLOBALS['routes']['settings-payment-methods'][$lang] => 'paymentMethods',
+                //////////////////////////////////////////////////////////////////////////
                 $GLOBALS['routes']['settings-actions'][$lang] => 'actions',
                 $GLOBALS['routes']['settings-modules'][$lang] => 'modules',
                 $GLOBALS['routes']['settings-permissions'][$lang] => 'permissions',
@@ -135,7 +136,7 @@ class Router {
                 case 4:
                     if (strpos($url, '/image/') === 0) {
                         $this->controller = "image";
-                        $this->method = $expl[2];
+                        $this->method = $this->matchRouteURL($expl[2]);
                         $this->folder = "/system/";
                     } elseif (
                         strpos($url, '/system/') === 0 ||

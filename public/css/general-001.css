@@ -95,15 +95,15 @@
     --color-table-text: #292929; 
     --color-table-border: #cacecb;
     --color-table-hover: #d8ffd4;
-    --color-table-status-default-back: #ededed;
-    --color-table-status-default-text: #7f7f7f;
-    --color-table-status-default-border: #e1e1e1;
-    --color-table-status-success-back: #dfffdd;
-    --color-table-status-success-text: #3E8E36;
-    --color-table-status-success-border: #bdf3ba;
-    --color-table-status-danger-back: #ffe4eb;
-    --color-table-status-danger-text: #dc3545;
-    --color-table-status-danger-border: #fed6e0;
+    --color-table-label-default-back: #ededed;
+    --color-table-label-default-text: #7f7f7f;
+    --color-table-label-default-border: #e1e1e1;
+    --color-table-label-success-back: #dfffdd;
+    --color-table-label-success-text: #3E8E36;
+    --color-table-label-success-border: #bdf3ba;
+    --color-table-label-danger-back: #ffe4eb;
+    --color-table-label-danger-text: #dc3545;
+    --color-table-label-danger-border: #fed6e0;
     
     --color-back: #ffffff; 
     --color-border: #cacecb;

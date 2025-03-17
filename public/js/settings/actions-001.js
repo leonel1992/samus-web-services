@@ -7,8 +7,9 @@ class SettingsActions extends Manage {
     // HTML ---------------------------------------------
 
     htmlSelectOption(index, key, item) {
-        const selected = key === this.submitKey ? 'selected' : '';
-        return `<option data-index="${index}" value="${key}" subtitle="${key}" ${selected}>${item.name}<option>`;
+        return `<option data-index="${index}" value="${key}" subtitle="${key}">
+            ${item.name}
+        <option>`;
     }
 
     htmlTableRow(index, key, item){

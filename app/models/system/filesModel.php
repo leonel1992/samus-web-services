@@ -4,10 +4,10 @@ require_once __DIR__ . "/../../lang/{$GLOBALS['lang']}/controllers/systemLang.ph
 class FilesModel {
 
     private ?string $type;
-    private ?string $file;
+    private ?array $file;
     private string $tmpPath = __DIR__ . '/../../../assets/tmp/';
 
-    public function __construct(?string $type=null, ?string $file=null) {
+    public function __construct(?string $type=null, ?array $file=null) {
         $this->type = $type;
         $this->file = $file;
     }

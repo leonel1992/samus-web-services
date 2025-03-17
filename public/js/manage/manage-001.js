@@ -24,6 +24,7 @@ class Manage {
  
     ref;
     data = {};
+    paths =  {};
     submitId = null;
     submitKey = null;
     submitType = ManageSubmitType.table;
@@ -108,18 +109,18 @@ class Manage {
         let data = {};
         const formData = document.querySelector("#manage-form");
         const formGroupData = document.querySelector("#form-group-manage-data");
-        (formGroupData ?? formData)?.querySelectorAll(".form-control").forEach(element => {
+        (formGroupData ?? formData)?.querySelectorAll(".form-control, .custom-control").forEach(element => {
             const index = element.getAttribute('id')?.replaceAll('-', '_');
-            if (element.tagName === "INPUT" && element.type === "checkbox") {
-                data[index] = element.checked;
-            } else if (element.tagName === "SELECT") {
-                if (element.value === this.optionNull) {
-                    data[index] = null;
+            if(index && !index.startsWith("input_group")) {
+                if (element.classList.contains("custom-file")) {
+                    data[index] = element.dataset.value;
+                } else if (element.tagName === "SELECT") {
+                    data[index] = element.value !== this.optionNull ? element.value : null;
+                } else if (element.tagName === "INPUT" && element.type === "checkbox") {
+                    data[index] = element.checked;
                 } else {
-                    data[index] = element.value;
+                    data[index] = element.value?.trim();
                 }
-            } else {
-                data[index] = element.value.trim();
             }
         }); return data;
     }
@@ -523,17 +524,34 @@ class Manage {
 
         const formData = document.querySelector("#manage-form");
         const formGroupData = document.querySelector("#form-group-manage-data");
-        (formGroupData ?? formData)?.querySelectorAll(".form-control").forEach(element => {
-            if (data) {
-                const index = element.getAttribute('id')?.replaceAll('-', '_');
-                element.value = data[index];
-            } else {
-                element.value = "";
-                if (element.tagName === "SELECT") {
-                    element.selectedIndex = -1;
-                } 
-            }
-            
+        (formGroupData ?? formData)?.querySelectorAll(".form-control, .custom-control").forEach(element => {
+
+            try {
+                if (data) { 
+                    const index = element.id?.replaceAll('-', '_');
+                    if(index && !index.startsWith("input_group")) {
+                        if (element.classList.contains("custom-file")) {
+                            Inputs.fileSetValue(element, this.paths[index] + data[index]);
+                        } else if (element.type === "checkbox" || element.type === "radio") {
+                            element.checked = !!data[index];
+                        } else {
+                            element.value = data[index];
+                        }
+                    }
+                } else {
+                    if (element.classList.contains("custom-file")) {
+                        Inputs.fileSetValue(element, null);
+                    } if (element.type === "checkbox" || element.type === "radio") {
+                        element.checked = false;
+                    } else {
+                        element.value = "";
+                        if (element.tagName === "SELECT") {
+                            element.selectedIndex = -1;
+                        }
+                    }
+                }
+            } catch (_) {}
+
             Forms.clean(element);
             if (element.tagName === "SELECT") {
                 element.dispatchEvent(new Event("change"));
@@ -629,6 +647,12 @@ class Manage {
         const select = document.querySelector("#manage-id");
         if (select) {
             select.innerHTML = htmlSelect;
+            if (this.submitKey) {
+                const selectedOption = select.querySelector(`option[value="${this.submitKey}"]`);
+                if (selectedOption) {
+                    selectedOption.selected = true;
+                }
+            }
         }
 
         this.initTable();

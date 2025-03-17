@@ -51,6 +51,14 @@ $GLOBALS['lang-controllers']['db'] = [
         "invalid-name" => "Debe ingresar un nombre para la moneda.",
         "invalid-symbol" => "Debe ingresar un símbolo para la moneda.",
     ],
+    "payment_methods" => [
+        "insert" => "Se registró método de pago en el sistema.",
+        "update" => "Se editó el método de pago correctamente.",
+        "delete" => "Se eliminó el método de pago correctamente.",
+        "invalid-id" => "Debe ingresar un ID para el método de pago.",
+        "invalid-name" => "Debe ingresar un nombre para el método de pago.",
+        "invalid-icon" => "Debe ingresar un ícono o logo para el método de pago.",
+    ],
 
     "actions" => [
         "insert" => "Se registró la acción en el sistema.",

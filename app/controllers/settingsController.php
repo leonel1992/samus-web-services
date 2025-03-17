@@ -8,14 +8,18 @@ class SettingsController extends DMController {
         parent::__construct('settings');
     } 
 
-    private function page(string $view): void {
-        parent::loadView($view);
+    private function page(string $view, string $module=null): void {
+        parent::loadView($view, $module);
     }
 
     //-------------------------------------
 
     public function currencies(): void {
         $this->page('currencies');
+    }
+
+    public function paymentMethods(): void {
+        $this->page('paymentMethods', 'settings-payment-methods');
     }
 
     //-------------------------------------

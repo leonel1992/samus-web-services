@@ -11,8 +11,18 @@ class Inputs {
 
         this.initInputsPassword(parent);
         this.initInputsDatepicker(parent);
-        this.initInputFile(parent);
+        this.initInputsFile(parent);
         this.initSelects(parent);
+    }  
+
+    static getContext(parent = null) {
+        if (typeof parent === 'string') {
+            return document.querySelector(parent);
+        } else if (parent instanceof Element) {
+            return parent;
+        } else {
+            return document;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,7 +30,7 @@ class Inputs {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     static initInputsUpperCase(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
+        const context = Inputs.getContext(parent);
         context.querySelectorAll("input[input-case='upper']").forEach(input => {
             input.addEventListener("input", () => {
                 input.value = input.value.toUpperCase();
@@ -29,7 +39,7 @@ class Inputs {
     }
 
     static initInputsLowerCase(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
+        const context = Inputs.getContext(parent);
         context.querySelectorAll("input[input-case='lower']").forEach(input => {
             input.addEventListener("input", () => {
                 input.value = input.value.toLowerCase();
@@ -38,7 +48,7 @@ class Inputs {
     }
 
     static initInputsCodeFormat(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
+        const context = Inputs.getContext(parent);
         context.querySelectorAll("input[input-case='code']").forEach(input => {
             input.addEventListener("input", () => {
                 input.value = input.value.replace(/[^A-Za-z0-9]/g, "").substr(0, input.maxLength).toUpperCase();
@@ -47,7 +57,7 @@ class Inputs {
     }
 
     static initInputsKeyFormat(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
+        const context = Inputs.getContext(parent);
         context.querySelectorAll("input[input-case='key']").forEach(input => {
             input.addEventListener("input", function() {
                 const pattern = /[^A-Za-z0-9_.-]/g;
@@ -57,7 +67,7 @@ class Inputs {
     }    
     
     static initInputsPrefixFormat(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
+        const context = Inputs.getContext(parent);
         context.querySelectorAll("input[input-case='prefix']").forEach(input => {
             input.addEventListener("keyup", function() {
                 const pattern = /[^0-9+]/g;
@@ -75,7 +85,7 @@ class Inputs {
     }
     
     static initInputsUserCodeFormat(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
+        const context = Inputs.getContext(parent);
         context.querySelectorAll("input[input-case='user-code']").forEach(input => {
             input.addEventListener("keyup", function() {
                 input.value = input.value.replace(/[^0-9]/g, "").substr(0, 4);
@@ -84,7 +94,7 @@ class Inputs {
     }
 
     static initInputsFormatNumber(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
+        const context = Inputs.getContext(parent);
         context.querySelectorAll("input[format-number], input[format-percent]").forEach(input => {
             input.addEventListener('keydown', function(event) {
     
@@ -276,7 +286,7 @@ class Inputs {
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     static initInputsPassword(parent = null) {
-        const context = parent ? $(parent) : $(document);
+        const context = Inputs.getContext(parent);
 
         const htmlHide = `<svg width="26" height="26" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="viewpass password-hide">
             <use xlink:href="${URL_PATH}/assets/icons/bootstrap.svg#eye-slash">
@@ -286,29 +296,45 @@ class Inputs {
             <use xlink:href="${URL_PATH}/assets/icons/bootstrap.svg#eye">
         </svg>`;
 
-        context.find(".custom-password-icon").remove();
-        context.find(".custom-password").each(function(index, element) {
-            const id = $(element).attr("id");
-            $(element).addClass("border-end-0");
-            $(element).parent().append(`
-                <span class="input-group-text custom-password-icon">
-                    <a class="custom-password-btn" role="button" show="false" for="${id}">${htmlHide}</a>
-                </span>
-            `);
+        context.querySelectorAll(".custom-password-icon").forEach(icon => {
+            icon.remove();
         });
 
-        context.find(".custom-password-btn").click(function () { 
-            let show = $(this).attr("show");
-            let input = $(this).attr("for");
-            if (show === 'false') {
-                $('#'+ input).attr("type", "text");
-                $(this).attr("show","true");
-                $(this).html(htmlShow);
-            } else {
-                $('#'+ input).attr("type", "password");
-                $(this).attr("show","false");
-                $(this).html(htmlHide);
-            }
+        context.querySelectorAll(".custom-password").forEach(element => {
+
+            const id = element.getAttribute("id");
+            element.classList.add("border-end-0");
+
+            const a = document.createElement("a");
+            a.classList.add("custom-password-btn");
+            a.setAttribute("role", "button");
+            a.setAttribute("show", "false");
+            a.setAttribute("for", id);
+            a.innerHTML = htmlHide;
+
+            const span = document.createElement("span");
+            span.classList.add("input-group-text", "custom-password-icon");
+            span.appendChild(a);
+        
+            element.parentNode.appendChild(span);
+        });
+
+        context.querySelectorAll(".custom-password-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const show = btn.getAttribute("show");
+                const inputId = btn.getAttribute("for");
+                const input = document.getElementById(inputId);
+
+                if (show === 'false') {
+                    input.setAttribute("type", "text");
+                    btn.setAttribute("show", "true");
+                    btn.innerHTML = htmlShow;
+                } else {
+                    input.setAttribute("type", "password");
+                    btn.setAttribute("show", "false");
+                    btn.innerHTML = htmlHide;
+                }
+            });
         });
     }
 
@@ -317,7 +343,7 @@ class Inputs {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     static initInputsDatepicker(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
+        const context = Inputs.getContext(parent);
         
         document.addEventListener('click', function(event) {
             document.querySelectorAll('.datepicker-popup').forEach(calendar => {
@@ -777,95 +803,145 @@ class Inputs {
     ////////////////////////////////////////////////////////////////////////////////////////////
     // CUSTOM FILES --------------------------------------------------------------------------
     ////////////////////////////////////////////////////////////////////////////////////////////
+    
+    static initInputsFile(parent = null) {
+        const context = Inputs.getContext(parent);
 
-    static initInputFile(parent = null) {
-        const context = parent ? $(parent) : $(document);
-        
-        context.find(".custom-file").each(function (index, element) {
-            $(this).val("");
+        context.querySelectorAll(".custom-file").forEach((element) => {
             Inputs.htmlInputFile(element);
         });
-
-        context.find(".custom-file").not('.disabled').not('[disabled]').bind('dragover', function(e){
-            e.preventDefault();
-            $(this).addClass("active");
-            $(this).removeClass("is-invalid");
+    
+        context.querySelectorAll(".custom-file:not(.disabled):not([disabled])").forEach((element) => {
+            element.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                element.classList.add("active"); 
+                try {Forms.clean(customFile);} 
+                catch (_) {}
+            });
+    
+            element.addEventListener("dragleave", (e) => {
+                e.preventDefault();
+                element.classList.remove("active");
+            });
+    
+            element.addEventListener("drop", (e) => {
+                e.preventDefault();
+                let files = e.dataTransfer.files;
+                element.classList.remove("active");
+                Inputs.fileProcess(element, files);
+                try {Forms.clean(customFile);} 
+                catch (_) {}
+            });
         });
-
-        context.find(".custom-file").not('.disabled').not('[disabled]').bind('dragleave', function(e){
-            e.preventDefault();
-            $(this).removeClass("active");
+    
+        context.querySelectorAll(".custom-file-simple:not(.disabled):not([disabled])").forEach((element) => {
+            element.addEventListener("click", (e) => {
+                e.preventDefault();
+                let input = element.parentNode.querySelector('.custom-file-input');
+                if (input) input.click();
+            });
         });
-
-        context.find(".custom-file").not('.disabled').not('[disabled]').bind('drop', function(e){
-            e.preventDefault();
-            let files = e.originalEvent.dataTransfer.files;
-            Inputs.fileProcess(this, files);
-            $(this).removeClass("active");
-            $(this).removeClass("is-invalid");
+    
+        context.querySelectorAll(".custom-file:not(.disabled):not([disabled]) .custom-file-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                let container = btn.closest('.custom-file-container');
+                if (container) {
+                    let input = container.querySelector('.custom-file-input');
+                    if (input) input.click();
+                }
+            });
         });
-
-        context.find(".custom-file-simple").not('.disabled').not('[disabled]').click(function (e) {
-            e.preventDefault();
-            $(this).parent().find('.custom-file-input').click();
+    
+        context.querySelectorAll(".custom-file:not(.disabled):not([disabled]) .custom-file-delete").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                let input = btn.closest('.custom-file');
+                if (input) Inputs.fileDelete(input);
+            });
         });
-
-        context.find(".custom-file").not('.disabled').not('[disabled]').find('.custom-file-btn').click(function (e) { 
-            e.preventDefault();
-            $(this).parents('.custom-file-container').find('.custom-file-input').click();
-        });
-
-        context.find(".custom-file").not('.disabled').not('[disabled]').find('.custom-file-delete').click(function (e) { 
-            e.preventDefault();
-            let input = $(this).parents('.custom-file');
-            Inputs.fileDelete(input);
-        });
-        
-        context.find('.custom-file-input').change(function () {
-            let files = this.files;
-            let input = $(this).parent().find(".custom-file");
-            $(input).removeClass("is-invalid");
-            Inputs.fileProcess(input, files);
+    
+        context.querySelectorAll('.custom-file-input').forEach((inputElement) => {
+            inputElement.addEventListener("change", (e) => {
+                let files = inputElement.files;
+                let customFile = inputElement.parentNode.querySelector(".custom-file");
+                Inputs.fileProcess(customFile, files);
+                try {Forms.clean(customFile);} 
+                catch (_) {}
+            });
         });
     }
 
+    //getters - setters
+    static fileGetValue(input) { 
+        return input.attr('data-value');     
+    }
+
+    static fileSetValue(input, url) {
+        if (url && url !== '') {
+            const name = url.split('/').pop();
+            Inputs.filePrint(input, {
+                name: name
+            },{
+                result: url
+            });    
+        } else {
+            Inputs.fileDelete(input);
+        }
+    }
+
     //proccess
-    static fileProcess(input, files){
-        $.each(files, function (index, file) {
-            let fileReader = new FileReader();
+    static fileProcess(input, files) { 
+        Array.from(files).forEach(file => {
+            const fileReader = new FileReader();
             fileReader.readAsDataURL(file);
             fileReader.onload = function () {
                 Inputs.validateFile(input, file, fileReader);
             };
-        });
+        });        
     }
-
-    static fileDelete(input, item=null){
-        $(input).parent().find(".custom-file-input").val(undefined);
-        $(input).val("");
-
+    
+    static fileDelete(input, item = null) {
+        const fileInput = input.parentNode.querySelector(".custom-file-input");
+        if (fileInput) fileInput.value = "";
+        input.removeAttribute("data-value");
+    
         if (item === null) {
-            $(input).find('.custom-file-container-items').css('opacity', 1);
-            $(input).find('.custom-file-container-image').css('opacity', 0);
+            const container = input.querySelector('.custom-file-container-image');
+            const items = input.querySelector('.custom-file-container-items');
+            const image = input.querySelector('.custom-file-image img');
+            if (container) container.style.opacity = 0;
+            if (items) items.style.opacity = 1;
             setTimeout(() => {
-                $(input).find('.custom-file-image').find('img').attr('alt', "");
-                $(input).find('.custom-file-image').find('img').attr('src', "");
+                if (image) {
+                    image.setAttribute('alt', "");
+                    image.setAttribute('src', "");
+                }
             }, 200);
         } else {
-            $(item).slideUp(200);
+            item.style.transition = "all 0.2s ease";
+            item.style.maxHeight = "0px";
+            item.style.opacity = "0";
             setTimeout(() => {
-                $(item).remove();
+                if (item.parentNode) item.parentNode.removeChild(item);
             }, 200);
         }
     }
 
-    static async filePrint(input, file, fileReader){
+    static async filePrint(input, file, fileReader) {
         Inputs.htmlInputFileView(input, file, fileReader);
+        input.setAttribute("data-value", file.name);
         setTimeout(() => {
-            $("#"+ $(input).val().replace('.','')).slideDown(200);
+            const targetId = file.name.replace('.', '');
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.style.transition = "all 0.2s ease";
+                targetElement.style.maxHeight = targetElement.scrollHeight + "px";
+                targetElement.style.opacity = "1";
+            }
         }, 200);
     }
-
+    
     //upload
     static async fileUpload(input, file, fileReader){
         Inputs.fileUploadData(input, file).then( (resp) => {
@@ -886,8 +962,8 @@ class Inputs {
     static fileUploadData(input, file){
 
         let form = new FormData();
+        form.append("type", input.getAttribute("input-type"));
         form.append("file", file);
-        form.append("type", $(input).attr("input-type"));
 
         return new Promise(response => {
             $.ajax({
@@ -903,37 +979,41 @@ class Inputs {
                     response(resp);
                 },
                 error(jqXHR){
-                    console.log("STATUS: ", jqXHR.status);
-                    console.log("ERROR:  ", jqXHR.responseText);
+                    console.error("File upload status: ", jqXHR.status);
+                    console.error("File upload error: ", jqXHR.responseText);
                     response(null);
                 }
             });
         });
     }
 
-    static fileUploadSuccess(input, resp){
-        $(input).val(resp.file);
+    static fileUploadSuccess(input, resp) {
         showToast(TypeToast.success, resp.message);
-    }
+    }    
 
-    static fileUploadError(input, message){
-        $(input).val("");
-        $(input).parent().find(".custom-file-input").val(undefined);
-        showToast(TypeToast.danger, message);
+    static fileUploadError(input, message) {
+        const parent = input.parentElement;
+        const customFileInput = parent.querySelector(".custom-file-input");
+        if (customFileInput) {
+            customFileInput.value = "";
+        } showToast(TypeToast.danger, message);
     }
 
     //validate
-    static validateFileAlert(input, message){
-        $(input).parent().find(".custom-file-input").val(undefined);
-        showToast(TypeToast.danger, message);
+    static validateFileAlert(input, message) {
+        const parent = input.parentElement;
+        const customFileInput = parent.querySelector(".custom-file-input");
+        if (customFileInput) {
+            customFileInput.value = "";
+        } showToast(TypeToast.danger, message);
     }
 
     static validateFile(input, file, fileReader){
         
-        let validateType = $(input).attr("input-type");
-        let validateSize = $(input).attr("validate-file-size");
-        let validateExt = $(input).attr("input-accept").split(',');
-        let regExpExt = new RegExp('('+ validateExt.join('|').replace(/\./g, '\\.') +')$');
+        const validateType = input.getAttribute("input-type");
+        const validateSize = input.getAttribute("validate-file-size");
+        const validateExt = input.getAttribute("input-accept").split(',');
+        const regExpExt = new RegExp('(' + validateExt.join('|').replace(/\./g, '\\.') + ')$');
 
         if (regExpExt.test(file.name)) {
             if (validateSize === undefined || 1000 * parseFloat(validateSize) >= file.size) {
@@ -953,10 +1033,10 @@ class Inputs {
 
     static validateFileImage(input, file, fileReader){
         
-        let validateEqual = $(input).attr("validate-file-equal");
-        let validateWidth = $(input).attr("validate-file-width");
-        let validateHeight = $(input).attr("validate-file-height");
-        
+        const validateEqual = input.getAttribute("validate-file-equal");
+        const validateWidth = input.getAttribute("validate-file-width");
+        const validateHeight = input.getAttribute("validate-file-height");
+
         let img = new Image();
         img.src = fileReader.result;
         img.onload = function () {
@@ -982,81 +1062,100 @@ class Inputs {
     //html
     static htmlInputFile(input){
         
-        const inputType = $(input).attr("input-type");
-        const inputIcon = $(input).attr("input-icon");
-        const inputText = $(input).attr("input-text");
-        const inputButton = $(input).attr("input-button");
-        const inputAccept = $(input).attr("input-accept");
-
+        const inputType = input.getAttribute("input-type");
+        const inputIcon = input.getAttribute("input-icon");
+        const inputText = input.getAttribute("input-text");
+        const inputButton = input.getAttribute("input-button");
+        const inputAccept = input.getAttribute("input-accept");
+        const inputInfoLink = input.getAttribute("input-info-link");
+        
         let htmlItems = `<div class="custom-file-container-items">`;
+
             htmlItems += `
                 <span class="custom-file-icon">
                     <svg width="80" height="80" fill="currentColor">
-                        <use xlink:href="${URL_BOOTSTRAP_ICONS}#${inputIcon ?? 'camera'}"/>
+                        <use xlink:href="${URL_PATH}/assets/icons/bootstrap.svg#${inputIcon || 'camera'}"/>
                     </svg>
-                    </span>
-                <span class="custom-file-label-text">${inputText ?? LANGUAGE.inputFile.text}</span>
+                </span>
+                <span class="custom-file-label-text">${inputText || LANGUAGE.inputFile.text}</span>
             `;
-            if (!$(input).hasClass("custom-file-simple")) {
+
+            if (!input.classList.contains("custom-file-simple")) {
                 htmlItems += `
                     <span class="custom-file-label-o">${LANGUAGE.inputFile.or}</span>
-                    <button class="btn custom-file-btn" type="button">
-                        <span lcass="custom-file-btn-icon">
+                    <button class="btn custom-file-btn z-1" type="button">
+                        <span class="custom-file-btn-icon">
                             <svg width="22" height="22" fill="currentColor">
-                                <use xlink:href="${URL_BOOTSTRAP_ICONS}#upload"/>
+                                <use xlink:href="${URL_PATH}/assets/icons/bootstrap.svg#upload"/>
                             </svg>
                         </span>
-                        <span lcass="custom-file-btn-text">${inputButton ?? LANGUAGE.inputFile.button}</span>
+                        <span class="custom-file-btn-text">${inputButton || LANGUAGE.inputFile.button}</span>
                     </button>
                 `;
             }
+
+            if (inputInfoLink) {
+                htmlItems += `
+                    <div class="custom-file-info-link z-1">
+                        <a href="${inputInfoLink}" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </a>
+                    </div>
+                `;
+            }
+
         htmlItems += `</div>`;
         
-        $(input).append(htmlItems);
-        $(input).append(`
+        input.innerHTML = htmlItems;
+        input.insertAdjacentHTML('beforeend', `
             <div class="custom-file-container-image">
-                <div class="custom-file-image" >
+                <div class="custom-file-image">
                     <button class="custom-file-delete" type="button"><i class="bi bi-x"></i></button>
                     <img src="" alt="" />
                 </div>
             </div>
         `);
-
-        $(input).replaceWith(`
+        
+        input.outerHTML = `
             <div class="custom-file-container">
-                <input class="custom-file-input custom-control" type="file" accept="${inputAccept ?? inputType+'/*'}" hidden />
-                ${ $(input).prop('outerHTML') }
+                <input class="custom-file-input custom-control" type="file" accept="${inputAccept || inputType + '/*'}" hidden />
+                ${input.outerHTML}
             </div>
-        `);
+        `;
     }
 
-    static htmlInputFileView(input, file, fileReader){
-        if ( $(input).attr('input-replace-view') == 'true' ) {
-            $(input).find('.custom-file-image').find('img').attr('alt', file.name);
-            $(input).find('.custom-file-image').find('img').attr('src', fileReader.result);
+    static htmlInputFileView(input, file, fileReader) {
+        if (input.getAttribute('input-replace-view') === 'true') {
+            const image = input.querySelector('.custom-file-image img');
+            image?.setAttribute('src', fileReader.result);
+            image?.setAttribute('alt', file.name);
             setTimeout(() => {
-                $(input).find('.custom-file-container-items').css('opacity', 0);
-                $(input).find('.custom-file-container-image').css('opacity', 1);
+                input.querySelector('.custom-file-container-items').style.opacity = 0;
+                input.querySelector('.custom-file-container-image').style.opacity = 1;
             }, 150);
         } else {
-            $(input).parent().find('.custom-file-view').slideUp(200);
-            setTimeout(() => {
-                $(input).parent().find('.custom-file-view').remove();
-                $(input).parent().append(`
-                    <div id="${ $(input).val().replace('.','') }" class="custom-file-view form-control" style="display:none;">
-                        <span class="custom-file-view-icon"><img src="${fileReader.result}" alt="${file.name}" /></span>
-                        <span class="custom-file-view-name">${file.name}</span>
-                        <button class="custom-file-delete" type="button"><i class="bi bi-x"></i></button>
-                    </div>
-                `);
+            const container = input.parentElement;
+            const oldView = container.querySelector('.custom-file-view');
+            if (oldView) {
+                oldView.style.display = 'none';
+                setTimeout(() => {
+                    oldView.remove();
+                    container.insertAdjacentHTML('beforeend', `
+                        <div id="${ $(input).val().replace('.','') }" class="custom-file-view form-control" style="display:none;">
+                            <span class="custom-file-view-icon"><img src="${fileReader.result}" alt="${file.name}" /></span>
+                            <span class="custom-file-view-name">${file.name}</span>
+                            <button class="custom-file-delete" type="button"><i class="bi bi-x"></i></button>
+                        </div>
+                    `);
 
-                $(".custom-file-view").not('.disabled').not('[disabled]').find('.custom-file-delete').click(function (e) { 
-                    e.preventDefault();
-                    let item = $(this).parents('.custom-file-view');
-                    let input = $(this).parents('.custom-file-container').find('.custom-file');
-                    Inputs.fileDelete(input, item);
-                });
-            }, 200);
+                    container.querySelectorAll('.custom-file-view:not(.disabled):not([disabled])').forEach(view => {
+                        view.querySelector('.custom-file-delete')?.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            Inputs.fileDelete(input, view);
+                        });
+                    });
+                }, 200);
+            }
         }
     }
 
@@ -1065,10 +1164,8 @@ class Inputs {
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     static initSelects(parent = null) {
-        const context = parent ? document.querySelector(parent) : document;
-        const selects = context.querySelectorAll(".custom-select");
-
-        selects.forEach(select => {
+        const context = Inputs.getContext(parent);
+        context.querySelectorAll(".custom-select").forEach(select => {
             let visibleOptions = Array.from(select.options).filter(option => !option.classList.contains("d-none"));
             let optionCount = visibleOptions.length;
             let showSearch = optionCount > 10 ? 0 : Infinity;

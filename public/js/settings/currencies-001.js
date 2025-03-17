@@ -79,8 +79,7 @@ class SettingsCurrencies extends Manage {
     // HTML ---------------------------------------------
 
     htmlSelectOption(index, key, item) {
-        const selected = key === this.submitKey ? 'selected' : '';
-        return `<option data-index="${index}" value="${key}" subtitle="${item.name}" ${selected}>
+        return `<option data-index="${index}" value="${key}" subtitle="${item.name}">
             ${this.#dataTypes?.[item.type]?.name ?? item.type} // ${item.code}
         <option>`;
     }

@@ -171,10 +171,10 @@
 
 /* LABEL STATUS ---------------------------------------------*/
 
-.custom-table .table-status{
-    color: var(--color-table-status-default-text);
-    background-color: var(--color-table-status-default-back);
-    border: solid 1px var(--color-table-status-default-border);
+.custom-table .table-label{
+    color: var(--color-table-label-default-text);
+    background-color: var(--color-table-label-default-back);
+    border: solid 1px var(--color-table-label-default-border);
     border-radius: 5px;
     text-align: center;
     line-height: 100%;
@@ -183,16 +183,16 @@
     margin: 0;
 }
 
-.custom-table .table-status-active{
-    color: var(--color-table-status-success-text);
-    border-color: var(--color-table-status-success-border);
-    background-color: var(--color-table-status-success-back);
+.custom-table .table-label-success{
+    color: var(--color-table-label-success-text);
+    border-color: var(--color-table-label-success-border);
+    background-color: var(--color-table-label-success-back);
 }
 
-.custom-table .table-status-blocked{
-    color: var(--color-table-status-danger-text);
-    border-color: var(--color-table-status-danger-border);
-    background-color: var(--color-table-status-danger-back);
+.custom-table .table-label-danger{
+    color: var(--color-table-label-danger-text);
+    border-color: var(--color-table-label-danger-border);
+    background-color: var(--color-table-label-danger-back);
 }
 
 /* FILTER ---------------------------------------------*/

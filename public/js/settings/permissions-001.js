@@ -77,8 +77,7 @@ class SettingsPermissions extends Manage {
     // HTML ---------------------------------------------
 
     htmlSelectOption(index, key, item) {
-        const selected = key === this.submitKey ? 'selected' : '';
-        return `<option data-index="${index}" value="${key}" subtitle="${key}" ${selected}>
+        return `<option data-index="${index}" value="${key}" subtitle="${key}">
             ${this.#htmlTextPermision(item)}
         <option>`;
     }
