@@ -23,9 +23,8 @@ class CountriesModel extends DBModelAbstract {
         } return $item;
     }
 
-    public function setParseData(?array $data): array|null { return $data;
+    public function setParseData(?array $data): array|null {
         if($data){
-            $data['id'] = idxval($data['iso_3'] ?? '');
             $data['icon'] = $this->processFile('countries', $data['icon']);
             $data['prefix'] = intval($data['prefix'] ?? '');
             $data['name'] = trimstrval($data['name'] ?? '');
@@ -36,8 +35,8 @@ class CountriesModel extends DBModelAbstract {
             $data['timezone'] = trimstrval($data['timezone'] ?? '');
             $data['status_reg'] = boolval($data['status_reg'] ?? false);
             $data['status_calc'] = boolval($data['status_calc'] ?? false);
-        }
-        return $data;    
+            $data['id'] = idxval($data['iso_3']);
+        } return $data;    
     }
 
     public function validate(?array $data): bool {
@@ -45,8 +44,8 @@ class CountriesModel extends DBModelAbstract {
             'icon' => !empty($data['icon']),
             'name' => !empty($data['name']),
             'emoji' => !empty($data['emoji']),
-            'iso_2' => !empty($data['iso_2']) && strlen($data['iso_2']) == 2,
-            'iso_3' => !empty($data['iso_3']) && strlen($data['iso_3']) == 3,
+            'iso-2' => !empty($data['iso_2']) && strlen($data['iso_2']) == 2,
+            'iso-3' => !empty($data['iso_3']) && strlen($data['iso_3']) == 3,
             'currency' => !empty($data['currency']) && strlen($data['currency']) == 3,
             'timezone' => !empty($data['timezone']),
             'prefix' => !empty($data['prefix']) && is_numeric($data['prefix']) && $data['prefix'] > 0,

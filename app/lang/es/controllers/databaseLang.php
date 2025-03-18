@@ -42,6 +42,19 @@ $GLOBALS['lang-controllers']['db'] = [
         "invalid-email" => "Dato inválido. Debe ingresar un correo electrónico válido para la empresa.",
     ],
 
+    "countries" => [
+        "insert" => "Se registró el país en el sistema.",
+        "update" => "Se editó el país correctamente.",
+        "delete" => "Se eliminó el país correctamente.",
+        "invalid-icon" => "Debe ingresar un ícono o logo para el país.",
+        "invalid-name" => "Debe ingresar el nombre del país.",
+        "invalid-emoji" => "Debe ingresar el emoji o emoticón del país.",
+        "invalid-iso-2" => "Debe ingresar el código ISO 2 del país.",
+        "invalid-iso-3" => "Debe ingresar el código ISO 3 del país.",
+        "invalid-currency" => "Debe indicar la moneda en curso del país.",
+        "invalid-timezone" => "Debe indicar la zona horaria principal para el país.",
+        "invalid-prefix" => "Debe ingresar el prefijo telefónico del país.",
+    ],
     "currencies" => [
         "insert" => "Se registró la moneda en el sistema.",
         "update" => "Se editó la moneda correctamente.",

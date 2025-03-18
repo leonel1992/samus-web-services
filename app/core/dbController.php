@@ -98,7 +98,7 @@ class DBController extends ControllerPermissions {
             if ($this->key) {
                 if ($this->model->validate($this->data)) {
                     $msg = $GLOBALS['lang-controllers']['db'][ $this->model->table ]['update'];
-                    $data = $this->model->updateByKey($this->ref, $this->key, $this->data, $msg);
+                    $data = $this->model->updateByKey($this->ref, $this->key, $this->data, $this->ref, $msg);
                     $this->renderJson($data);
                 } $this->renderInvalidData();
             } $this->renderInvalidKey();

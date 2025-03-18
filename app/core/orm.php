@@ -11,6 +11,19 @@ class ORM {
         $this->table = $table;
     }
 
+    protected function insertLastKey(array $data, string $ref) {
+        if (isset($data[$ref]) && $data[$ref]) {
+            return $data[$ref];
+        } else {
+            $insertKey = $this->conn->lastInsertId();
+            if ($insertKey) return $insertKey;
+            
+            $stmt = $this->conn->query("SELECT @last_inserted_id AS id");
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row['id'];
+        }
+    }
+
     public function getAll(?string $sql=null, ?string $index=null, bool $sublist=false, ?array $conditions=null, ?string $msg=null): ResultError|ResultData {
 
         if (!$sql) {
@@ -144,17 +157,7 @@ class ORM {
                 }
     
                 if($stmt->execute()){
-                    if (isset($data[$ref]) && $data[$ref]) {
-                        $insertKey = $data[$ref];
-                    } else {
-                        $insertKey = $this->conn->lastInsertId();
-                        if ($insertKey == 0) {
-                            $stmt = $this->conn->query("SELECT @last_inserted_id AS id");
-                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                            $insertKey = $row['id'];
-                        }
-                    }
-
+                    $insertKey = $this->insertLastKey($data, $ref);
                     return new ResultData($msg ?? $GLOBALS['lang-controllers']['general']['insert'], $insertKey, $ref);
                 } return new ResultErrorPDO($stmt);
             } catch (PDOException $exception) {
@@ -241,13 +244,13 @@ class ORM {
 
     //--------------------------------------
 
-    public function updateByKey(string $key, mixed $value, array $data, ?string $msg=null): ResultError|ResultSuccess {
+    public function updateByKey(string $key, mixed $value, array $data, string $ref='id', ?string $msg=null): ResultError|ResultData {
         return $this->updateByKeys([
             $key => $value,
-        ], $data, $msg);
+        ], $data, $ref,  $msg);
     }
 
-    public function updateByKeys(array $keys, array $data, ?string $msg=null): ResultError|ResultSuccess {
+    public function updateByKeys(array $keys, array $data, string $ref='id', ?string $msg=null): ResultError|ResultData {
         if ($this->conn){
             try {
 
@@ -274,7 +277,8 @@ class ORM {
                 }
 
                 if($stmt->execute()){
-                    return new ResultSuccess($msg ?? $GLOBALS['lang-controllers']['general']['update']);
+                    $insertKey = $this->insertLastKey($data, $ref);
+                    return new ResultData($msg ?? $GLOBALS['lang-controllers']['general']['update'], $insertKey, $ref);
                 } return new ResultErrorPDO($stmt);
             } catch (PDOException $exception) {
                 return new ResultErrorException($exception);

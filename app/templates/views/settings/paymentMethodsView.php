@@ -31,7 +31,7 @@
                     <table id="manage-table" class="table table-filter table-update custom-table no-select align-middle m-0" text-filter="<?= $GLOBALS['lang-view']['table-filter'] ?>">
                         <thead class="align-middle">
                             <tr>
-                                <th scope="col" class="px40 text-center">#</th>
+                                <th scope="col" class="px50 text-center">#</th>
                                 <th scope="col" class="px100"><?= $GLOBALS['lang-view']['table-id'] ?></th>
                                 <th scope="col" colspan="2" class="min150"><?= $GLOBALS['lang-view']['table-name'] ?></th>
                                 <th scope="col" class="min350"><?= $GLOBALS['lang-view']['table-description'] ?></th>

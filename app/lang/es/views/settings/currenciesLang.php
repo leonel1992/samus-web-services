@@ -8,7 +8,7 @@ $GLOBALS['lang-view'] = [
     "button-insert-form" => "Enviar",
     "button-update-form" => "Guardar",
     "button-delete-form" => "Eliminar",
-    "button-delete-question" => "Se eliminaran los procesadores asociados a esta moneda, sólo si no hay países asociados.<br><br><b>¿Quieres continuar?</b>",
+    "button-delete-question" => "Se eliminaran los procesadores y países (si aplica) asociados a esta moneda.<br><br><b>¿Quieres continuar?</b>",
     
     "table-type" => "Tipo",
     "table-code" => "Código",

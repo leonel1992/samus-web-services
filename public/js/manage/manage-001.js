@@ -85,10 +85,10 @@ class Manage {
         this.data[key] = item;
     }
     
-    changeDataItem(){
+    changeDataItem(key){
         let item = this.getSubmitFormData();
         let oldKey = this.submitKey;
-        let newKey = item[this.ref];
+        let newKey = key ?? item[this.ref];
         this.data[newKey] = item;
         this.submitKey = newKey;
         if (newKey !== oldKey) {
@@ -240,7 +240,8 @@ class Manage {
         this.submitType = ManageSubmitType.update;
         let response = await this.submitData();
         if(response.success){
-            this.changeDataItem();
+            let key = response[this.ref];
+            this.changeDataItem(key);
             this.printViewData();
         }
     }

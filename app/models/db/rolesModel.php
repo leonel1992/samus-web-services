@@ -157,7 +157,7 @@ class RolesModel extends DBModelAbstract {
 
     //-----------------------------------------
 
-    public function updateByKeys(array $keys, array $data, ?string $msg=null): ResultError|ResultSuccess {
+    public function updateByKeys(array $keys, array $data, string $ref='id', ?string $msg=null): ResultError|ResultData {
         if ($this->conn) {
             try {
 
@@ -205,7 +205,8 @@ class RolesModel extends DBModelAbstract {
                 
                 //commit
                 if($execRoles && $execPerm && $this->conn->commit()){
-                    return new ResultSuccess($msg ?? $GLOBALS['lang-controllers']['db'][$this->table]['update']);
+                    $insertKey = $this->insertLastKey($data, $ref);
+                    return new ResultData($msg ?? $GLOBALS['lang-controllers']['general']['update'], $insertKey, $ref);
                 } 
                 
                 return new ResultErrorPDO($stmt);

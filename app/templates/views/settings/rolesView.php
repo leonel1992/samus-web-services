@@ -14,7 +14,7 @@
                     <table id="manage-table" class="table table-filter table-update custom-table no-select align-middle m-0" text-filter="<?= $GLOBALS['lang-view']['table-filter'] ?>">
                         <thead class="align-middle">
                             <tr>
-                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center px50">#</th>
                                 <th scope="col"><?= $GLOBALS['lang-view']['table-id'] ?></th>
                                 <th scope="col"><?= $GLOBALS['lang-view']['table-name'] ?></th>
                                 <th scope="col"><?= $GLOBALS['lang-view']['table-description'] ?></th>

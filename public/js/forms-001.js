@@ -118,34 +118,36 @@ class Forms {
         let isValid = true;
         if (element.hasAttribute("required") && !element.hasAttribute("disabled")) {
             
-            let value = element.value?.trim();
-            let validateValue  = element.getAttribute("validate-value");
-            let validateCheck  = element.getAttribute("validate-check");
-            let validateAge    = element.getAttribute("validate-age");
-            let validateNumber = element.getAttribute("validate-number");
-            let validateName   = element.getAttribute("validate-name");
-            let validateEmail  = element.getAttribute("validate-email");
-            let validatePhone  = element.getAttribute("validate-phone");
-            let validatePass   = element.getAttribute("validate-password");
-            let validateFile   = element.getAttribute("validate-file");
+            const value = element.value?.trim();
+            const validateValue  = element.getAttribute("validate-value");
+            const validateCheck  = element.getAttribute("validate-check");
+            const validateAge    = element.getAttribute("validate-age");
+            const validateNumber = element.getAttribute("validate-number");
+            const validateName   = element.getAttribute("validate-name");
+            const validateEmail  = element.getAttribute("validate-email");
+            const validatePhone  = element.getAttribute("validate-phone");
+            const validatePass   = element.getAttribute("validate-password");
+            const validateFile   = element.getAttribute("validate-file");
+            const validatePrefix = element.getAttribute("validate-prefix");
 
-            let validateEqual  = element.getAttribute("validate-equal");
-            let validateLength = element.getAttribute("validate-length");
+            const validateEqual  = element.getAttribute("validate-equal");
+            const validateLength = element.getAttribute("validate-length");
     
-            let boolValue  = validateValue === null  || validateValue === 'false'  ? true : Forms.validateValue(value);
-            let boolCheck      = validateCheck  === null || validateCheck === 'false'  ? true : Forms.validateCheck(element);
-            let boolNumber = validateNumber === null || validateNumber === 'false' ? true : Forms.validateNumber(value);
-            let boolName   = validateName === null   || validateName === 'false'   ? true : Forms.validateName(value);
-            let boolEmail  = validateEmail === null  || validateEmail === 'false'  ? true : Forms.validateEmail(value);
-            let boolPhone  = validatePhone === null  || validatePhone === 'false'  ? true : Forms.validatePhone(value);
-            let boolPass   = validatePass === null   || validatePass === 'false'   ? true : Forms.validatePassword(value);
-            let boolFile   = validateFile === null   || validateFile === 'false'   ? true : Forms.validateFile(element);
+            const boolValue  = validateValue === null  || validateValue === 'false'  ? true : Forms.validateValue(value);
+            const boolCheck      = validateCheck  === null || validateCheck === 'false'  ? true : Forms.validateCheck(element);
+            const boolNumber = validateNumber === null || validateNumber === 'false' ? true : Forms.validateNumber(value);
+            const boolName   = validateName === null   || validateName === 'false'   ? true : Forms.validateName(value);
+            const boolEmail  = validateEmail === null  || validateEmail === 'false'  ? true : Forms.validateEmail(value);
+            const boolPhone  = validatePhone === null  || validatePhone === 'false'  ? true : Forms.validatePhone(value);
+            const boolPass   = validatePass === null   || validatePass === 'false'   ? true : Forms.validatePassword(value);
+            const boolFile   = validateFile === null   || validateFile === 'false'   ? true : Forms.validateFile(element);
+            const boolPrefix = validatePrefix === null || validatePrefix === 'false' ? true : Forms.validatePrefix(value);
 
-            let boolEqual  = validateEqual === null ? true : Forms.validateEqual(value, validateEqual);
-            let boolLength = validateLength === null ? true : Forms.validateLength(value, validateLength);
-            let boolAge    = validateAge === null ? true : Forms.validateAge(value, validateAge);
+            const boolEqual  = validateEqual === null ? true : Forms.validateEqual(value, validateEqual);
+            const boolLength = validateLength === null ? true : Forms.validateLength(value, validateLength);
+            const boolAge    = validateAge === null ? true : Forms.validateAge(value, validateAge);
 
-            if (!boolValue || !boolCheck || !boolNumber || !boolName || !boolEmail || !boolPhone || !boolPass || !boolFile || !boolEqual || !boolLength || !boolAge) {
+            if (!boolValue || !boolCheck || !boolNumber || !boolName || !boolEmail || !boolPhone || !boolPass || !boolFile || !boolPrefix || !boolEqual || !boolLength || !boolAge) {
                 isValid = false;
                 element.value = value;
     
@@ -158,13 +160,18 @@ class Forms {
                 }
 
                 try {
-                    let contentDiv = document.querySelector(".scrollable");
-                    let elementDiv = document.querySelector(".is-invalid");
-    
-                    if (contentDiv && elementDiv) {
-                        let scrollTop = elementDiv.getBoundingClientRect().top - contentDiv.getBoundingClientRect().top + contentDiv.scrollTop;
-                        contentDiv.scrollTo({ top: scrollTop - 20, behavior: "smooth" });
+                    const contentDiv = document.querySelector(".scrollable");
+                    const input = document.querySelector(".is-invalid");
+                    if (contentDiv && input) {
+                        const inputRect = input.getBoundingClientRect();
+                        const contentRect = contentDiv.getBoundingClientRect();
+                        const offset = inputRect.top - contentRect.top + contentDiv.scrollTop;
+                        contentDiv.scrollTo({
+                            top: offset - 60,
+                            behavior: "smooth"
+                        });
                     }
+
                 } catch (error) {}
             }
         } 
@@ -234,5 +241,9 @@ class Forms {
     
     static validateLength(value, length) {
         return (parseInt(length) <= value.toString().length);
+    }
+
+    static validatePrefix(value) {
+        return (parseInt(value.replace('+', '')) > 0);
     }
 }

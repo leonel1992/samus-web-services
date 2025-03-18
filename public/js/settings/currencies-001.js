@@ -14,12 +14,6 @@ class SettingsCurrencies extends Manage {
         super.loadData();
     }
 
-    getSubmitFormData() {  
-        let data = this.getSubmitData();
-        data.id = data.code.toLocaleLowerCase();
-        return data;
-    }
-
     // INITS ---------------------------------------------
 
     initForm() {

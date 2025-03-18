@@ -23,32 +23,33 @@
 
     "local":{
         "script":{
-            "general":  "/js/general-001.js",
-            "methods":  "/js/methods-001.js",
+            "general": "/js/general-001.js",
+            "methods": "/js/methods-001.js",
             "messages": "/js/messages-001.js",
 
-            "data":   "/js/data-001.js",
-            "forms":  "/js/forms-001.js",
+            "data":  "/js/data-001.js",
+            "forms": "/js/forms-001.js",
             "inputs": "/js/inputs-001.js",
             "tables": "/js/tables-001.js",
 
             "manage": "/js/manage/manage-001.js",
 
-            "session":          "/js/session/session-001.js",
-            "session-code":     "/js/session/code-001.js",
-            "session-login":    "/js/session/login-001.js",
-            "session-logout":   "/js/session/logout-001.js",
-            "session-recover":  "/js/session/recover-001.js",
+            "session": "/js/session/session-001.js",
+            "session-code": "/js/session/code-001.js",
+            "session-login": "/js/session/login-001.js",
+            "session-logout": "/js/session/logout-001.js",
+            "session-recover": "/js/session/recover-001.js",
             "session-register": "/js/session/register-001.js" ,
 
-            "settings-currencies":      "/js/settings/currencies-001.js",
-            "settings-processors":      "/js/settings/processors-001.js",
+            "settings-countries":  "/js/settings/countries-001.js",
+            "settings-currencies": "/js/settings/currencies-001.js",
+            "settings-processors": "/js/settings/processors-001.js",
             "settings-payment-methods": "/js/settings/payment-methods-001.js",
             
-            "settings-actions":     "/js/settings/actions-001.js",
-            "settings-modules":     "/js/settings/modules-001.js",
-            "settings-permissions": "/js/settings/permissions-001.js",
-            "settings-roles":       "/js/settings/roles-001.js"  
+            "settings-roles":   "/js/settings/roles-001.js",
+            "settings-actions": "/js/settings/actions-001.js",
+            "settings-modules": "/js/settings/modules-001.js",
+            "settings-permissions": "/js/settings/permissions-001.js"
         },
         
         "style" :{

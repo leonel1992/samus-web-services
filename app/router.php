@@ -97,6 +97,7 @@ class Router {
             $this->folder = '/';
             $this->method = match ($url) {
                 $GLOBALS['routes']['settings-currencies'][$lang] => 'currencies',
+                $GLOBALS['routes']['settings-countries'][$lang]  => 'countries',
                 $GLOBALS['routes']['settings-processors'][$lang] => 'processors',
                 $GLOBALS['routes']['settings-payment-methods'][$lang] => 'paymentMethods',
                 //////////////////////////////////////////////////////////////////////////
