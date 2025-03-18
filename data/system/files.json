@@ -42,6 +42,7 @@
             "session-register": "/js/session/register-001.js" ,
 
             "settings-currencies":      "/js/settings/currencies-001.js",
+            "settings-processors":      "/js/settings/processors-001.js",
             "settings-payment-methods": "/js/settings/payment-methods-001.js",
             
             "settings-actions":     "/js/settings/actions-001.js",

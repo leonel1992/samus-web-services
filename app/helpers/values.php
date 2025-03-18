@@ -68,8 +68,11 @@ function idxval(mixed $value, $null=false): string|null {
 
 // --------------------------------------------
 
-function normalizetext(string|null $text): string {
+function normalizetext(string|null $text, bool $lower=false, string $concat=' '): string {
     setlocale(LC_ALL, $GLOBALS['lang-2'] ?? 'en_US.UTF-8');
     $text = iconv('UTF-8', 'ASCII//TRANSLIT', $text);
-    return preg_replace('/[^a-zA-Z0-9]/', '', $text);
+    $text = preg_replace('/[^a-zA-Z0-9 ]/', '', $text);
+    $text = str_replace(' ', $concat, $text);
+    $text = $lower ? mb_strtolower($text) : $text;
+    return $text;
 }

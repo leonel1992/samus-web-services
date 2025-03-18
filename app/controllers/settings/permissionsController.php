@@ -16,36 +16,19 @@ class PermissionsController extends DBController {
     }
 
     public function tableGroupedModules(): void {
-        if($this->isValid('access', $this->module)){
-            $data = $this->getModel()->getAllGroupedByModules();
-            $this->renderJson($data);
-        } $this->renderJson403();
+        $this->dataTable($this->getModel()->getAllGroupedByModules());
     }
 
     public function dataActions(): void {
-        $list = [];
-        if($this->isValid('access', $this->module)){
-            $model = new ActionsModel($this->conn);
-            $result = $model->getAll($model->query, 'id');
-            $list = $result->data ?? [];
-        } $this->renderArray($list);
+        $this->dataList(new ActionsModel($this->conn));
     }
 
     public function dataModules(): void {
-        $list = [];
-        if($this->isValid('access', $this->module)){
-            $model = new ModulesModel($this->conn);
-            $result = $model->getAll($model->query, 'id');
-            $list = $result->data ?? [];
-        } $this->renderArray($list);
+        $this->dataList(new ModulesModel($this->conn));
     }
 
     public function dataGroupedModules(): void {
-        $list = [];
-        if($this->isValid('access', $this->module)){
-            $model = new ModulesModel($this->conn);
-            $result = $model->getAllGroupedByModules(true, 'id');
-            $list = $result->data ?? [];
-        } $this->renderArray($list);
+        $model = new ModulesModel($this->conn);
+        $this->dataList($model->getAllGroupedByModules(true, 'id'));
     }
 }

@@ -13,29 +13,15 @@ class RolesController extends DBController {
     }
 
     public function dataActions(): void {
-        $list = [];
-        if($this->isValid('access', $this->module)){
-            $model = new ActionsModel($this->conn);
-            $result = $model->getAll($model->query, 'id');
-            $list = $result->data ?? [];
-        } $this->renderArray($list);
+        $this->dataList(new ActionsModel($this->conn));
     }
 
     public function dataModules(): void {
-        $list = [];
-        if($this->isValid('access', $this->module)){
-            $model = new ModulesModel($this->conn);
-            $result = $model->getAll($model->query, 'id');
-            $list = $result->data ?? [];
-        } $this->renderArray($list);
+        $this->dataList(new ModulesModel($this->conn));
     }
 
     public function dataGroupedPermissions(): void {
-        $list = [];
-        if($this->isValid('access', $this->module)){
-            $model = new PermissionsModel($this->conn);
-            $result = $model->getAllGroupedByModules('id', 'id');
-            $list = $result->data ?? [];
-        } $this->renderArray($list);
+        $model = new PermissionsModel($this->conn);
+        $this->dataList($model->getAllGroupedByModules('id', 'id'));
     }
 }

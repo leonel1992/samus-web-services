@@ -51,6 +51,16 @@ $GLOBALS['lang-controllers']['db'] = [
         "invalid-name" => "Debe ingresar un nombre para la moneda.",
         "invalid-symbol" => "Debe ingresar un símbolo para la moneda.",
     ],
+    "processors" => [
+        "insert" => "Se registró el procesador de pagos en el sistema.",
+        "update" => "Se editó el procesador de pagos correctamente.",
+        "delete" => "Se eliminó el procesador de pagos correctamente.",
+        "invalid-icon" => "Debe ingresar un ícono o logo para el procesador de pagos.",
+        "invalid-name" => "Debe ingresar un nombre para el procesador de pagos.",
+        "invalid-payment" => "Debe indicar el tipo de método de pago para el procesador.",
+        "invalid-country" => "Debe indicar el país para el procesador de pagos.",
+        "invalid-currency" => "Debe indicar la moneda para el procesador de pagos.",
+    ],
     "payment_methods" => [
         "insert" => "Se registró método de pago en el sistema.",
         "update" => "Se editó el método de pago correctamente.",

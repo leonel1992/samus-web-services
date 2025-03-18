@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/../system/filesModel.php";
 require_once __DIR__ . "/../../helpers/values.php";
 require_once __DIR__ . "/../../helpers/validate.php";
 require_once __DIR__ . "/../../lang/{$GLOBALS['lang']}/controllers/generalLang.php";
@@ -24,6 +25,23 @@ abstract class DBModelAbstract extends ORM {
         $error ??= $GLOBALS['lang-controllers']['db']['general']['error-unknown'];
         $this->error = new ResultError($error);
         return false;
+    }
+
+    public function processFile(string $folder, string $name): string|null {
+        $name = trimstrval($name ?? null, true);
+        if ($name) { 
+            $path = __DIR__ . "/../../../assets/img/$folder/";
+            if (!file_exists("{$path}{$name}")) {
+                $this->error = null;
+                $model = new FilesModel();
+                $copy = $model->copy($name, $path);
+                if (!$copy->success) {
+                    $this->error = $copy;
+                }
+            }
+        }
+
+        return $name;
     }
 
     public function getParseData(ResultError|ResultData|ResultPaginate $data): ResultError|ResultData|ResultPaginate {

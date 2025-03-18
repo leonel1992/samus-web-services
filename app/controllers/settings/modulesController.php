@@ -14,32 +14,19 @@ class ModulesController extends DBController {
     }
 
     public function tableGrouped(): void {
-        if($this->isValid('access', $this->module)){
-            $data = $this->getModel()->getAllGroupedByModules();
-            $this->renderJson($data);
-        } $this->renderJson403();
+        $this->dataTable($this->getModel()->getAllGroupedByModules());
     }
 
     public function tableModules(): void {
-        if($this->isValid('access', $this->module)){
-            $data = $this->getModel()->getAllModules();
-            $this->renderJson($data);
-        } $this->renderJson403();
+        $this->dataTable($this->getModel()->getAllModules());
     }
 
     public function dataModules(): void {
-        $list = [];
-        if($this->isValid('access', $this->module)){
-            $result = $this->getModel()->getAllModules('id');
-            $list = $result->data ?? [];
-        } $this->renderArray($list);
+        $this->dataList($this->getModel()->getAllModules('id'));
     }
 
     public function dataRoutes(): void {
-        $list = [];
-        if($this->isValid('access', $this->module)){
-            $list = $GLOBALS['routes'];
-        } $this->renderArray($list);
+        $this->dataList($GLOBALS['routes']);
     }
     
 }

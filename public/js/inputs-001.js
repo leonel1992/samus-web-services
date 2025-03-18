@@ -880,11 +880,8 @@ class Inputs {
     static fileSetValue(input, url) {
         if (url && url !== '') {
             const name = url.split('/').pop();
-            Inputs.filePrint(input, {
-                name: name
-            },{
-                result: url
-            });    
+            input.setAttribute("data-value", name);
+            Inputs.filePrint(input, {name: name},{result: url});
         } else {
             Inputs.fileDelete(input);
         }
@@ -904,7 +901,7 @@ class Inputs {
     static fileDelete(input, item = null) {
         const fileInput = input.parentNode.querySelector(".custom-file-input");
         if (fileInput) fileInput.value = "";
-        input.removeAttribute("data-value");
+        input.setAttribute("data-value", "");
     
         if (item === null) {
             const container = input.querySelector('.custom-file-container-image');
@@ -930,7 +927,6 @@ class Inputs {
 
     static async filePrint(input, file, fileReader) {
         Inputs.htmlInputFileView(input, file, fileReader);
-        input.setAttribute("data-value", file.name);
         setTimeout(() => {
             const targetId = file.name.replace('.', '');
             const targetElement = document.getElementById(targetId);
@@ -947,8 +943,8 @@ class Inputs {
         Inputs.fileUploadData(input, file).then( (resp) => {
             if (resp) {
                 if (resp.success) {
-                    Inputs.fileUploadSuccess(input, resp);
                     Inputs.filePrint(input, file, fileReader);
+                    Inputs.fileUploadSuccess(input, resp);
                 } else {
                     Inputs.fileUploadError(input, resp.message);
                 }
@@ -988,6 +984,7 @@ class Inputs {
     }
 
     static fileUploadSuccess(input, resp) {
+        input.setAttribute("data-value", resp.file);
         showToast(TypeToast.success, resp.message);
     }    
 
@@ -1174,7 +1171,8 @@ class Inputs {
                 theme: "bootstrap-5",
                 templateResult: Inputs.templateResult,
                 templateSelection: Inputs.templateSelection,
-                minimumResultsForSearch: showSearch
+                minimumResultsForSearch: showSearch,
+                allowClear: true
             });
     
             Inputs.changeSelectWidth(select);

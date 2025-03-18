@@ -10,11 +10,6 @@ class CurrenciesController extends DBController {
     }
 
     public function dataTypes(): void {
-        $list = [];
-        if($this->isValid('access', $this->module)){
-            $model = new CurrenciesTypesModel($this->conn);
-            $result = $model->getAll($model->query, 'id');
-            $list = $result->data ?? [];
-        } $this->renderArray($list);
+        $this->dataList(new CurrenciesTypesModel($this->conn));
     }
 } 

@@ -23,7 +23,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody style="display:none;"></tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>

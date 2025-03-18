@@ -554,14 +554,14 @@ class Manage {
 
             Forms.clean(element);
             if (element.tagName === "SELECT") {
-                element.dispatchEvent(new Event("change"));
-                if (element.classList.contains("custom-select")) {
-                    $(element).trigger("select2:select");
-                }
+                element.dispatchEvent(new Event("change", { bubbles: true }));
+                // if (element.classList.contains("custom-select")) {
+                //     $(element).trigger("select2:select");
+                // }
             } else if (element.type === "checkbox" || element.type === "radio") {
-                element.dispatchEvent(new Event("change"));
+                element.dispatchEvent(new Event("change", { bubbles: true }));
             } else {
-                element.dispatchEvent(new Event("input"));
+                element.dispatchEvent(new Event("input", { bubbles: true }));
             }
         });
 
@@ -569,10 +569,10 @@ class Manage {
             const manageId = document.querySelector("#manage-id");
             if (manageId) {
                 manageId.value = key;
-                manageId.dispatchEvent(new Event("change"));
-                if (manageId.classList.contains("custom-select")) {
-                    $(manageId).trigger("select2:select");
-                }
+                manageId.dispatchEvent(new Event("change", { bubbles: true }));
+                // if (manageId.classList.contains("custom-select")) {
+                //     $(manageId).trigger("select2:select");
+                // }
             }
         }
     }
@@ -664,7 +664,7 @@ class Manage {
         }, 10);
     }
 
-    printSelect(select, data, htmlSelectOption, textOptionNull=null) {
+    printSelect(select, data, htmlSelectOption, textOptionNull=null) { 
         const selectElement = document.querySelector(select);
         if (selectElement && textOptionNull) {
             const htmlOption = this.htmlOptionNull(textOptionNull);
@@ -706,6 +706,16 @@ class Manage {
         if (!text || text === '') {
             return '-';
         } return text;
+    }
+
+    htmlTableLabel(type, text, width=null) {
+        let style = '';
+        if (width) style = `style="width: ${width}px"`;
+        return `<td>
+            <span class="table-label table-label-${type}" ${style}>
+                ${text}
+            </span>
+        </td>`;
     }
 
     htmlTableUpdateButton() {

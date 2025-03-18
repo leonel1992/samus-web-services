@@ -5,12 +5,6 @@ class SettingsPaymentMethods extends Manage {
         this.paths.icon = URL_PATH +"/image/payment-methods/";
     }
 
-    // DATA ---------------------------------------------
-
-    updateFormData(updateId = true) {
-        super.updateFormData(updateId);
-    }
-    
     // HTML ---------------------------------------------
 
     htmlSelectOption(index, key, item) {
@@ -39,16 +33,8 @@ class SettingsPaymentMethods extends Manage {
             </td>
             <td class="border-start-0">${item.name}</td>
             <td class="">${item.description}</td>
-            <td class="text-center">
-                <div class="table-label table-label-${countryClass} px50">
-                    ${countryName}
-                </div>
-            </td>
-            <td class="text-center">
-                <div class="table-label table-label-${statusClass}">
-                    ${statusName}
-                </div>
-            </td>
+            ${this.htmlTableLabel(countryClass, countryName)}
+            ${this.htmlTableLabel(statusClass, statusName)}
             ${this.htmlTableUpdateButton()}
             ${this.htmlTableDeleteButton()}
         </tr>`;

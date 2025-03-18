@@ -35,6 +35,32 @@ class DBController extends ControllerPermissions {
 
     //-------------------------------------------
 
+    public function dataList(ORM|ResultData|ResultSuccess|array $object) {
+        $list = [];
+        if ($this->isValid('access', $this->module)) {
+            if ($object instanceof ORM) {
+                $ref = $object->ref ?? 'id';
+                $query = $object->query ?? null;
+                $result = $object->getAll($query, $ref);
+                if (method_exists($object, 'getParseData')) {
+                    $result = $object->getParseData($result);
+                } $list = $result->data ?? [];
+            } elseif (is_array($object)) {
+                $list = $object;
+            } else {
+                $list = $object->data ?? [];
+            } 
+        } $this->renderArray($list);
+    }
+
+    public function dataTable(ResultData|ResultSuccess $data) {
+        if($this->isValid('access', $this->module)){
+            $this->renderJson($data);
+        } $this->renderJson403();
+    }
+
+    //-------------------------------------------
+
     public function table(): void {
         if($this->isValid('access', $this->module)){
             $data = $this->model->getAll($this->model->query);

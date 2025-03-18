@@ -23,24 +23,11 @@ class PaymentMethodsModel extends DBModelAbstract {
     public function setParseData(?array $data): array|null {
         if($data){
             $data['id'] = idxval($data['id'] ?? '');
-            $data['icon'] = trimstrval($data['icon'] ?? '');
             $data['name'] = trimstrval($data['name'] ?? '');
             $data['status'] = strboolval($data['status'] ?? false);
             $data['need_country'] = strboolval($data['need_country'] ?? false);
             $data['description'] = trimstrval($data['description'] ?? null, true);
-
-            if ($data['icon']) {
-                $path = __DIR__ . "/../../../assets/img/payment-methods/";
-                if (!file_exists($path . $data['icon'])) {
-                    $this->error = null;
-                    $model = new FilesModel();
-                    $copy = $model->copy($data['icon'], $path);
-                    if (!$copy->success) {
-                        $this->error = $copy;
-                        $data['icon'] = null;
-                    }
-                }
-            }
+            $data['icon'] = $this->processFile('payment-methods', $data['icon']);
         } return $data;
     }
 

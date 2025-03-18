@@ -18,6 +18,10 @@ class SettingsController extends DMController {
         $this->page('currencies');
     }
 
+    public function processors(): void {
+        $this->page('processors');
+    }
+
     public function paymentMethods(): void {
         $this->page('paymentMethods', 'settings-payment-methods');
     }

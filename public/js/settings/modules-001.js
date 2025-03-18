@@ -1,7 +1,6 @@
 class SettingsModules extends Manage {
 
     #dataIds = {};
-    #dataModules = {};
 
     constructor() {
         super(URL_LANG + "/settings/modules/");

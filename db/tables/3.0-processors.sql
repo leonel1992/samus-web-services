@@ -1,6 +1,6 @@
 
 -- PROCESADORES 
-INSERT IGNORE INTO `processors` (`id`, `invert`, `decimals`, `icon`, `name`, `method`, `country`, `currency`, `status_buy`, `status_sell`) VALUES
+INSERT IGNORE INTO `processors` (`id`, `invert`, `decimals`, `icon`, `name`, `payment`, `country`, `currency`, `status_buy`, `status_sell`) VALUES
 ('bank-bol-banco-union', 0, 2, '671c10d69b9cf.png', 'Banco Unión', 'bank', 'bol', 'bob', 0, 0),
 ('bank-bra-santander', 0, 2, '671c0d6926878.png', 'Santander', 'bank', 'bra', 'brl', 0, 0),
 ('bank-chl-banco-de-chile', 0, 2, '671bf7e25d9a3.png', 'Banco de Chile', 'bank', 'chl', 'clp', 0, 0),

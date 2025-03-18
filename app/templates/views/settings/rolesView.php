@@ -21,7 +21,7 @@
                                 <th colspan="2"></th>
                             </tr>
                         </thead>
-                        <tbody style="display:none;"></tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>

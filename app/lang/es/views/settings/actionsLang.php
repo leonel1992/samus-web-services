@@ -13,7 +13,7 @@ $GLOBALS['lang-view'] = [
     "table-id" => "ID",
     "table-name" => "Nombre",
     "table-description" => "Descripción",
-    "table-filter" => "Acciones // buscar en la tabla",
+    "table-filter" => "Acciones // Buscar en la tabla",
 
     "form-manage-id-label" => null,
     "form-manage-id-placeholder" => "Seleccione la acción...",
