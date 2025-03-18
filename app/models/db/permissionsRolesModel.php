@@ -44,14 +44,10 @@ class PermissionsRolesModel extends DBModelAbstract {
     }
 
     public function validate(?array $data): bool {
-        $this->error = null;
-        if ($data) {
-            if (!isset($data['rol']) || !$data['rol']) {
-                return $this->setError('invalid-rol');
-            } if (!isset($data['permission']) || !$data['permission']) {
-                return $this->setError('invalid-permission');
-            }
-        } return true;
+        return $this->runValidation($data, [
+            'rol' => !empty($data['rol']),
+            'permission' => !empty($data['permission']),
+        ]);
     }
 
     //-----------------------------------------

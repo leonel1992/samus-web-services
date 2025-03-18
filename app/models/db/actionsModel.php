@@ -21,13 +21,9 @@ class ActionsModel extends DBModelAbstract {
     }
 
     public function validate(?array $data): bool {
-        $this->error = null;
-        if (!$data) {
-            return $this->setError();
-        } if (!isset($data['id']) || !$data['id']) {
-            return $this->setError('invalid-id');
-        } if (!isset($data['name']) || !$data['name']) {
-            return $this->setError('invalid-name');
-        } return true;
+        return $this->runValidation($data, [
+            'id' => !empty($data['id']),
+            'name' => !empty($data['name']),
+        ]);
     }
 }

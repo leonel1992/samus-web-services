@@ -97,18 +97,13 @@ class UsersModel extends DBModelAbstract {
     }
 
     public function validatePassword(?array $data): bool {
-        $this->error = null;
-        if (!$data) {
-            return $this->setError();
-        } if (!isset($data['password_1']) || !validatePassword($data['password_1'])) {
-            return $this->setError('invalid-password-1');
-        } if (!isset($data['password_2']) || $data['password_1'] !== $data['password_2']) {
-            return $this->setError('invalid-password-2');
-        } return true;
+        return $this->runValidation($data, [
+            'password_1' => !empty($data['password_1']) && validatePassword($data['password_1']),
+            'password_2' => !empty($data['password_2']) && $data['password_1'] === $data['password_2'],
+        ]);
     }
 
     public function validateAll(?array $data, bool $reg): bool {
-        $this->error = null;
 
         if (!$data || !$data['user']) {
             return $this->setError();
@@ -124,32 +119,22 @@ class UsersModel extends DBModelAbstract {
             }  
         }
 
-        if (!isset($data['user']['account']) || !$data['user']['account']) {
-            return $this->setError('invalid-account');
-        } if (!isset($data['user']['gender']) || !$data['user']['gender']) {
-            return $this->setError('invalid-gender');
-        } if (!isset($data['user']['name']) || !validateName($data['user']['name'])) {
-            return $this->setError('invalid-name');
-        } if (!isset($data['user']['last_name']) || !validateName($data['user']['last_name'])) {
-            return $this->setError('invalid-last-name');
-        } if (!isset($data['user']['birthdate']) || !validateAge($data['user']['birthdate'], 18)) {
-            return $this->setError('invalid-birthdate');
-        } if (!isset($data['user']['document_type']) || !$data['user']['document_type']) {
-            return $this->setError('invalid-document-type');
-        } if (!isset($data['user']['document_number']) || !$data['user']['document_number']) {
-            return $this->setError('invalid-document-number');
-        } if (!isset($data['user']['country']) || !$data['user']['country']) {
-            return $this->setError('invalid-country');
-        } if (!isset($data['user']['state']) || !$data['user']['state']) {
-            return $this->setError('invalid-state');
-        } if (!isset($data['user']['city']) || !$data['user']['city']) {
-            return $this->setError('invalid-city');
-        } if (!isset($data['user']['address']) || !$data['user']['address']) {
-            return $this->setError('invalid-address');
-        } if (!isset($data['user']['phone']) || !validatePhone($data['user']['phone'])) {
-            return $this->setError('invalid-phone');
-        } if (!isset($data['user']['email']) || !validateEmail($data['user']['email'])) {
-            return $this->setError('invalid-email');
+        if (!$this->runValidation($data, [
+            'account' => !empty($data['account']),
+            'gender' => !empty($data['gender']),
+            'name' => !empty($data['name']) && validateName($data['user']['name']),
+            'last-name' => !empty($data['last_name']) && validateName($data['user']['last_name']),
+            'birthdate' => !empty($data['birthdate']) && validateAge($data['user']['birthdate'], 18),
+            'document-type' => !empty($data['document_type']),
+            'document-number' => !empty($data['document_number']),
+            'country' => !empty($data['country']) && strlen($data['country']) == 3,
+            'state' => !empty($data['state']) && strlen($data['state']) > 1,
+            'city'  => !empty($data['city']) && strlen($data['city']) > 1,
+            'address' => !empty($data['address']) && strlen($data['address']) > 9,
+            'phone' => !empty($data['phone']) && validatePhone($data['phone']),
+            'email' => !empty($data['email']) && validateEmail($data['email']),
+        ])) {
+            return false;
         }
 
         if ($data['user']['account'] === 'business') {

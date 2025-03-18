@@ -37,29 +37,26 @@ class CurrenciesModel extends DBModelAbstract {
             $data['name'] = trimstrval($data['name'] ?? '');
             $data['digits'] = intval($data['digits'] ?? 2);
             $data['symbol'] = $data['symbol'] ? strval($data['symbol']) : null;
+            if ($data['type'] === 'currency') {
+                $data['code'] = strtoupper($data['code']);
+            }
         } return $data;
     }
 
     public function validate(?array $data): bool {
-        $this->error = null;
-        if (!$data) {
-            return $this->setError();
-        } if (!isset($data['type']) || !$data['type']) {
-            return $this->setError('invalid-type');
-        } if (!isset($data['code']) || !$data['code']) {
-            return $this->setError('invalid-code');
-        } if (!isset($data['name']) || !$data['name']) {
-            return $this->setError('invalid-name');
-        } 
-
-        if ($data['type']==='currency') {
-            if (strlen($data['code']) !== 3) {
-                return $this->setError('invalid-code');
-            } if (!isset($data['symbol']) || !$data['symbol']) {
-                return $this->setError('invalid-symbol');
-            }
+        if (!empty($data['type']) && $data['type']==='currency') {
+            return $this->runValidation($data, [
+                'type' => !empty($data['type']),
+                'code' => !empty($data['code']) && strlen($data['code']) === 3,
+                'name' => !empty($data['name']),
+                'symbol' => empty($data['symbol']),
+            ]);
+        } else {
+            return $this->runValidation($data, [
+                'type' => !empty($data['type']),
+                'code' => !empty($data['code']),
+                'name' => !empty($data['name']),
+            ]);
         }
-        
-        return true;
     }
 }

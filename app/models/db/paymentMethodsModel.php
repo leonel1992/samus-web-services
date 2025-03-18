@@ -32,16 +32,10 @@ class PaymentMethodsModel extends DBModelAbstract {
     }
 
     public function validate(?array $data): bool {
-        if ($this->error) {
-            return false;
-        } if (!$data) {
-            return $this->setError();
-        } if (!isset($data['id']) || !$data['id']) {
-            return $this->setError('invalid-id');
-        } if (!isset($data['name']) || !$data['name']) {
-            return $this->setError('invalid-name');
-        } if (!isset($data['icon']) || !$data['icon']) {
-            return $this->setError('invalid-icon');
-        } return true;
+        return $this->runValidation($data, [
+            'id' => !empty($data['id']),
+            'name' => !empty($data['name']),
+            'icon' => !empty($data['icon']),
+        ]);
     }
 }

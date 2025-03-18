@@ -18,7 +18,7 @@ abstract class DBModelAbstract extends ORM {
         $this->conn = $conn;
     }
 
-    public function setError(?string $key = null): bool {
+    protected function setError(?string $key = null): bool {
         $error = $key
         ? $GLOBALS['lang-controllers']['db'][$this->table][$key]
         : $GLOBALS['lang-controllers']['general']['missing-data'];
@@ -27,7 +27,7 @@ abstract class DBModelAbstract extends ORM {
         return false;
     }
 
-    public function processFile(string $folder, string $name): string|null {
+    protected function processFile(string $folder, string $name): string|null {
         $name = trimstrval($name ?? null, true);
         if ($name) { 
             $path = __DIR__ . "/../../../assets/img/$folder/";
@@ -43,6 +43,27 @@ abstract class DBModelAbstract extends ORM {
 
         return $name;
     }
+
+    protected function runValidation(?array $data, array $rules): bool {
+        $baseChecks = [
+            '#error' => $this->error === null,
+            '#data'  => $data && is_array($data),
+        ];
+    
+        foreach (array_merge($baseChecks, $rules) as $key => $value) {
+            if (!$value) {
+                return match ($key) {
+                    '#error' => false,
+                    '#data' => $this->setError(),
+                    default => $this->setError("invalid-$key"),
+                };
+            }
+        }
+
+        return true;
+    }
+
+    //--------------------------------------------------------------------------
 
     public function getParseData(ResultError|ResultData|ResultPaginate $data): ResultError|ResultData|ResultPaginate {
         if ($data->success && is_array($data->data)) {

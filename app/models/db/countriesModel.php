@@ -24,45 +24,33 @@ class CountriesModel extends DBModelAbstract {
     }
 
     public function setParseData(?array $data): array|null { return $data;
-        // if($data){
-        //     $data['id'] = idxval($data['iso_3']);
-        //     $data['icon'] = strval($data['icon']);
-        //     $data['prefix'] = intval($data['prefix']);
-        //     $data['name'] = trimstrval($data['name']);
-        //     $data['emoji'] = strval($data['emoji']);
-        //     $data['iso_2'] = trimstrval($data['iso_2']);
-        //     $data['iso_3'] = trimstrval($data['iso_3']);
-        //     $data['currency'] = idxval($data['currency']);
-        //     $data['timezone'] = trimstrval($data['timezone']);
-        //     $data['status_reg'] = idxval($data['status_reg']);
-        //     $data['status_calc'] = idxval($data['status_calc']);
-
-        //     if ($data['icon']) {
-        //         $path = __DIR__ . "/../../../assets/img/countries/";
-        //         if (!file_exists($path . $data['icon'])) {
-        //             $model = new FilesModel();
-        //             $copy = $model->copy($path, $data['icon']);
-        //             if (!$copy['success']) {
-        //                 $data['icon'] = null;
-        //             }
-        //         }
-        //     }
-        // }
-        // return $data;    
+        if($data){
+            $data['id'] = idxval($data['iso_3'] ?? '');
+            $data['icon'] = $this->processFile('countries', $data['icon']);
+            $data['prefix'] = intval($data['prefix'] ?? '');
+            $data['name'] = trimstrval($data['name'] ?? '');
+            $data['emoji'] = strval($data['emoji'] ?? '');
+            $data['iso_2'] = strtoupper(trimstrval($data['iso_2'] ?? ''));
+            $data['iso_3'] = strtoupper(trimstrval($data['iso_3'] ?? ''));
+            $data['currency'] = idxval($data['currency'] ?? '');
+            $data['timezone'] = trimstrval($data['timezone'] ?? '');
+            $data['status_reg'] = boolval($data['status_reg'] ?? false);
+            $data['status_calc'] = boolval($data['status_calc'] ?? false);
+        }
+        return $data;    
     }
 
     public function validate(?array $data): bool {
-        // if (!$data['icon']) return false;
-        // if (!is_numeric($data['prefix']) || $data['prefix'] < 1) return false;
-        // if (!$data['name']) return false;
-        // if (!$data['emoji']) return false;
-        // if (!$data['iso_2']) return false;
-        // if (!$data['iso_3']) return false;
-        // if (!$data['currency']) return false;
-        // if (!$data['timezone']) return false;
-        // if (!$data['status_reg']) return false;
-        // if (!$data['status_calc']) return false;
-        return true;
+        return $this->runValidation($data, [
+            'icon' => !empty($data['icon']),
+            'name' => !empty($data['name']),
+            'emoji' => !empty($data['emoji']),
+            'iso_2' => !empty($data['iso_2']) && strlen($data['iso_2']) == 2,
+            'iso_3' => !empty($data['iso_3']) && strlen($data['iso_3']) == 3,
+            'currency' => !empty($data['currency']) && strlen($data['currency']) == 3,
+            'timezone' => !empty($data['timezone']),
+            'prefix' => !empty($data['prefix']) && is_numeric($data['prefix']) && $data['prefix'] > 0,
+        ]);
     }
 
     //-------------------------------------------------

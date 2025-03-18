@@ -28,14 +28,10 @@ class PermissionsModel extends DBModelAbstract {
     }
 
     public function validate(?array $data): bool {
-        $this->error = null;
-        if (!$data) {
-            return $this->setError();
-        } if (!isset($data['module']) || !$data['module']) {
-            return $this->setError('invalid-module');
-        } if (!isset($data['action']) || !$data['action']) {
-            return $this->setError('invalid-action');
-        } return true;
+        return $this->runValidation($data, [
+            'module' => !empty($data['module']),
+            'action' => !empty($data['action']),
+        ]);
     }
 
     //-----------------------------------

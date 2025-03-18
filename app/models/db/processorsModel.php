@@ -54,20 +54,11 @@ class ProcessorsModel extends DBModelAbstract {
     }
 
     public function validate(?array $data): bool {
-        if ($this->error) {
-            return false;
-        } if (!$data) {
-            return $this->setError();
-        } if (!isset($data['icon']) || !$data['icon']) {
-            return $this->setError('invalid-icon');
-        } if (!isset($data['name']) || !$data['name']) {
-            return $this->setError('invalid-name');
-        } if (!isset($data['payment']) || !$data['payment']) {
-            return $this->setError('invalid-payment');
-        } if (isset($data['country']) && strlen($data['country']) != 3) {
-            return $this->setError('invalid-country');
-        } if (!isset($data['currency']) || !$data['currency']) {
-            return $this->setError('invalid-currency');
-        } return true;
+        return $this->runValidation($data, [
+            'icon' => !empty($data['icon']),
+            'name' => !empty($data['name']),
+            'payment' => !empty($data['payment']),
+            'currency' => !empty($data['currency']) && strlen($data['currency']) == 3,
+        ]);
     }
 }

@@ -22,14 +22,10 @@ class ModulesModel extends DBModelAbstract {
     }
 
     public function validate(?array $data): bool {
-        $this->error = null;
-        if (!$data) {
-            return $this->setError();
-        } if (!isset($data['id']) || !$data['id']) {
-            return $this->setError('invalid-id');
-        } if (!isset($data['module']) || !$data['module']) {
-            return $this->setError('invalid-module');
-        } return true;
+        return $this->runValidation($data, [
+            'id' => !empty($data['id']),
+            'module' => !empty($data['module']),
+        ]);
     }
 
     //-----------------------------------------

@@ -44,30 +44,18 @@ class UsersBusinessModel extends DBModelAbstract {
 
     public function validate(?array $data): bool {
         $this->error = null;
-        if (!$data) {
-            return $this->setError();
-        } if (!isset($data['name']) || !$data['name']) {
-            return $this->setError('invalid-name');
-        } if (!isset($data['country']) || !$data['country']) {
-            return $this->setError('invalid-country');
-        } if (!isset($data['state']) || !$data['state']) {
-            return $this->setError('invalid-state');
-        } if (!isset($data['city']) || !$data['city']) {
-            return $this->setError('invalid-city');
-        } if (!isset($data['address']) || !$data['address']) {
-            return $this->setError('invalid-address');
-        } if (!isset($data['type']) || !$data['type']) {
-            return $this->setError('invalid-type');
-        } if (!isset($data['date']) || !$data['date']) {
-            return $this->setError('invalid-date');
-        } if (!isset($data['register_type']) || !$data['register_type']) {
-            return $this->setError('invalid-register-type');
-        } if (!isset($data['register_number']) || !$data['register_number']) {
-            return $this->setError('invalid-register-number');
-        } if (isset($data['phone']) && $data['phone'] && !validatePhone($data['phone'])) {
-            return $this->setError('invalid-phone');
-        } if (isset($data['email']) && $data['email'] && !validateEmail($data['email'])) {
-            return $this->setError('invalid-email');
-        } return true;
+        return $this->runValidation($data, [
+            'name' => !empty($data['name']) && strlen($data['name']) > 0,
+            'type' => !empty($data['type']) && strlen($data['type']) > 1,
+            'date' => !empty($data['date']),
+            'country' => !empty($data['country']) && strlen($data['country']) === 3,
+            'state' => !empty($data['state']) && strlen($data['state']) > 1,
+            'city' => !empty($data['city']) && strlen($data['city']) > 1,
+            'address' => !empty($data['address']) && strlen($data['address']) > 9,
+            'register-type'   => !empty($data['register_type']) && strlen($data['register_type']) > 1,
+            'register-number' => !empty($data['register_number']) && strlen($data['register_number']) > 1,
+            'phone' => !empty($data['phone']) && validatePhone($data['phone']),
+            'email' => !empty($data['email']) && validateEmail($data['email']),
+        ]);
     }
 }
