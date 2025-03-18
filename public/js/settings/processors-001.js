@@ -93,7 +93,7 @@ class SettingsProcessors extends Manage {
 
         const currencyCode = this.#dataCurrencies?.[item.currency]?.code ?? item.currency;
         const currencySymbol = this.htmlTableEmptyText(this.#dataCurrencies?.[item.currency]?.symbol ?? null);
-        const currencyDecimals = this.htmlTableEmptyText(this.#dataCurrencies?.[item.currency]?.decimals ?? null);
+        const currencyDigits = this.htmlTableEmptyText(this.#dataCurrencies?.[item.currency]?.digits ?? null);
    
         return `
         <tr data-index="${index}" data-key="${key}">
@@ -108,7 +108,7 @@ class SettingsProcessors extends Manage {
             <td class="">${item.name}</td>
             <td class="text-center">${currencyCode}</td>
             <td class="text-center">${currencySymbol}</td>
-            <td class="text-center">${currencyDecimals}</td>
+            <td class="text-center">${currencyDigits}</td>
             ${this.htmlTableLabel(invertClass, invertName)}
             ${this.htmlTableLabel(statusBuyClass, statusBuyName)}
             ${this.htmlTableLabel(statusSellClass, statusSellName)}

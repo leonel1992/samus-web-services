@@ -28,12 +28,13 @@ class SettingsCurrencies extends Manage {
         $("#type").on("select2:select", (e) => {
             const type = e.target.value;
             
-            const placeholderCode = this.#getDataText('code-placeholder', type);
-            const placeholderName = this.#getDataText('name-placeholder', type);
-            const placeholderSymb = this.#getDataText('symbol-placeholder', type);
-            const invalidFeedbackCode = this.#getDataText('code-invalid-feedback', type);
-            const invalidFeedbackName = this.#getDataText('name-invalid-feedback', type);
-            const invalidFeedbackSymb = this.#getDataText('symbol-invalid-feedback', type);
+            const placeholderCode = this.#getDataText('placeholder', 'code', type);
+            const placeholderName = this.#getDataText('placeholder', 'name', type);
+            const placeholderSymb = this.#getDataText('placeholder', 'symbol', type);
+
+            const invalidFeedbackCode = this.#getDataText('invalid-feedback', 'code', type);
+            const invalidFeedbackName = this.#getDataText('invalid-feedback', 'name', type);
+            const invalidFeedbackSymb = this.#getDataText('invalid-feedback', 'symbol', type);
 
             const elementCode = document.querySelector("#code");
             const elementName = document.querySelector("#name");
@@ -71,9 +72,10 @@ class SettingsCurrencies extends Manage {
         });
     }
 
-    #getDataText(typeText, typeCurrency) {
-        return (document.querySelector(`#manage-${typeText}-${typeCurrency}`) 
-            ?? document.querySelector(`#manage-${typeText}-default`))?.dataset.text;
+    #getDataText(typeText, typeInput, typeCurrency, ) {
+        const details = document.getElementById(`manage-${typeInput}-details`);
+        return details?.getAttribute(`data-${typeText}-${typeCurrency}`)
+            ??  details?.getAttribute(`data-${typeText}-default`);
     }
     
     // HTML ---------------------------------------------
@@ -91,6 +93,7 @@ class SettingsCurrencies extends Manage {
             <td class="text-center">${this.#dataTypes?.[item.type]?.name ?? item.type}</td>
             <td class="text-center">${item.code}</td>
             <td class="text-center">${this.htmlTableEmptyText(item.symbol)}</td>
+            <td class="text-center">${item.digits}</td>
             <td class="">${item.name}</td>
             ${this.htmlTableUpdateButton()}
             ${this.htmlTableDeleteButton()}

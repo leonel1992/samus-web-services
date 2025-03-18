@@ -13,6 +13,7 @@ $GLOBALS['lang-view'] = [
     "table-type" => "Tipo",
     "table-code" => "Código",
     "table-symbol" => "Símbolo",
+    "table-digits" => "Dígitos",
     "table-name" => "Nombre",
     "table-filter" => "Monedas // Buscar en la tabla",
 
@@ -36,6 +37,10 @@ $GLOBALS['lang-view'] = [
     "form-symbol-placeholder-default" => "Ingrese el símbolo de la moneda",
     "form-symbol-invalid-feedback-crypto" => "Debe indicar el símbolo de la criptomoneda.",
     "form-symbol-invalid-feedback-default" => "Debe indicar el símbolo de la moneda.",
+
+    "form-digits-label" => "Dígitos",
+    "form-digits-placeholder" => "Ingrese la cantidad de dígitos decimales de la moneda.",
+    "form-digits-invalid-feedback" => "Debe indicar la cantidad de dígitos de precisión decimal para la moneda.",
 
     "form-name-label" => "Nombre",
     "form-name-placeholder-crypto" => "Ingrese el nombre de la criptomoneda",

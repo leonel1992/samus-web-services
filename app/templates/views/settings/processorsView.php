@@ -43,7 +43,7 @@
                                 <th scope="col" colspan="2" class="min120"><?= $GLOBALS['lang-view']['table-name'] ?></th>
                                 <th scope="col" class="px70 text-center px-0"><small><?= $GLOBALS['lang-view']['table-currency'] ?></small></th>
                                 <th scope="col" class="px70 text-center px-0"><small><?= $GLOBALS['lang-view']['table-symbol'] ?></small></th>
-                                <th scope="col" class="px70 text-center px-0"><small><?= $GLOBALS['lang-view']['table-decimals'] ?></small></th>
+                                <th scope="col" class="px70 text-center px-0"><small><?= $GLOBALS['lang-view']['table-digits'] ?></small></th>
                                 <th scope="col" class="px60 text-center px-0"><small><?= $GLOBALS['lang-view']['table-invert'] ?></small></th>
                                 <th scope="col" class="px110 text-center"><small><?= $GLOBALS['lang-view']['table-status-buy'] ?></small></th>
                                 <th scope="col" class="px110 text-center"><small><?= $GLOBALS['lang-view']['table-status-sell'] ?></small></th>

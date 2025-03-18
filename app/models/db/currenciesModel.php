@@ -9,6 +9,7 @@ class CurrenciesModel extends DBModelAbstract {
         C.`type` as `type`,
         C.`code` as `code`,
         C.`symbol` as `symbol`,
+        C.`digits` as `digits`,
         C.`name` as `name`
     FROM `currencies` C
     LEFT JOIN `currencies_types` T ON T.`id` = C.`type`
@@ -22,12 +23,19 @@ class CurrenciesModel extends DBModelAbstract {
 
     //-----------------------------------------
 
+    public function getParseItem(array|null $item): array|null {
+        if ($item) {
+            $item['digits'] = intval($item['digits']);
+        } return $item;
+    }
+
     public function setParseData(?array $data): array|null {
         if($data){
             $data['id'] = idxval($data['code'] ?? '');
             $data['type'] = idxval($data['type'] ?? '');
             $data['code'] = trimstrval($data['code'] ?? '');
             $data['name'] = trimstrval($data['name'] ?? '');
+            $data['digits'] = intval($data['digits'] ?? 2);
             $data['symbol'] = $data['symbol'] ? strval($data['symbol']) : null;
         } return $data;
     }
