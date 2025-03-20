@@ -52,16 +52,18 @@ class UsersModel extends DBModelAbstract {
 
             if ($reg) {
                 $now = new Date();
-                $newData['user']['rol'] = null;
                 $newData['user']['status'] = 'active';
+                $newData['user']['rol'] = $_SESSION['data-giros']['rol'] ?? null;
+                $newData['user']['code'] = $_SESSION['data-giros']['code'] ?? null;
+                $newData['user']['id_sup'] = $this->setParseIdSup($data['user']['id_sup']);
                 $newData['user']['date_create'] = $now->formatCompleteMySQL();
             } else {
-                $newData['user']['id_sup'] = bigintval($data['user']['id_sup'] ?? null, true);
                 $newData['user']['rol'] = idxval($data['user']['rol'] ?? null, true);
+                $newData['user']['code'] = $data['user']['code'] ?? intval($data['user']['code']) ?? null;
+                $newData['user']['id_sup'] = $data['user']['id_sup'] ?? bigintval($data['user']['id_sup']) ?? null;
                 $newData['user']['status'] = idxval($data['user']['status'] ?? '');
             }
 
-            $newData['user']['code'] = intval($data['user']['code'] ?? null, true);
             $newData['user']['account'] = idxval($data['user']['account'] ?? '');
             $newData['user']['gender'] = idxval($data['user']['gender'] ?? '');
             $newData['user']['name'] = ucwords(strtolower(trimstrval($data['user']['name'] ?? '')));
@@ -84,6 +86,18 @@ class UsersModel extends DBModelAbstract {
 
             return $newData;
         } return $data;
+    }
+
+    protected function setParseIdSup($idSup) {
+        $idSup = bigintval($data['user']['id_sup'] ?? null, true);
+        if ($idSup) {
+            $sql = "SELECT id from {$this->table} WHERE id=:id OR code=:code";
+            $data = $this->getByKeys([
+                'id' => $idSup,
+                'id_sup' => $idSup,
+            ], $sql);
+            return $data->data['id'] ?? null;
+        } return null;
     }
 
     // VALIDATE -------------------------------------------------------------

@@ -66,7 +66,7 @@ class SessionRegisterForm extends Session{
         "terms",
         "account",
         "email",
-        "code",
+        "id-sup",
         "gender",
         "name",
         "last-name",

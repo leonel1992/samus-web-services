@@ -107,6 +107,9 @@ class DataController extends Controller  {
                     $data = $model->setParseDataRegister($data, $result->data['email']);
                     if ($model->validateRegister($data)) {
                         $result = $model->register($data); 
+                        if ($result->success) {
+                            unset($_SESSION['data-giros']);
+                        }
                     } else {
                         $result = $model->error ?? new ResultError($GLOBALS['lang-controllers']['db'][$model->table]['register-error']);
                     }

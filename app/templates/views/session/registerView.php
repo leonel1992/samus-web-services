@@ -33,7 +33,7 @@
         </div>
 
         <div class="input-group mb-3">
-            <input id="register-email" type="email" class="form-control text-center" maxlength="50" placeholder="<?= $GLOBALS['lang-view']['email'] ?>" validate-email="true" required />
+            <input id="register-email" type="email" class="form-control text-center" maxlength="50" placeholder="<?= $GLOBALS['lang-view']['email'] ?>" value="<?= $_SESSION['data-giros']['user'] ?? null ?>" validate-email="true" required />
         </div>
 
         <div class="form-check custom-form-check w-100 mb-4 ms-1">

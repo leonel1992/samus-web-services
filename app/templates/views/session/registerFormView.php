@@ -5,6 +5,7 @@
     require_once __DIR__ . '/../../../models/db/countriesCompaniesModel.php';
     require_once __DIR__ . '/../../../models/db/usersAccountsModel.php';
     require_once __DIR__ . '/../../../models/db/usersGendersModel.php';
+    require_once __DIR__ . '/../../../models/giros/usersGirosModel.php';
     $conn = DatabaseService::init();
 
     $usersAccountsModel = new UsersAccountsModel($conn);
@@ -30,6 +31,12 @@
     $countriesCompaniesModel = new CountriesCompaniesModel($conn);
     $countriesCompaniesData = $countriesCompaniesModel->getAll($countriesCompaniesModel->query);
     $countriesCompanies = $countriesCompaniesData->data ?? [];
+
+    $usersGirosModel = new UsersGirosModel($conn);
+    $usersGirosData = $usersGirosModel->getUserData();
+    $userGiros = $usersGirosData->data ?? [];
+
+    $_SESSION['data-giros']['rol'] = $userGiros['rol'] ?? null;
 ?>
 
 <section class="session d-flex align-items-center justify-content-center py-0 py-sm-4">
@@ -60,12 +67,12 @@
 
             <div id="input-group-register-user-email" class="input-group-label" disabled>
                 <label class="input-label fixed" for="register-user-email"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-user-email'] ?></label>
-                <input id="register-user-email" name="register-email" type="email" class="form-control" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-email'] ?>"  validate-email="true" disabled required>
+                <input id="register-user-email" name="register-email" type="email" class="form-control" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-email'] ?>" value="<?= $userGiros['user'] ?? null ?>" validate-email="true" disabled required>
             </div>
-
-            <div id="input-group-register-user-code" class="input-group-label">
-                <label class="input-label fixed" for="register-user-code"><?= $GLOBALS['lang-view']['label-user-code'] ?></label></label>
-                <input id="register-user-code" name="register-user-code" type="text" inputmode="numeric" maxlength="4" validate-length="4" class="form-control" input-case="user-code" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-code'] ?>">
+                    
+            <div id="input-group-register-user-id-sup" class="input-group-label <?= empty($_SESSION['data-giros']['code']) ? '' : 'd-none' ?>">
+                <label class="input-label fixed" for="register-user-id-sup"><?= $GLOBALS['lang-view']['label-user-id-sup'] ?></label></label>
+                <input id="register-user-id-sup" name="register-user-id-sup" type="text" inputmode="numeric" class="form-control" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-id-sup'] ?>">
             </div>
 
             <div id="input-group-register-user-gender" class="input-group-label">
@@ -73,19 +80,20 @@
                 <select id="register-user-gender" name="register-user-gender" class="custom-select form-control" data-placeholder="<?= $GLOBALS['lang-view']['placeholder-user-gender'] ?>"  validate-value="true" required>
                     <option value=""></option>
                     <?php foreach($usersGenders as $value){
-                        echo "<option value='{$value['id']}'>{$value['name']}</option>";
+                        $selected = isset($userGiros['gender']) && $userGiros['gender'] === $value['id'] ? 'selected' : '';
+                        echo "<option value='{$value['id']}' {$selected}>{$value['name']}</option>";
                     } ?>
                 </select>
             </div>
 
             <div id="input-group-register-user-name" class="input-group-label">
                 <label class="input-label fixed" for="register-user-name"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-user-name'] ?></label>
-                <input id="register-user-name" name="register-user-name" type="text" class="form-control" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-name'] ?>" maxlength="50" validate-name="true" required>
+                <input id="register-user-name" name="register-user-name" type="text" class="form-control" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-name'] ?>" value="<?= $userGiros['name'] ?? null ?>" maxlength="50" validate-name="true" required>
             </div>
 
             <div id="input-group-register-user-last-name" class="input-group-label">
                 <label class="input-label fixed" for="register-user-last-name"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-user-last-name'] ?></label>
-                <input id="register-user-last-name" name="register-user-last-name" type="text" class="form-control" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-last-name'] ?>" maxlength="50" validate-name="true" required>
+                <input id="register-user-last-name" name="register-user-last-name" type="text" class="form-control" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-last-name'] ?>" value="<?= $userGiros['last_name'] ?? null ?>" maxlength="50" validate-name="true" required>
             </div>
 
             <div id="input-group-register-user-country" class="input-group-label">
@@ -93,7 +101,8 @@
                 <select id="register-user-country" name="register-user-country" class="custom-select form-control" data-placeholder="<?= $GLOBALS['lang-view']['placeholder-user-country'] ?>"  validate-value="true" required>
                     <option value=""></option>
                     <?php foreach($countries as $value){
-                        echo "<option value='{$value['id']}' data-prefix='{$value['prefix']}' img-icon='{$value['icon_url']}' subtitle'{$value['name']}'>{$value['name']}</option>";
+                        $selected = isset($userGiros['country']) && $userGiros['country'] === $value['id'] ? 'selected' : '';
+                        echo "<option value='{$value['id']}' data-prefix='{$value['prefix']}' img-icon='{$value['icon_url']}' subtitle'{$value['name']}' {$selected}>{$value['name']}</option>";
                     } ?>
                 </select>
             </div>
@@ -110,7 +119,7 @@
 
             <div id="input-group-register-user-address" class="input-group-label">
                 <label class="input-label fixed" for="register-user-address"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-user-address'] ?></label>
-                <textarea id="register-user-address" name="register-user-address" class="form-control" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-address'] ?>" maxlength="100" validate-length="10" rows="2" required></textarea>
+                <textarea id="register-user-address" name="register-user-address" class="form-control" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-address'] ?>" value="<?= $userGiros['address'] ?? null ?>" maxlength="100" validate-length="10" rows="2" required></textarea>
             </div>
 
             <div id="input-group-register-user-birthdate" class="input-group-label">
@@ -125,7 +134,8 @@
                         <select id="register-user-document-type" name="register-user-document-type" class="custom-select form-control" data-placeholder="<?= $GLOBALS['lang-view']['placeholder-user-document-type'] ?>"  validate-value="true" required>
                             <option value=""></option>
                             <?php foreach($countriesDnis as $value){
-                                echo "<option value='{$value['id']}' subtitle='{$value['name']}' data-country='{$value['country']}' class='d-none'>{$value['code']}</option>";
+                                $display = isset($userGiros['country']) && $userGiros['country'] === $value['country'] ? '' : 'd-none';
+                                echo "<option value='{$value['id']}' subtitle='{$value['name']}' data-country='{$value['country']}' class='{$display}'>{$value['code']}</option>";
                             } ?>
                         </select>
                     </div>
@@ -141,8 +151,8 @@
             <div id="input-group-register-user-phone" class="input-group-label">
                 <label class="input-label fixed" for="register-user-phone"><span class='text-danger'>*</span> <?= $GLOBALS['lang-view']['label-user-phone'] ?></label>
                 <div class="input-group">
-                    <span id="register-user-phone-prefix" class="input-group-text input-group-text-label text-center px-3" disabled>- - -</span>
-                    <input id="register-user-phone" name="register-user-phone" type="tel" class="form-control border-start-0 ps-0 no-shadow" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-phone'] ?>" maxlength="20" validate-phone="true" required>
+                    <span id="register-user-phone-prefix" class="input-group-text input-group-text-label text-center px-3" disabled><?= $userGiros['phone_prefix'] ?? '- - -' ?></span>
+                    <input id="register-user-phone" name="register-user-phone" type="tel" class="form-control border-start-0 ps-0 no-shadow" placeholder="<?= $GLOBALS['lang-view']['placeholder-user-phone'] ?>" value="<?= $userGiros['phone'] ?? null ?>" maxlength="20" validate-phone="true" required>
                 </div>
             </div>
 
@@ -162,7 +172,7 @@
 
             <input id="register-user-toast-account" type="hidden" value="<?= $GLOBALS['lang-view']['toast-user-account'] ?>">
             <input id="register-user-toast-email" type="hidden" value="<?= $GLOBALS['lang-view']['toast-user-email'] ?>">
-            <input id="register-user-toast-code" type="hidden" value="<?= $GLOBALS['lang-view']['toast-user-code'] ?>">
+            <input id="register-user-toast-id-sup" type="hidden" value="<?= $GLOBALS['lang-view']['toast-user-id-sup'] ?>">
             <input id="register-user-toast-gender" type="hidden" value="<?= $GLOBALS['lang-view']['toast-user-gender'] ?>">
             <input id="register-user-toast-name" type="hidden" value="<?= $GLOBALS['lang-view']['toast-user-name'] ?>">
             <input id="register-user-toast-last-name" type="hidden" value="<?= $GLOBALS['lang-view']['toast-user-last-name'] ?>">

@@ -6,6 +6,15 @@ class AccountController extends ControllerPermissions {
 
     public function __construct(?PDO $conn) {
         $this->conn = $conn;
+        $_SESSION['data-giros'] = !empty($_GET['code-giros']) && !empty($_GET['user-giros']) && !empty($_GET['pass-giros']) ? [
+            'code' => $_GET['code-giros'],
+            'user' => $_GET['user-giros'],
+            'pass' => $_GET['pass-giros'],
+        ] : [
+            'code' => null,
+            'user' => null,
+            'pass' => null,
+        ];
     }
 
     // GENERAL -----------------------------------------------

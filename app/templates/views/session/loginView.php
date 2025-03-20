@@ -16,7 +16,7 @@
                     <use xlink:href="<?= $GLOBALS['url-path'] ?>/assets/icons/bootstrap.svg#person"/>
                 </svg>
             </span>
-            <input id="login-email" type="email" class="form-control" maxlength="50" placeholder="<?= $GLOBALS['lang-view']['email'] ?>" value="" validate-email="true" required />
+            <input id="login-email" type="email" class="form-control" maxlength="50" placeholder="<?= $GLOBALS['lang-view']['email'] ?>" value="<?= $_SESSION['data-giros']['user'] ?? null ?>" validate-email="true" required />
         </div>
 
         <div class="input-group mb-3">

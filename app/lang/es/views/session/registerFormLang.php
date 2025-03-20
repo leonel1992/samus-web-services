@@ -10,7 +10,7 @@ $GLOBALS['lang-view'] = [
 
     "label-user-account" => "Tipo de registro",
     "label-user-email" => "Correo electrónico",
-    "label-user-code" => "Código de asesor",
+    "label-user-id-sup" => "Código de asesor",
     "label-user-gender" => "Género",
     "label-user-name" => "Nombre",
     "label-user-last-name" => "Apellido",
@@ -40,7 +40,7 @@ $GLOBALS['lang-view'] = [
 
     "placeholder-user-account" => "Seleccione el tipo de registro",
     "placeholder-user-email" => "Ingrese su correo electrónico",
-    "placeholder-user-code" => "Ingrese el código de su asesor (opcional)",
+    "placeholder-user-id-sup" => "Ingrese el código de su asesor (opcional)",
     "placeholder-user-gender" => "Seleccione su género",
     "placeholder-user-name" => "Ingrese su nombre",
     "placeholder-user-last-name" => "Ingrese su apellido",
@@ -70,7 +70,7 @@ $GLOBALS['lang-view'] = [
 
     "toast-user-account" => "Debe seleccionar el tipo de registro.",
     "toast-user-email" => "Debe ingresar un correo electrónico válido.",
-    "toast-user-code" => "Debe ingresar el código de asesor válido.",
+    "toast-user-id-sup" => "Debe ingresar el código de asesor válido.",
     "toast-user-gender" => "Debe seleccionar su género.",
     "toast-user-name" => "Debe ingresar un nombre válido.",
     "toast-user-last-name" => "Debe ingresar un apellido válido.",
