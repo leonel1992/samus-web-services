@@ -50,13 +50,13 @@ class RolesModel extends DBModelAbstract {
             $data['id'] = idxval($data['id'] ?? '');
             $data['name'] = trimstrval($data['name'] ?? '');
             $data['description'] = trimstrval($data['description'] ?? null, true);
-            $data['permissions'] = $this->permModel->setParseDataFromRoles($data['id'], $data['permissions'] ?? null); 
+            $data['permissions'] = $this->permModel->setParseDataFromRoles($data['id'], $data['permissions'] ?? null);
         } return $data;
     }
 
     public function validate(?array $data): bool {
         
-        if ($this->runValidation($data, [
+        if (!$this->runValidation($data, [
             'id' => !empty($data['id']),
             'name' => !empty($data['name']),
         ])) {

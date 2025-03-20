@@ -19,7 +19,7 @@
 
 		</div>
 
-		<div id="manage-view-filter" class="filter position-relative">
+		<div id="manage-view-filter" class="manage-filter position-relative">
 			<input type="text" id="manage-filter" class="form-control" placeholder="<?= $GLOBALS['lang-view']['view-filter'] ?>">
 			<button id="manage-filter-search" class="btn-search border-0 bg-transparent position-absolute">
 				<i class="bi bi-search"></i>

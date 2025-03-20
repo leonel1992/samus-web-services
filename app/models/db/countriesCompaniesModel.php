@@ -3,7 +3,7 @@ class CountriesCompaniesModel extends ORM {
 
     public string $table = "countries_companies";
     public string $query = "SELECT * 
-    FROM `country_companies` 
+    FROM `countries_companies` 
     ORDER BY 
         `country` ASC, 
         CASE 

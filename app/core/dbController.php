@@ -30,7 +30,8 @@ class DBController extends ControllerPermissions {
     }
 
     private function renderInvalidData() {
-        $this->renderJson($this->model->error);
+        $this->renderJson($this->model->error ?? 
+            new ResultError($GLOBALS['lang-controllers']['general']['error-unknown']));
     }
 
     //-------------------------------------------
@@ -83,7 +84,7 @@ class DBController extends ControllerPermissions {
         } $this->renderJson403();
     }
 
-    public function insert() {
+    public function insert() { 
         if($this->isValid('insert', $this->module)) {
             if ($this->model->validate($this->data)) {
                 $msg = $GLOBALS['lang-controllers']['db'][ $this->model->table ]['insert'];

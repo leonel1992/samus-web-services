@@ -916,30 +916,30 @@ footer .social .icon:focus{
 
 /* FILTER --------------------------------------------------*/
 
-.manage-view .filter {
+.manage-view .manage-filter {
     margin-top: 18px;
     margin-bottom: 18px;
 }
-.manage-view .filter input {
+.manage-view .manage-filter input {
     padding: 6px 36px;
 }
-.manage-view .filter input:focus,
-.manage-view .filter input:active{
+.manage-view .manage-filter input:focus,
+.manage-view .manage-filter input:active{
     box-shadow: 0 0 0 .25rem var(--color-btn-custom-shadow-rgba) !important;
 }
 
-.manage-view .filter button{
+.manage-view .manage-filter button{
     position: absolute;
     background: transparent;
     padding: 6px 10px;
     border: none;
     top: 1px;
 }
-.manage-view .filter button.btn-search{
+.manage-view .manage-filter button.btn-search{
     color: var(--color-p-light);
     left: 1px;
 }
-.manage-view .filter button.btn-clean{
+.manage-view .manage-filter button.btn-clean{
     color: var(--color-danger);
     right: 1px;
 }

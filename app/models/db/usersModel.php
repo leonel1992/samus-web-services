@@ -120,19 +120,19 @@ class UsersModel extends DBModelAbstract {
         }
 
         if (!$this->runValidation($data, [
-            'account' => !empty($data['account']),
-            'gender' => !empty($data['gender']),
-            'name' => !empty($data['name']) && validateName($data['user']['name']),
-            'last-name' => !empty($data['last_name']) && validateName($data['user']['last_name']),
-            'birthdate' => !empty($data['birthdate']) && validateAge($data['user']['birthdate'], 18),
-            'document-type' => !empty($data['document_type']),
-            'document-number' => !empty($data['document_number']),
-            'country' => !empty($data['country']) && strlen($data['country']) == 3,
-            'state' => !empty($data['state']) && strlen($data['state']) > 1,
-            'city'  => !empty($data['city']) && strlen($data['city']) > 1,
-            'address' => !empty($data['address']) && strlen($data['address']) > 9,
-            'phone' => !empty($data['phone']) && validatePhone($data['phone']),
-            'email' => !empty($data['email']) && validateEmail($data['email']),
+            'account' => !empty($data['user']['account']),
+            'gender' => !empty($data['user']['gender']),
+            'name' => !empty($data['user']['name']) && validateName($data['user']['name']),
+            'last-name' => !empty($data['user']['last_name']) && validateName($data['user']['last_name']),
+            'birthdate' => !empty($data['user']['birthdate']) && validateAge($data['user']['birthdate'], 18),
+            'document-type' => !empty($data['user']['document_type']),
+            'document-number' => !empty($data['user']['document_number']),
+            'country' => !empty($data['user']['country']) && strlen($data['user']['country']) == 3,
+            'state' => !empty($data['user']['state']) && strlen($data['user']['state']) > 1,
+            'city'  => !empty($data['user']['city']) && strlen($data['user']['city']) > 1,
+            'address' => !empty($data['user']['address']) && strlen($data['user']['address']) > 9,
+            'phone' => !empty($data['user']['phone']) && validatePhone($data['user']['phone']),
+            'email' => !empty($data['user']['email']) && validateEmail($data['user']['email']),
         ])) {
             return false;
         }
