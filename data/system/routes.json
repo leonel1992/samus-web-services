@@ -67,6 +67,9 @@
     "manage": {
         "es": "/admin"
     },
+    "manage-gallery": {
+        "es": "/admin/galeria"
+    },
 
     "settings": {
         "es": "/ajustes"

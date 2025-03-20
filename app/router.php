@@ -91,6 +91,16 @@ class Router {
             $this->folder = '/';
         }
 
+        // MANAGE 
+        elseif (strpos($url, $GLOBALS['routes']['manage'][$lang]) === 0) {
+            $this->controller = 'manage';
+            $this->folder = '/';
+            $this->method = match ($url) {
+                $GLOBALS['routes']['manage-gallery'][$lang] => 'gallery',
+                default => null
+            };
+        }
+
         // SETTINGS 
         elseif (strpos($url, $GLOBALS['routes']['settings'][$lang]) === 0) {
             $this->controller = 'settings';
@@ -141,6 +151,7 @@ class Router {
                         $this->method = $this->matchRouteURL($expl[2]);
                         $this->folder = "/system/";
                     } elseif (
+                        strpos($url, '/manage/') === 0 ||
                         strpos($url, '/system/') === 0 ||
                         strpos($url, '/session/') === 0 ||
                         strpos($url, '/settings/') === 0 ) {

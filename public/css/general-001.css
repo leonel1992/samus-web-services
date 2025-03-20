@@ -113,12 +113,14 @@
     --color-danger: #dc3545;
     --color-info: #1263ba;
 
+    --color-light-default: #f8fbf8;
     --color-light-custom: #ccfac7;
     --color-light-success: #bdf3ba;
     --color-light-warning: #fff3cd;
     --color-light-danger: #fed6e0;
     --color-light-info: #D1E6FE;
 
+    --color-light-2-default: #dadada;
     --color-light-2-custom: #aee2a8;
     --color-light-2-success: #9dd799;
     --color-light-2-warning: #e0d1a1;
@@ -911,4 +913,245 @@ footer .social .icon:focus{
 .manage-view .response .data .text{
     color: var(--color-p);
 }
-  
+
+/* FILTER --------------------------------------------------*/
+
+.manage-view .filter {
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+.manage-view .filter input {
+    padding: 6px 36px;
+}
+.manage-view .filter input:focus,
+.manage-view .filter input:active{
+    box-shadow: 0 0 0 .25rem var(--color-btn-custom-shadow-rgba) !important;
+}
+
+.manage-view .filter button{
+    position: absolute;
+    background: transparent;
+    padding: 6px 10px;
+    border: none;
+    top: 1px;
+}
+.manage-view .filter button.btn-search{
+    color: var(--color-p-light);
+    left: 1px;
+}
+.manage-view .filter button.btn-clean{
+    color: var(--color-danger);
+    right: 1px;
+}
+
+/* MODAL FORM --------------------------------------------------*/
+
+#manage-modal-form .modal-header{
+    border-bottom: solid 1px var(--color-border);
+    background-color: var(--color-light-default);
+    color: var(--color-p-light);
+    padding: 12px 18px;
+}
+
+#manage-modal-form .modal-body{
+    padding: 3px 18px 18px;
+}
+
+
+/* /////////////////////////////////////////////////////// */
+/*  MANAGE GALLERY VIEW ////////////////////////////////// */
+/* /////////////////////////////////////////////////////// */
+
+.gallery-view .response{
+    height: calc(var(--window-heigth) - var(--header-heigth) - 140px);
+}
+
+@media screen and (max-width:450px) {
+    .gallery-view .response{
+        height: calc(var(--window-heigth) - var(--header-heigth) - 160px);
+    }
+}
+
+/*-------------------------------*/
+
+.gallery-view .card {
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    border: solid 1px var(--color-border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+.gallery-view .card:hover {
+    transform: translateY(-4px);
+}
+
+/*-------------------------------*/
+
+.gallery-view .card-image {
+    overflow: hidden;
+    position: relative;
+    background-color: #f9f9f9;
+    border-top-left-radius: 8.1px;
+    border-top-right-radius: 8.1px;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+}
+.gallery-view .card-image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    background: linear-gradient(
+        90deg,
+        var(--color-light-default) 15%,
+        var(--color-light-2-default) 50%,
+        var(--color-light-default) 85%
+    );
+    background-size: 300% 100%;
+    animation: shimmer 8s linear infinite;
+}
+.gallery-view .card-image.loaded::before {
+    content: none;
+}
+
+.gallery-view .card-image img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 500% 0;
+    }
+    100% {
+        background-position: -500% 0;
+    }
+}
+
+/*-------------------------------*/
+
+.gallery-view .card-icons {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    display: flex;
+    gap: 8px;
+}
+.gallery-view .card-icons i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+    border-radius: 50%;
+    color: var(--color-p-light);
+    border: solid 1px var(--color-line);
+    background-color: var(--color-light-default);
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    transition: background-color 0.2s, color 0.2s;
+}
+.gallery-view .card-icons i:hover {
+    background-color: var(--color-light-custom);
+    border-color: var(--color-light-2-custom);
+    color: var(--color-custom);
+}
+.gallery-view .card-icons i.delete:hover {
+    background-color: var(--color-light-danger);
+    border-color: var(--color-light-2-danger);
+    color: var(--color-danger);
+}
+
+/*-------------------------------*/
+
+.gallery-view .card-body {
+    padding: 6px 12px 12px;
+}
+
+.gallery-view .card-link a {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-a);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.gallery-view .card-link .manage-copy {
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--color-p-light);
+    transition: color 0.2s;
+}
+.gallery-view .card-link .manage-copy:hover {
+    color: var(--color-custom);
+}
+
+.gallery-view .card-text {
+    padding-top: 10px;
+}
+.gallery-view .card-text .title {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: var(--color-p);
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.gallery-view .card-text .date {
+    font-size: 70%;
+    font-weight: normal;
+    color: var(--color-p-light);
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/*-------------------------------*/
+
+.modal-gallery .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-gallery .btn-close {
+    position: absolute;
+    z-index: 1050;
+    top: 10px; 
+    right: 15px; 
+}
+
+.modal-gallery .zoom-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+}
+.modal-gallery .zoom-container img {
+    object-fit: contain;
+    width: 100%; 
+    height: 100%;
+}

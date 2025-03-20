@@ -310,9 +310,15 @@ class Manage {
                 
                 row.style.display = display;
             });
+
+            if (count == 0) {
+                this.viewEmpty();
+            } else {
+                this.viewSuccess();
+            }
         };
 
-        document.getElementById("manage-filter-clear")?.addEventListener("click", () => {
+        document.getElementById("manage-filter-clean")?.addEventListener("click", () => {
             document.getElementById("manage-filter").value = "";
             filterTable();
         });
@@ -370,6 +376,16 @@ class Manage {
 
     initForm(){
 
+        const modalBody = Array.from(document.body.children).find(el => el.id === 'manage-modal-form');
+        if (modalBody) {
+            modalBody.remove();
+        }
+
+        const modalContent = document.querySelector('#content #manage-modal-form');
+        if (modalContent) {
+            document.body.appendChild(modalContent);
+        }
+   
         document.querySelector("#manage-form")?.addEventListener("submit", (e) => {
             e.preventDefault();
         });
@@ -426,14 +442,17 @@ class Manage {
 
     initTable() {
         const table = document.querySelector("#manage-table");
-        const thead = table.querySelector("thead");
-        const tbody = table.querySelector("tbody");
-        tbody.style.transition = "opacity 0.6s";
-        tbody.style.display = "none";
-        tbody.style.opacity = 0;
+        const thead = table?.querySelector("thead");
+        const tbody = table?.querySelector("tbody");
+        if (tbody) {
+            tbody.style.transition = "opacity 0.6s";
+            tbody.style.display = "none";
+            tbody.style.opacity = 0;
+            
+        }
 
         let theadHeight = thead?.offsetHeight;
-        document.documentElement.style.setProperty("--manage-table-head-height", theadHeight + "px");
+        document.documentElement.style.setProperty("--manage-table-head-height", (theadHeight ?? 0) + "px");
  
         tbody?.querySelectorAll("tr").forEach(row => {
             if (table.classList.contains('table-update')) {
@@ -458,7 +477,7 @@ class Manage {
     }
 
     initResp(){
-        document.querySelector("#response-error button").addEventListener("click", () => {
+        document.querySelector("#response-error button")?.addEventListener("click", () => {
             this.responseView(true);
             setTimeout(() => this.loadData(), 500);
         });
@@ -595,6 +614,10 @@ class Manage {
     //------------------------------------
 
     responseView(loading, respView = null, respData = null) {
+        
+        const respLoading = document.getElementById("response-loading");
+        const respEmpty = document.getElementById("response-empty");
+        const respError = document.getElementById("response-error");
 
         if (loading || respView) {
             document.querySelectorAll(".manage-view .response").forEach(element => {
@@ -602,22 +625,26 @@ class Manage {
             });
         }
 
-        if (loading) {
-            document.getElementById("response-loading").style.opacity = "1";
-        } else {
-            document.getElementById("response-loading").style.opacity = "0";
+        if (respLoading) {
+            if (loading) {
+                respLoading.style.opacity = "1";
+            } else {
+                respLoading.style.opacity = "0";
+            }
         }
 
         if (respView) {
             const respElement = document.querySelector(respView);
-            respElement.style.opacity = "1";
-            if (respData) {
-                respElement.querySelector(".title").textContent = respData.title ?? LANGUAGE.error.title.replace('[[CODE]]', '000');
-                respElement.querySelector(".message").textContent = respData.message ?? LANGUAGE.error.default;
+            if (respElement) {
+                respElement.style.opacity = "1";
+                if (respData) {
+                    respElement.querySelector(".title").textContent = respData.title ?? LANGUAGE.error.title.replace('[[CODE]]', '000');
+                    respElement.querySelector(".message").textContent = respData.message ?? LANGUAGE.error.default;
+                }
             }
         } else {
-            document.getElementById("response-empty").style.opacity = "0";
-            document.getElementById("response-error").style.opacity = "0";
+            if (respEmpty) respEmpty.style.opacity = "0";
+            if (respError) respError.style.opacity = "0";
         }
 
         if (!loading && !respView) {
@@ -658,11 +685,13 @@ class Manage {
 
         this.initTable();
         Inputs.initSelects();
-        setTimeout(() => {
-            tbody.style.opacity = 1;
-            tbody.style.display = "table-row-group";
-            document.dispatchEvent(new Event("manageLoadedTable"));
-        }, 10);
+        if (tbody) {
+            setTimeout(() => {
+                tbody.style.opacity = 1;
+                tbody.style.display = "table-row-group";
+                document.dispatchEvent(new Event("manageLoadedTable"));
+            }, 10);
+        }
     }
 
     printSelect(select, data, htmlSelectOption, textOptionNull=null) { 

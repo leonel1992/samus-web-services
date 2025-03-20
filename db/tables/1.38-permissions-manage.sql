@@ -17,6 +17,24 @@ INSERT IGNORE INTO `permissions_roles` (`value`, `rol`, `permission`) VALUES
 (0, 'assist-5', 'access|manage');
 
 
+-- ADMINISTRAR GALERIA 
+INSERT IGNORE INTO `permissions` (`action`, `module`) VALUES
+('access', 'manage-gallery'),
+('insert', 'manage-gallery'),
+('delete', 'manage-gallery'),
+('update', 'manage-gallery');
+
+INSERT IGNORE INTO `permissions_roles` (`value`, `rol`, `permission`) VALUES
+(1, 'master', 'access|manage-gallery'),
+(1, 'master', 'insert|manage-gallery'),
+(1, 'master', 'delete|manage-gallery'),
+(1, 'master', 'update|manage-gallery'),
+
+(1, 'admin', 'access|manage-gallery'),
+(1, 'admin', 'insert|manage-gallery'),
+(1, 'admin', 'delete|manage-gallery'),
+(1, 'admin', 'update|manage-gallery');
+
 -- ADMINISTRAR BINANCE 
 -- INSERT IGNORE INTO `permissions` (`id`, `action`, `module`) VALUES
 -- ('access--manage-binance', 'access', 'manage-binance');

@@ -33,6 +33,7 @@
             "tables": "/js/tables-001.js",
 
             "manage": "/js/manage/manage-001.js",
+            "manage-gallery": "/js/manage/gallery-001.js",
 
             "session": "/js/session/session-001.js",
             "session-code": "/js/session/code-001.js",

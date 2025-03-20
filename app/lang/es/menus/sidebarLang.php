@@ -21,6 +21,7 @@ $GLOBALS['lang-menu']['sidebar'] = [
     'security' => "Seguridad",
 
     'manage' => "Administrar",
+    'manage-gallery' => "Galería",
     'manage-binance' => "Binance",
     'manage-rates' => "Tasas",
 

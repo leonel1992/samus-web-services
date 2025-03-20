@@ -42,6 +42,14 @@ $GLOBALS['lang-controllers']['db'] = [
         "invalid-email" => "Dato inválido. Debe ingresar un correo electrónico válido para la empresa.",
     ],
 
+    "gallery" => [
+        "insert" => "Se gardó la imagen en la galería del sistema.",
+        "update" => "Se editó la imagen de la galería correctamente.",
+        "delete" => "Se eliminó la imagen de la galería correctamente.",
+        "invalid-image" => "Debe ingresar la imagen para la galeria.",
+        "invalid-name" => "Debe ingresar el nombre de la imagen.",
+    ],
+
     "countries" => [
         "insert" => "Se registró el país en el sistema.",
         "update" => "Se editó el país correctamente.",

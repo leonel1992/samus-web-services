@@ -125,20 +125,26 @@ $sidebarItems = [
         "title" => $GLOBALS['lang-menu']['sidebar']['manage'],
         "icon" => "sliders",
         "local" => true,
-        "items" => null /*[
-            'manage-binance' => [
-                "module" => 'manage-binance',
-                "link" => $GLOBALS['routes']['manage-binance'][$GLOBALS['lang']],
-                "title" => $GLOBALS['lang-menu']['sidebar']['manage-binance'],
+        "items" => [
+            'manage-gallery' => [
+                "module" => 'manage-gallery',
+                "link" => $GLOBALS['routes']['manage-gallery'][$GLOBALS['lang']],
+                "title" => $GLOBALS['lang-menu']['sidebar']['manage-gallery'],
                 "local" => true
             ],
-            'manage-rates' => [
-                "module" => 'manage-rates',
-                "link" => $GLOBALS['routes']['manage-rates'][$GLOBALS['lang']],
-                "title" => $GLOBALS['lang-menu']['sidebar']['manage-rates'],
-                "local" => true
-            ],
-        ]*/
+            // 'manage-binance' => [
+            //     "module" => 'manage-binance',
+            //     "link" => $GLOBALS['routes']['manage-binance'][$GLOBALS['lang']],
+            //     "title" => $GLOBALS['lang-menu']['sidebar']['manage-binance'],
+            //     "local" => true
+            // ],
+            // 'manage-rates' => [
+            //     "module" => 'manage-rates',
+            //     "link" => $GLOBALS['routes']['manage-rates'][$GLOBALS['lang']],
+            //     "title" => $GLOBALS['lang-menu']['sidebar']['manage-rates'],
+            //     "local" => true
+            // ],
+        ]
     ],
 
     'settings' => [

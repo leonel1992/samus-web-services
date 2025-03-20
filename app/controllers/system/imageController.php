@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../models/db/galleryModel.php';
 require_once __DIR__ . '/../../models/system/imageModel.php';
 
 class ImageController {
@@ -22,16 +23,24 @@ class ImageController {
 
     //uploaded images ---------------------------------------------
     
+    public function gallery(): void {
+        $model = new GalleryModel($this->conn);
+        $data = $model->getByKey('id', $this->image);
+        if ($data->success) {
+            $this->image = pathinfo($data->data['image'], PATHINFO_FILENAME);
+        } $this->printUploaded('gallery');
+    }
+
     public function countries(): void {
         $this->printUploaded('countries');
     }
 
-    public function processors() {
-        $this->printUploaded('processors');
-    }
-
     public function paymentMethods() {
         $this->printUploaded('payment-methods');
+    }
+
+    public function processors() {
+        $this->printUploaded('processors');
     }
 
     // print ------------------------------------------------------

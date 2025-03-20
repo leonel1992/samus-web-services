@@ -55,6 +55,59 @@ function setLocaleDate(day, month, year, separator = '/') {
     }
 }
 
+// COPY TEXT -------------------------------------------------
+
+function copyText(event, text) {
+    navigator.clipboard.writeText(text).then(() => {
+        copyTextToast(event.pageX, event.pageY, 'Texto copiado al portapapeles!');
+    }).catch(err => {
+        copyTextToast(event.pageX, event.pageY, 'Error al copiar: ', err);
+    });
+}
+
+function copyTextToast(x, y, message) {
+    const toast = document.createElement('div');
+
+    toast.textContent = message;
+    Object.assign(toast.style, {
+        position: 'absolute',
+        left: '-9999px',
+        top: '-9999px',
+        backgroundColor: '#333',
+        color: '#fff',
+        padding: '6px 10px',
+        borderRadius: '5px',
+        fontSize: '12px',
+        opacity: '0',
+        pointerEvents: 'none',
+        transition: 'opacity 0.3s ease',
+        zIndex: '1000'
+    });
+
+    document.body.appendChild(toast);
+    const rect = toast.getBoundingClientRect();
+    
+    let leftPos = x + 14;
+    if (leftPos + rect.width > window.innerWidth) {
+        leftPos = x - rect.width - 14;
+    }
+
+    toast.style.left = leftPos + 'px';
+    toast.style.top = (y - 5) + 'px';
+
+    requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+    });
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, 1500);
+    
+}
+
 // NORMALIZE TEXT -------------------------------------------------
 
 function normalizeText(text) {

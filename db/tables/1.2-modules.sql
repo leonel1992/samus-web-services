@@ -50,8 +50,9 @@ INSERT IGNORE INTO `modules` (`id`, `module`, `submodule`, `link_es`) VALUES
 
 -- ADMINISTRAR 
 INSERT IGNORE INTO `modules` (`id`, `module`, `submodule`, `link_es`) VALUES
-('manage', 'Administrar', NULL, '/admin');
+('manage', 'Administrar', NULL, '/admin'),
 
+('manage-gallery', 'Administrar', 'Galería', '/admin/galeria');
 -- ('manage-binance', 'Administrar', 'Binance', '/admin/binance'),
 -- ('manage-rates', 'Administrar', 'Tasas', '/admin/tasas');
 
