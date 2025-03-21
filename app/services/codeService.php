@@ -38,7 +38,7 @@ class CodeService {
     private function newCode() {
         if($this->conn){
             $idCookie = 'CODE_ID_'. strtoupper($this->type) .'_'. preg_replace('/[^A-Za-z0-9@]/', '_', mb_strtoupper($this->email));
-            // if (!isset($_COOKIE[$idCookie]) || !$_COOKIE[$idCookie]) {
+            if (!isset($_COOKIE[$idCookie]) || !$_COOKIE[$idCookie]) {
                 $codesModel = new CodesModel($this->conn);
                 $data = $codesModel->insert($this->type, $this->email, $this->user);
                 if ($data->success) {
@@ -58,10 +58,10 @@ class CodeService {
                 } else {
                     $this->error = new ResultError($GLOBALS['lang-controllers']['session']['error-code-generate']);
                 }
-            // } else {
-            //    $this->codeID = null;
-            //    $this->codeCookie = $_COOKIE[$idCookie];
-            // }
+            } else {
+               $this->codeID = null;
+               $this->codeCookie = $_COOKIE[$idCookie];
+            }
         } else {
             $this->error = new ResultErrorConn();
         }
