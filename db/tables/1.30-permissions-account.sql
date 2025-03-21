@@ -1,5 +1,5 @@
 
-| ACCOUNT USER 
+-- ACCOUNT USER 
 INSERT IGNORE INTO `permissions` (`action`, `module`) VALUES
 ('access', 'account');
 

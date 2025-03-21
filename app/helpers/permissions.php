@@ -37,6 +37,8 @@ class Permissions {
     public static function server(): bool {
         $allowedDomains = [
             'https://localhost',
+            'https://services.samusgroup.com',
+            'https://services-dev.samusgroup.com',
         ];
 
         $referer = $_SERVER['HTTP_REFERER'] ?? '';
